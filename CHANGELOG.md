@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- OpenSSF Best Practices: passing badge ([project 17121](https://www.bestpractices.dev/projects/17121)), shown in the README.
 - `CONTRIBUTING.md`: how to report bugs, the pull request process, requirements for contributions, and the test
   policy (new functionality comes with tests). The website footer (home and privacy pages) and `llms.txt` link to it.
 - `docs/FORMATS.md`: reference for everything AuthBackup reads and writes: `otpauth://` and `otpauth-migration://`
