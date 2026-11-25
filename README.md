@@ -61,18 +61,24 @@ See `extension/lib/copies.js`.
 3. Click "Load unpacked" and select the unzipped folder.
 4. Pin the icon to the toolbar.
 
+> [!TIP]
+> **Check what you downloaded.** Releases are built by GitHub Actions from the tag and carry signed build provenance:
+> `gh attestation verify authbackup-<version>.zip --repo skippdot/authbackup`. The build is also _reproducible_:
+> `git checkout v<version> && npm ci --ignore-scripts && npm run build` gives a byte-identical zip on any machine.
+
 No build step is needed to use or develop the extension. `npm install` is needed for tests, vendor files and releases.
 
 ## npm scripts
 
 | Script | What it does |
 | --- | --- |
-| `npm test` | Unit tests: base32 (RFC 4648), HOTP (RFC 4226), TOTP (RFC 6238), otpauth, Google Authenticator protobuf, QR, vault, export splitting, copy tracking, and release checks (en/ru dictionaries, test hooks, network use, inline styles) |
+| `npm test` | Unit tests: base32 (RFC 4648), HOTP (RFC 4226), TOTP (RFC 6238), otpauth, Google Authenticator protobuf, QR, vault, export splitting, copy tracking, and release checks (en/ru dictionaries, test hooks, network use, inline styles); property-based fuzzing of every parser and the vault (`tests/unit/properties.test.js`) |
+| `npm run fuzz` | The same properties with 100,000 random inputs each instead of 100 |
 | `npm run crosscheck` | 2000 random keys: extension JS vs the independent Python reference, plus a Google Authenticator export round trip Python to JS |
 | `npm run e2e` | Chromium with the extension plus the bench; video and screenshots go to `tests/artifacts/<time>/` (English UI) |
 | `npm run e2e:ru` | The same with the Russian UI |
 | `npm run bench` | Starts the bench at http://localhost:8793 |
-| `npm run build` | Release checks, then `dist/authbackup-<version>.zip` for the Chrome Web Store |
+| `npm run build` | Release checks, then a reproducible `dist/authbackup-<version>.zip` (for the Chrome Web Store) and `dist/SHA256SUMS` |
 | `npm run assets` | 1280x800 screenshots (en, ru) and a 440x280 promo tile into `docs/store-assets/` |
 | `npm run site` | Builds the authbackup.com site (`site/` plus the privacy policies) into `_site/`; deployed by `.github/workflows/pages.yml` |
 | `npm run vendor` | Copies jsQR and qrcode-generator into `extension/vendor/` as ES modules |
@@ -124,22 +130,27 @@ _Keeping 2FA keys in the same browser as passwords is a deliberate convenience t
 
 ## Self-hosting: website and test bench
 
-**AuthBackup itself needs no server.** It runs entirely in the browser. You can optionally host your own copy of the
-website (static, built by `npm run site`) or a public instance of the test bench (a fake 2FA service for trying
-authenticators). Full instructions: [DEPLOY.md](DEPLOY.md).
+**AuthBackup itself needs no server.** It runs entirely in the browser. Two optional pieces can be hosted:
 
-**Test bench** (Python, stdlib only):
+- **Website**: a static copy of authbackup.com (8 languages, privacy policy, `llms.txt`).
+- **Test bench**: a fake 2FA service that issues enrollment QR codes and checks codes. _Python standard library only;
+  every secret is fake and lives in memory._
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/skippdot/authbackup)
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/skippdot/authbackup)
+| Platform | Deploy | Website | Test bench | Config |
+|---|---|:---:|:---:|---|
+| [Docker](DEPLOY.md#docker--docker-compose) | `docker compose up` | ✓ | ✓ | `docker-compose.yml` |
+| [Render](DEPLOY.md#render-website--bench) | <a href="https://render.com/deploy?repo=https://github.com/skippdot/authbackup"><img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render" height="32"></a> | ✓ | ✓ | `render.yaml` |
+| [Heroku](DEPLOY.md#heroku-bench) | <a href="https://heroku.com/deploy?template=https://github.com/skippdot/authbackup"><img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku" height="32"></a> | | ✓ | `app.json`, `heroku.yml` |
+| [Vercel](DEPLOY.md#vercel-website) | <a href="https://vercel.com/new/clone?repository-url=https://github.com/skippdot/authbackup"><img src="https://vercel.com/button" alt="Deploy with Vercel" height="32"></a> | ✓ | | `vercel.json` |
+| [Netlify](DEPLOY.md#netlify-website) | <a href="https://app.netlify.com/start/deploy?repository=https://github.com/skippdot/authbackup"><img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify" height="32"></a> | ✓ | | `netlify.toml` |
+| [Google Cloud Run](DEPLOY.md#google-cloud-run) | <a href="https://deploy.cloud.run/?git_repo=https://github.com/skippdot/authbackup"><img src="https://deploy.cloud.run/button.svg" alt="Run on Google Cloud" height="32"></a> | ✓ | `gcloud run deploy` | `Dockerfile` |
+| [Railway](DEPLOY.md#railway-bench) | `railway up` | | ✓ | `railway.json` |
+| [Fly.io](DEPLOY.md#flyio-bench) | `fly launch --copy-config` | | ✓ | `fly.toml` |
+| [AWS](DEPLOY.md#aws) | App Runner, Amplify, S3 + CloudFront | ✓ | ✓ | — |
 
-**Website** (static):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/skippdot/authbackup)
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/skippdot/authbackup)
-[![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run/?git_repo=https://github.com/skippdot/authbackup)
-
-Docker, Railway, Fly.io, AWS App Runner and more: see [DEPLOY.md](DEPLOY.md).
+> [!NOTE]
+> _Only Docker and `docker compose` are tested (in CI, on every push)._ The platform configs follow each platform's
+> documented format but have not been deployed there yet. Step-by-step instructions: [DEPLOY.md](DEPLOY.md).
 
 ## Project layout
 
@@ -180,7 +191,14 @@ Every push and pull request to `main` runs in GitHub Actions (all actions are pi
 - **Crosscheck:** `npm run crosscheck` compares the JS TOTP and Google Authenticator export code with an independent
   Python reference implementation.
 - **E2E:** the real extension in real Chromium against the Python bench (`npm run e2e`), including CSP-violation checks.
-- **Python:** Ruff and Bandit on the bench.
-- **CodeQL** (JavaScript and Python), the **OpenSSF Scorecard**, and weekly **Dependabot** updates for npm and Actions.
+- **Fuzzing:** property-based tests ([fast-check](https://fast-check.dev/)) feed random and malformed QR text,
+  `otpauth://` links, Google Authenticator protobuf and vaults to the parsers. _Invariant: anything the extension
+  accepts can show a code, anything else is rejected with an error; flipping any bit of a vault makes it unreadable._
+- **Python:** Ruff and Bandit on the bench (tools installed by hash, `bench/requirements-dev.txt`).
+- **CodeQL** (JavaScript and Python), the **OpenSSF Scorecard**, and weekly **Dependabot** updates for npm, pip, Docker
+  and Actions (a new version must be two weeks old before it is proposed).
+- **Releases:** a `v*` tag builds the zip in CI (`.github/workflows/release.yml`), signs build provenance (Sigstore,
+  `gh attestation verify`), and publishes the release with all assets at once. The website and test-bench images go to
+  `ghcr.io/skippdot/authbackup-site` and `ghcr.io/skippdot/authbackup-bench` (linux/amd64 and arm64).
 
 Report vulnerabilities privately, see [SECURITY.md](SECURITY.md).

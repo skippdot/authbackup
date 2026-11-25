@@ -23,7 +23,8 @@ class Reader {
   varint() {
     let result = 0n, shift = 0n;
     for (;;) {
-      if (this.pos >= this.b.length) throw new Error(t('errTruncated'));
+      // A protobuf varint is at most 10 bytes; a longer run is damage (and would cost quadratic BigInt work).
+      if (this.pos >= this.b.length || shift > 63n) throw new Error(t('errTruncated'));
       const byte = this.b[this.pos++];
       result |= BigInt(byte & 0x7f) << shift;
       if (!(byte & 0x80)) return result;
@@ -40,9 +41,13 @@ class Reader {
   skip(wireType) {
     if (wireType === 0) this.varint();
     else if (wireType === 2) this.bytes();
-    else if (wireType === 1) this.pos += 8;
-    else if (wireType === 5) this.pos += 4;
+    else if (wireType === 1) this.fixed(8);
+    else if (wireType === 5) this.fixed(4);
     else throw new Error(t('errWireType', wireType));
+  }
+  fixed(len) {
+    if (this.pos + len > this.b.length) throw new Error(t('errTruncated'));
+    this.pos += len;
   }
   /** Iterator over message fields: [field number, wire type]. */
   *fields() {
@@ -104,18 +109,28 @@ export function parseMigrationUri(uri) {
       skipped.push({ name: label, reason: t('errMd5') });
       continue;
     }
+    if (!p.secret.length) {
+      skipped.push({ name: label, reason: t('errNoSecret') });
+      continue;
+    }
+    const type = TYPES[p.type] ?? 'totp';
+    const counter = type === 'hotp' ? Number(p.counter) : 0;
+    if (!Number.isSafeInteger(counter)) { // int64 on the wire; beyond 2^53 a Number would silently round it
+      skipped.push({ name: label, reason: t('errCounter', p.counter) });
+      continue;
+    }
     // Google puts "Issuer:account" in name if issuer was in the original link.
     let account = p.name;
-    if (p.issuer && account.startsWith(`${p.issuer}:`)) account = account.slice(p.issuer.length + 1).trim();
+    if (p.issuer && account.startsWith(`${p.issuer}:`)) account = account.slice(p.issuer.length + 1);
     accounts.push({
-      type: TYPES[p.type] ?? 'totp',
-      issuer: p.issuer,
-      account,
+      type,
+      issuer: p.issuer.trim(),
+      account: account.trim(),
       secret: base32Encode(p.secret),
       algorithm,
       digits: DIGITS[p.digits] ?? 6,
       period: 30, // the migration format does not store the period: Google always uses 30 s
-      counter: Number(p.counter),
+      counter,
     });
   }
   return {

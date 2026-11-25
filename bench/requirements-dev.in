@@ -1,0 +1,4 @@
+# Lint and security tools for bench/ (CI job "python"), compiled with hashes into requirements-dev.txt
+# (the exact uv command is in its header; dependencies older than two weeks, ruff as pinned here).
+ruff==0.17.6
+bandit==1.9.4

@@ -18,6 +18,8 @@ Chrome Web Store: coming soon. Until then (Chrome 116 or newer, desktop):
 3. Open `chrome://extensions` and turn on Developer mode.
 4. Click "Load unpacked" and pick the unzipped folder, then pin the icon to the toolbar. Shortcut to open the popup: Alt+Shift+O.
 
+Verify the zip before loading it: `gh attestation verify authbackup-<version>.zip --repo skippdot/authbackup` checks the signed build provenance (built by GitHub Actions from the release tag); `shasum -a 256 -c SHA256SUMS` checks the checksum. The build is reproducible: `git checkout v<version> && npm ci --ignore-scripts && npm run build` gives the same sha256.
+
 - [Latest release](https://github.com/skippdot/authbackup/releases/latest): the zip to install.
 - [Install from source](https://github.com/skippdot/authbackup#install): load the `extension/` folder of the repository the same way; no build step is needed.
 

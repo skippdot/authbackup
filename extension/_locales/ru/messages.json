@@ -173,7 +173,10 @@
   "message": "Не похоже на otpauth:// или otpauth-migration://"
  },
  "errTruncated": {
-  "message": "Данные экспорта обрезаны"
+  "message": "Данные экспорта обрезаны или повреждены"
+ },
+ "errCounter": {
+  "message": "Неверный счётчик HOTP: $1"
  },
  "errWireType": {
   "message": "Неизвестный тип поля protobuf: $1"

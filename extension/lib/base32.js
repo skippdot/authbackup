@@ -7,9 +7,10 @@ export function normalizeBase32(input) {
   return String(input).toUpperCase().replace(/[\s\-=]/g, '');
 }
 
+/** At least two characters: one base32 character is 5 bits, less than a byte, and HMAC needs a non-empty key. */
 export function isValidBase32(input) {
   const s = normalizeBase32(input);
-  return s.length > 0 && /^[A-Z2-7]+$/.test(s);
+  return s.length >= 2 && /^[A-Z2-7]+$/.test(s);
 }
 
 export function base32Decode(input) {

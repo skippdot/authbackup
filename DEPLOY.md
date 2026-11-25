@@ -1,6 +1,5 @@
 # Deploying AuthBackup
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/skippdot/authbackup) [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/skippdot/authbackup) [![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run/?git_repo=https://github.com/skippdot/authbackup) [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/skippdot/authbackup) [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/skippdot/authbackup)
 
 ## What can be deployed
 
@@ -42,6 +41,8 @@ Both containers run as a non-root user and have a `HEALTHCHECK`. The website ima
 
 ## Render (website + bench)
 
+<a href="https://render.com/deploy?repo=https://github.com/skippdot/authbackup"><img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render" height="32"></a>
+
 Use the **Deploy to Render** button, or in the dashboard choose *New > Blueprint* and point it at this repo. `render.yaml` creates a static site (`npm ci --ignore-scripts && node scripts/site.mjs`, publish `_site`) and a Docker web service for the bench (`bench/Dockerfile`, health check `/healthz`). Delete the service you do not need.
 
 ## Railway (bench)
@@ -59,6 +60,8 @@ fly deploy
 
 ## Heroku (bench)
 
+<a href="https://heroku.com/deploy?template=https://github.com/skippdot/authbackup"><img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku" height="32"></a>
+
 Use the **Deploy to Heroku** button (reads `app.json`, container stack), or:
 
 ```sh
@@ -69,7 +72,9 @@ git push heroku main        # builds bench/Dockerfile via heroku.yml
 
 ## Google Cloud Run
 
-The Cloud Run button above builds the root `Dockerfile`, i.e. **the website**. The bench image needs `extension/vendor/` (the QR library) from the repository root as build context, so deploy it from a pushed image as below.
+<a href="https://deploy.cloud.run/?git_repo=https://github.com/skippdot/authbackup"><img src="https://deploy.cloud.run/button.svg" alt="Run on Google Cloud" height="32"></a>
+
+The Cloud Run button builds the root `Dockerfile`, i.e. **the website**. The bench image needs `extension/vendor/` (the QR library) from the repository root as build context, so deploy it from a pushed image as below.
 
 ```sh
 # Bench, from the repository root:
@@ -100,9 +105,13 @@ Cloud Run sets `PORT` itself; the images honor it.
 
 ## Vercel (website)
 
+<a href="https://vercel.com/new/clone?repository-url=https://github.com/skippdot/authbackup"><img src="https://vercel.com/button" alt="Deploy with Vercel" height="32"></a>
+
 Use the **Deploy with Vercel** button or `vercel --prod`. `vercel.json` sets the build command, output directory `_site`, clean URLs (`/privacy`) and the security headers.
 
 ## Netlify (website)
+
+<a href="https://app.netlify.com/start/deploy?repository=https://github.com/skippdot/authbackup"><img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify" height="32"></a>
 
 Use the **Deploy to Netlify** button or `netlify deploy --prod`. `netlify.toml` sets the build command, publish directory `_site` and the security headers. Pretty URLs work out of the box.
 

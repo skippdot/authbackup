@@ -29,7 +29,7 @@ export default [
   },
   // Node tooling: scripts and tests.
   {
-    files: ['scripts/**/*.mjs', 'tests/**/*.mjs', 'eslint.config.js'],
+    files: ['scripts/**/*.mjs', 'tests/**/*.mjs', 'tests/**/*.js', 'eslint.config.js'],
     languageOptions: { ecmaVersion: 2023, sourceType: 'module', globals: { ...globals.node } },
   },
 ];

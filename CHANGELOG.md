@@ -1,8 +1,26 @@
 # CHANGELOG
 
+## 2026-11-25: 0.3.1 — fuzzing fixes, signed reproducible releases
+
+- Property-based fuzzing (fast-check, `tests/unit/properties.test.js`, `npm run fuzz`) of every parser and the vault.
+  It found, and this release fixes: an `otpauth://hotp` link with a non-numeric `counter` was saved and then could
+  not show a code; a one-character secret (less than a byte) was accepted; a Google Authenticator export entry with
+  an empty secret, or a HOTP counter beyond 2^53, was imported instead of skipped; an issuer containing ":" leaked into
+  the account name; names in Google exports were trimmed only when they had an issuer. The protobuf reader now
+  rejects varints longer than 10 bytes and fixed-width fields past the end of the data.
+- Reproducible build: `npm run build` normalizes file order, timestamps, permissions and zip extra fields, so a tag
+  gives the same sha256 on any machine (checked: macOS arm64 and Linux amd64). The 0.3.0 zip was not reproducible:
+  it carried file modification times.
+- Releases are built by GitHub Actions on a `v*` tag (`release.yml`): unit tests, the zip, signed build provenance
+  (`gh attestation verify`), and a release published with all assets at once. Website and test-bench images are
+  pushed to ghcr.io for linux/amd64 and arm64.
+- Supply chain: CI installs Ruff and Bandit by hash (`bench/requirements-dev.txt`); Dependabot also covers pip and
+  waits two weeks before proposing a new version; Node majors are moved by hand (LTS only).
+- README: the self-hosting options are one table (platform, one-click button, what it deploys, config file).
+
 ## 2026-11-25: 0.3.0 — first public release
 
-- Release zip on GitHub Releases with `SHA256SUMS`; the zip is built deterministically by `npm run build`.
+- Release zip on GitHub Releases with `SHA256SUMS`, built by `npm run build` (not yet reproducible, see 0.3.1).
 - CI on every push and PR: ESLint, unit and release checks, JS-vs-Python crosscheck, Ruff, Bandit, e2e in real
   Chromium, Docker image smoke tests; CodeQL and OpenSSF Scorecard; Dependabot for actions, npm and Docker;
   all actions pinned to commit SHAs, base images pinned to digests; `SECURITY.md` with private reporting.

@@ -17,11 +17,20 @@ export function parseOtpauthUri(uri) {
   const secret = normalizeBase32(p.get('secret') || '');
   if (!isValidBase32(secret)) throw new Error(t('errNoSecret'));
 
-  // Label = "Issuer:account" or just "account"; the colon may be encoded as %3A.
+  // Label = "Issuer:account" or just "account"; the colon may be encoded as %3A. The issuer parameter, when present,
+  // is matched as the prefix first, so an issuer that itself contains ":" does not leak into the account name.
   const label = decodeURIComponent(url.pathname.replace(/^\//, ''));
-  const colon = label.indexOf(':');
-  const labelIssuer = colon >= 0 ? label.slice(0, colon).trim() : '';
-  const account = (colon >= 0 ? label.slice(colon + 1) : label).trim();
+  const issuerParam = p.get('issuer') || '';
+  let labelIssuer = '';
+  let account = label;
+  if (issuerParam && label.startsWith(`${issuerParam}:`)) {
+    labelIssuer = issuerParam;
+    account = label.slice(issuerParam.length + 1);
+  } else if (label.includes(':')) {
+    const colon = label.indexOf(':');
+    labelIssuer = label.slice(0, colon);
+    account = label.slice(colon + 1);
+  }
 
   const algorithm = (p.get('algorithm') || 'SHA1').toUpperCase().replace('-', '');
   if (!ALGOS.has(algorithm)) throw new Error(t('errAlgorithm', algorithm));
@@ -29,16 +38,18 @@ export function parseOtpauthUri(uri) {
   if (![6, 7, 8].includes(digits)) throw new Error(t('errDigits', digits));
   const period = parseInt(p.get('period') || '30', 10);
   if (!(period > 0)) throw new Error(t('errPeriod', p.get('period')));
+  const counter = type === 'hotp' ? parseInt(p.get('counter') || '0', 10) : 0;
+  if (!(Number.isSafeInteger(counter) && counter >= 0)) throw new Error(t('errCounter', p.get('counter')));
 
   return {
     type,
-    issuer: p.get('issuer')?.trim() || labelIssuer, // the issuer parameter takes priority over the prefix
-    account,
+    issuer: issuerParam.trim() || labelIssuer.trim(), // the issuer parameter takes priority over the prefix
+    account: account.trim(),
     secret,
     algorithm,
     digits,
     period,
-    counter: type === 'hotp' ? parseInt(p.get('counter') || '0', 10) : 0,
+    counter,
   };
 }
 

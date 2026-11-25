@@ -173,7 +173,10 @@
   "message": "Doesn't look like otpauth:// or otpauth-migration://"
  },
  "errTruncated": {
-  "message": "The export data is truncated"
+  "message": "The export data is truncated or damaged"
+ },
+ "errCounter": {
+  "message": "Invalid HOTP counter: $1"
  },
  "errWireType": {
   "message": "Unknown protobuf field type $1"

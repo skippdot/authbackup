@@ -1,18 +1,37 @@
 version: 2
+# cooldown: a new release must be two weeks old before it is proposed (time for a compromised release to be caught).
 updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: weekly
+    cooldown:
+      default-days: 14
     commit-message:
       prefix: ci
   - package-ecosystem: npm
     directory: /
     schedule:
       interval: weekly
+    cooldown:
+      default-days: 14
+    commit-message:
+      prefix: deps
+  - package-ecosystem: pip
+    directory: /bench
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 14
     commit-message:
       prefix: deps
   - package-ecosystem: docker
     directories: ["/", "/bench"]
     schedule:
       interval: weekly
+    cooldown:
+      default-days: 14
+    # Node majors are moved by hand, LTS lines only (odd majors never become LTS).
+    ignore:
+      - dependency-name: node
+        update-types: ["version-update:semver-major"]

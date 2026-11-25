@@ -1,11 +1,11 @@
 {
   "name": "authbackup",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "private": true,
   "type": "module",
   "scripts": {
     "vendor": "node scripts/vendor.mjs",
-    "test": "node --test tests/unit/*.test.mjs",
+    "test": "node --test tests/unit/*.test.mjs tests/unit/*.test.js",
     "crosscheck": "node tests/crosscheck.mjs",
     "bench": "python3 bench/server.py",
     "e2e": "node tests/e2e.mjs",
@@ -13,11 +13,13 @@
     "assets": "node scripts/store-assets.mjs",
     "e2e:ru": "E2E_LANG=ru node tests/e2e.mjs",
     "site": "node scripts/site.mjs",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "fuzz": "FUZZ_RUNS=100000 node --test tests/unit/properties.test.js"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "eslint": "^10.15.0",
+    "fast-check": "^4.10.2",
     "globals": "^17.14.0",
     "jsqr": "^1.4.0",
     "marked": "^18.3.0",
