@@ -3,6 +3,7 @@
 [![CI](https://github.com/skippdot/authbackup/actions/workflows/ci.yml/badge.svg)](https://github.com/skippdot/authbackup/actions/workflows/ci.yml)
 [![CodeQL](https://github.com/skippdot/authbackup/actions/workflows/codeql.yml/badge.svg)](https://github.com/skippdot/authbackup/actions/workflows/codeql.yml)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/skippdot/authbackup/badge)](https://scorecard.dev/viewer/?uri=github.com/skippdot/authbackup)
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/17121/badge)](https://www.bestpractices.dev/projects/17121)
 [![License: MIT](https://img.shields.io/github/license/skippdot/authbackup)](LICENSE)
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fauthbackup.com&label=authbackup.com)](https://authbackup.com)
 
