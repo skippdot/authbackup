@@ -1,7 +1,7 @@
 # Website (authbackup.com): builds _site/ from site/ + PRIVACY.md, then serves it with unprivileged nginx on 8080.
 #   docker build -t authbackup-site . && docker run --rm -p 8080:8080 authbackup-site
 # (The test bench has its own image: bench/Dockerfile.)
-FROM node:22-slim@sha256:be979e5523c76fa4d5ca4ebd3099078f220aa47ec39c48ad5b5df9314debd6eb AS build
+FROM node:25-slim@sha256:81db02c4b671288a03915da9534dbd54f96d0e7c24d80ccc54f5b36b2e684370 AS build
 WORKDIR /src
 COPY package.json package-lock.json ./
 RUN npm ci --ignore-scripts
