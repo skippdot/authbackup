@@ -28,6 +28,7 @@
   "offline_p2": "可选的密码会用 AES-256-GCM 加密密钥列表。代码开源，[隐私政策（英文）]列出了它接触的每一项数据。",
   "footer_note": "AuthBackup 是独立项目，与 Google 没有关联。Google Authenticator 是 Google LLC 的商标。本站不加载任何第三方内容。",
   "footer_support": "支持",
+  "footer_contribute": "参与贡献（英文）",
   "languages_label": "语言",
   "install_h2": "安装",
   "install_intro": "Chrome 应用商店页面即将上线。在此之前，请通过发布版 zip 安装 AuthBackup：",

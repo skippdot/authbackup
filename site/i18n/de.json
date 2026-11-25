@@ -28,6 +28,7 @@
   "offline_p2": "Ein optionales Passwort verschlüsselt die Schlüsselliste mit AES-256-GCM. Der Code ist Open Source, und die [Datenschutzerklärung (auf Englisch)] listet jedes Datum auf, das er berührt.",
   "footer_note": "AuthBackup ist ein unabhängiges Projekt und nicht mit Google verbunden. Google Authenticator ist eine Marke von Google LLC. Diese Website lädt nichts von Drittanbietern.",
   "footer_support": "Support",
+  "footer_contribute": "Mitwirken (Englisch)",
   "languages_label": "Sprachen",
   "install_h2": "Installation",
   "install_intro": "Der Eintrag im Chrome Web Store folgt in Kürze. Bis dahin installierst du AuthBackup aus dem Release-Zip:",

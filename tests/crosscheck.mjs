@@ -2,7 +2,7 @@
 // 1) N random keys x algorithm x digits x period x timestamp: the codes must match.
 // 2) A Google Authenticator export built by the Python encoder must be parsed by the JS decoder.
 import { execFileSync } from 'node:child_process';
-import { randomBytes } from 'node:crypto';
+import { randomBytes, randomInt } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { base32Encode } from '../extension/lib/base32.js';
 import { totp } from '../extension/lib/totp.js';
@@ -10,7 +10,8 @@ import { parseMigrationUri } from '../extension/lib/migration.js';
 
 const N = Number(process.argv[2] || 2000);
 const benchDir = fileURLToPath(new URL('../bench/', import.meta.url));
-const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+// node:crypto rather than Math.random: these values reach the HMAC, and CodeQL flags insecure randomness there.
+const pick = (arr) => arr[randomInt(arr.length)];
 
 const cases = [];
 for (let i = 0; i < N; i++) {
@@ -19,7 +20,7 @@ for (let i = 0; i < N; i++) {
     algorithm: pick(['SHA1', 'SHA256', 'SHA512']),
     digits: pick([6, 7, 8]),
     period: pick([15, 30, 60]),
-    at: Math.floor(Math.random() * 4e9), // up to year 2096, including > 2^31
+    at: randomInt(4e9), // up to year 2096, including > 2^31
   });
 }
 for (const c of cases) c.js = await totp(c, c.at * 1000);

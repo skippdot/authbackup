@@ -54,7 +54,8 @@ export function parseOtpauthUri(uri) {
 }
 
 export function buildOtpauthUri(a) {
-  const label = encodeURIComponent(a.issuer ? `${a.issuer}:${a.account}` : a.account);
+  const account = a.account ?? ''; // a restored backup entry may lack it
+  const label = encodeURIComponent(a.issuer ? `${a.issuer}:${account}` : account);
   const q = new URLSearchParams({ secret: a.secret });
   if (a.issuer) q.set('issuer', a.issuer);
   q.set('algorithm', a.algorithm);
