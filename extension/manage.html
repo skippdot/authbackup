@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-i18n="manageTitle"></title>
+  <link rel="stylesheet" href="common.css">
+  <link rel="stylesheet" href="manage.css">
+</head>
+<body>
+  <main>
+    <h1>AuthBackup <span class="muted" data-i18n="manageSubtitle"></span></h1>
+
+    <form id="lockScreen" class="card lock-form" hidden>
+      <h2 data-i18n="lockedHeading"></h2>
+      <input type="password" id="unlockPw" data-i18n-placeholder="password" autocomplete="current-password" required>
+      <div class="err"></div>
+      <div><button class="primary" type="submit" data-i18n="unlockBtn"></button></div>
+    </form>
+
+    <div id="app" hidden>
+
+    <section class="card">
+      <h2 data-i18n="importTitle"></h2>
+      <label id="drop" tabindex="0">
+        <input id="files" type="file" accept="image/*" multiple hidden>
+        <span><b data-i18n="dropMain"></b><span data-i18n="dropRest" data-i18n-args="paste"></span></span>
+        <span class="muted" data-i18n="dropHint"></span>
+      </label>
+      <details>
+        <summary data-i18n="pasteLinkSummary"></summary>
+        <textarea id="uris" rows="3" data-i18n-placeholder="urisPlaceholder"></textarea>
+        <button id="parseUris" data-i18n="parseBtn"></button>
+      </details>
+      <div id="preview" hidden></div>
+    </section>
+
+    <section class="card">
+      <h2 data-i18n="manualTitle"></h2>
+      <form id="manual" class="grid">
+        <label><span data-i18n="fIssuer"></span><input name="issuer" placeholder="Acme Cloud"></label>
+        <label><span data-i18n="fAccount"></span><input name="account" placeholder="me@example.com"></label>
+        <label class="wide"><span data-i18n="fSecret"></span><input name="secret" class="mono" required placeholder="JBSW Y3DP EHPK 3PXP" autocomplete="off" spellcheck="false"></label>
+        <label><span data-i18n="fAlgorithm"></span><select name="algorithm"><option>SHA1</option><option>SHA256</option><option>SHA512</option></select></label>
+        <label><span data-i18n="fDigits"></span><select name="digits"><option>6</option><option>7</option><option>8</option></select></label>
+        <label><span data-i18n="fPeriod"></span><input name="period" type="number" min="1" value="30"></label>
+        <div class="wide"><button class="primary" type="submit" data-i18n="addBtn"></button></div>
+      </form>
+    </section>
+
+    <section class="card">
+      <div class="row">
+        <h2><span data-i18n="registryTitle"></span> <span id="count" class="muted"></span></h2>
+        <div class="spacer"></div>
+        <label class="btn" data-i18n-title="restoreTitle"><span data-i18n="restoreBtn"></span><input id="importJson" type="file" accept="application/json,.json,text/plain,.txt" hidden></label>
+      </div>
+      <table id="table">
+        <thead><tr><th data-i18n="thName"></th><th data-i18n="thParams"></th><th data-i18n="thCode"></th><th data-i18n="thSource"></th><th></th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <p id="empty" class="muted" hidden data-i18n="emptyTable"></p>
+    </section>
+
+    <section class="card" id="exportCard" hidden>
+      <div class="row">
+        <h2 data-i18n="exportTitle"></h2>
+        <span id="exportCount" class="muted"></span>
+        <div class="spacer"></div>
+        <button id="exportAll"></button>
+      </div>
+      <p id="backupStatus" class="small"></p>
+      <div id="exportList"></div>
+      <div class="row export-actions">
+        <button class="primary" data-export="google" data-i18n="expGoogle" data-i18n-title="expGoogleTitle"></button>
+        <button data-export="encrypted" data-i18n="expEncrypted" data-i18n-title="expEncryptedTitle"></button>
+        <button data-export="json" data-i18n="expJson" data-i18n-title="expJsonTitle"></button>
+        <button data-export="otpauth" data-i18n="expOtpauth" data-i18n-title="expOtpauthTitle"></button>
+      </div>
+    </section>
+
+    <section class="card" id="security"></section>
+
+    <p class="muted small" id="storageNote"></p>
+    <p class="muted small" data-i18n="notAffiliated"></p>
+    </div>
+  </main>
+
+  <dialog id="details"></dialog>
+  <dialog id="exportDialog"></dialog>
+  <script type="module" src="manage.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TOTP Bench</title>
+  <style>
+    :root { --bg:#f6f7f9; --card:#fff; --fg:#15171c; --muted:#6b7180; --line:#e3e5ea; --accent:#0f766e; --ok:#18884a; --bad:#cf2b2b; color-scheme: light dark; }
+    @media (prefers-color-scheme: dark) { :root { --bg:#111317; --card:#191c21; --fg:#e8eaef; --muted:#959bab; --line:#2a2e36; --accent:#2dd4bf; --ok:#4cc77f; --bad:#ff6b6b; } }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--fg); font:14px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
+    main { max-width: 980px; margin: 0 auto; padding: 24px 16px 48px; }
+    h1 { margin: 0 0 4px; font-size: 24px; }
+    h2 { margin: 0 0 12px; font-size: 16px; }
+    .lead { color: var(--muted); margin: 0 0 20px; }
+    .cols { display:grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; margin-bottom:16px; }
+    label { display:flex; flex-direction:column; gap:3px; font-size:12px; color:var(--muted); }
+    input, select, button { font:inherit; color:var(--fg); background:var(--card); border:1px solid var(--line); border-radius:7px; padding:6px 9px; }
+    button { cursor:pointer; }
+    button.primary { background:var(--accent); border-color:var(--accent); color:#fff; }
+    .form { display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:12px; }
+    .qrbox { display:flex; gap:16px; align-items:flex-start; flex-wrap:wrap; margin-top: 8px; }
+    .qrbox img { width: 210px; height: 210px; image-rendering: pixelated; background:#fff; border-radius:8px; }
+    .mono { font-family: ui-monospace, "SF Mono", Menlo, monospace; word-break: break-all; }
+    .verify { display:flex; gap:8px; margin-top:10px; }
+    .verify input { width: 150px; font-family: ui-monospace, Menlo, monospace; font-size: 18px; letter-spacing: 2px; }
+    .ok { color: var(--ok); } .bad { color: var(--bad); } .muted { color: var(--muted); }
+    table { width:100%; border-collapse: collapse; }
+    th, td { text-align:left; padding:7px 8px; border-bottom:1px solid var(--line); }
+    th { color:var(--muted); font-weight:500; font-size:12px; }
+    td.code { font-family: ui-monospace, Menlo, monospace; font-size: 18px; }
+    td input { width: 120px; font-family: ui-monospace, Menlo, monospace; }
+    [hidden] { display:none !important; }
+    @media (max-width: 760px) { .cols { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<main>
+  <h1>TOTP Bench</h1>
+  <p class="lead">A fake "2FA service" for testing the extension. Codes are verified by a Python server (<code>bench/otp_ref.py</code>),
+    independent of the extension's JS: if the server accepts a code, the extension computes it correctly.</p>
+
+  <div class="cols">
+    <section class="card" id="enrollCard">
+      <h2>1. Enroll an authenticator app</h2>
+      <div class="form">
+        <label>Service<input id="issuer" value="TOTP Bench"></label>
+        <label>Account<input id="account" value="user@bench.test"></label>
+        <label>Algorithm<select id="algorithm"><option>SHA1</option><option>SHA256</option><option>SHA512</option></select></label>
+        <label>Digits<select id="digits"><option>6</option><option>8</option></select></label>
+        <label>Period, s<select id="period"><option>30</option><option>60</option><option>15</option></select></label>
+        <label>&nbsp;<button class="primary" id="enroll">Enable 2FA</button></label>
+      </div>
+      <div id="enrollOut" hidden>
+        <p>Scan the QR in the app (in the extension: "Scan page"):</p>
+        <div class="qrbox">
+          <img id="enrollQr" alt="QR for 2FA enrollment">
+          <div>
+            <div class="muted">Cannot scan? Enter the key manually:</div>
+            <div class="mono" id="enrollSecret"></div>
+          </div>
+        </div>
+        <div class="verify">
+          <input id="code" inputmode="numeric" autocomplete="one-time-code" placeholder="code">
+          <button class="primary" id="verify">Confirm</button>
+        </div>
+        <p id="verifyOut"></p>
+      </div>
+    </section>
+
+    <section class="card" id="exportCard">
+      <h2>2. "Google Authenticator export"</h2>
+      <p class="muted">A QR in the <code>otpauth-migration://</code> format with 3 keys and different parameters
+        (SHA1/6, SHA256/8, SHA512/6). Scan it from the page, or download the PNG and drag it into "Import...".</p>
+      <button class="primary" id="migrate">Generate export</button>
+      <div id="migrateOut" hidden>
+        <div class="qrbox"><img id="migrateQr" alt="Google Authenticator export QR"></div>
+        <p><button id="downloadPng">Download PNG</button></p>
+      </div>
+    </section>
+  </div>
+
+  <section class="card">
+    <h2>3. What the server expects right now</h2>
+    <p class="muted">Compare with the codes in the extension popup, or type a code into a row and the server will check it (window of +-1 step).</p>
+    <table id="codes">
+      <thead><tr><th>Service / account</th><th>Server code</th><th>Remaining</th><th>Check code</th><th>Status</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <p class="muted" id="noCodes">Nothing enrolled yet.</p>
+  </section>
+
+  <section class="card">
+    <h2>4. Reference self-check against RFC 6238</h2>
+    <div id="selftest" class="muted">…</div>
+  </section>
+</main>
+<script type="module" src="/bench.js"></script>
+</body>
+</html>

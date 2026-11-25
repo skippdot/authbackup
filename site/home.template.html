@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="{{lang}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{title}}</title>
+  <meta name="description" content="{{description}}">
+  <link rel="icon" href="/img/icon-48.png">
+  <link rel="canonical" href="https://authbackup.com{{path}}">
+{{alternates}}
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="wrap top">
+    <a class="brand" href="{{path}}"><img src="/img/icon-128.png" alt="">AuthBackup</a>
+    <nav>
+      <a href="/privacy">{{nav_privacy}}</a>
+      <a href="https://github.com/skippdot/authbackup">GitHub</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div>
+        <h1>{{h1}}</h1>
+        <p class="lede">{{lede}}</p>
+        <div class="actions">
+          <a class="btn quiet" href="https://github.com/skippdot/authbackup">{{cta_source}}</a>
+          <span class="soon">{{soon}}</span>
+        </div>
+      </div>
+      <div>
+        <ul class="copies" aria-label="{{copies_label}}">
+          <li class="copy browser"><span class="where">{{copy_browser}}</span><span class="code">482 913</span><span class="ok" aria-label="{{has_copy}}">✓</span></li>
+          <li class="copy phone"><span class="where">{{copy_phone}}</span><span class="code">482 913</span><span class="ok" aria-label="{{has_copy}}">✓</span></li>
+          <li class="copy file"><span class="where">{{copy_file}}</span><span class="code">482 913</span><span class="ok" aria-label="{{has_copy}}">✓</span></li>
+        </ul>
+        <p class="copies-note">{{copies_note}}</p>
+      </div>
+    </section>
+
+    <figure class="shot">
+      <img src="/img/en-1-scan.png" width="1280" height="800" alt="{{shot_alt}}">
+    </figure>
+
+    <section class="part">
+      <h2>{{what_h2}}</h2>
+      <dl>
+        <div><dt>{{f1_t}}</dt><dd>{{f1_d}}</dd></div>
+        <div><dt>{{f2_t}}</dt><dd>{{f2_d}}</dd></div>
+        <div><dt>{{f3_t}}</dt><dd>{{f3_d}}</dd></div>
+      </dl>
+    </section>
+
+    <section class="part">
+      <h2>{{rule_h2}}</h2>
+      <div>
+        <p>{{rule_p1}}</p>
+        <p>{{rule_p2}}</p>
+      </div>
+    </section>
+
+    <section class="part">
+      <h2>{{offline_h2}}</h2>
+      <div>
+        <p>{{offline_p1}}</p>
+        <p>{{offline_p2}}</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap foot">
+    <p>{{footer_note}}</p>
+    <div class="links"><a href="/privacy">{{nav_privacy}}</a><a href="https://github.com/skippdot/authbackup/issues">{{footer_support}}</a></div>
+    <nav class="langs" aria-label="{{languages_label}}">{{langs}}</nav>
+  </footer>
+</body>
+</html>

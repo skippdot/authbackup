@@ -1,0 +1,14 @@
+node_modules/
+tests/artifacts/
+*.json.bak
+totp-grab-backup-*.json
+authbackup-*.json
+.idea/
+.DS_Store
+__pycache__/
+totp-grab-otpauth-*.txt
+authbackup-otpauth-*.txt
+google-auth-export-*.png
+dist/
+docs/private/
+_site/

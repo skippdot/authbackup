@@ -1,0 +1,640 @@
+{
+ "langCode": {
+  "message": "ru",
+  "description": "BCP 47 code of this translation: used for <html lang> and number/date formatting"
+ },
+ "extName": {
+  "message": "AuthBackup — аутентификатор 2FA",
+  "description": "Extension name in Chrome Web Store and chrome://extensions (max 75 chars)"
+ },
+ "extDescription": {
+  "message": "Сохраняет 2FA-ключи из QR на странице или в картинке и копирует TOTP-код в один клик. Без сети, по желанию с паролем."
+ },
+ "cmdOpen": {
+  "message": "Открыть AuthBackup"
+ },
+ "scanBtn": {
+  "message": "Скан страницы"
+ },
+ "scanBtnTitle": {
+  "message": "Найти QR на текущей странице"
+ },
+ "manageBtn": {
+  "message": "Реестр…"
+ },
+ "manageBtnTitle": {
+  "message": "Импорт, экспорт, пароль, ручной ввод"
+ },
+ "lockBtnTitle": {
+  "message": "Заблокировать реестр"
+ },
+ "lockedHeading": {
+  "message": "🔒 Реестр заблокирован"
+ },
+ "lockedTitle": {
+  "message": "Реестр заблокирован"
+ },
+ "password": {
+  "message": "Пароль"
+ },
+ "unlockBtn": {
+  "message": "Разблокировать"
+ },
+ "searchPlaceholder": {
+  "message": "Поиск…  (Enter — скопировать первый)"
+ },
+ "emptyTitle": {
+  "message": "Реестр пуст."
+ },
+ "emptyHint": {
+  "message": "Откройте страницу с QR-кодом 2FA и нажмите «Скан страницы», вставьте картинку с QR прямо сюда ($1) или импортируйте экспорт Google Authenticator через «Реестр…»."
+ },
+ "emptyLocalNote": {
+  "message": "Ключи хранятся только в этом профиле браузера и никуда не отправляются."
+ },
+ "copyHint": {
+  "message": "Клик — скопировать код"
+ },
+ "hotpNext": {
+  "message": "клик → следующий код"
+ },
+ "copied": {
+  "message": "Скопировано: $1"
+ },
+ "foundOnPage": {
+  "message": "Найдено на странице: $1"
+ },
+ "foundInClipboard": {
+  "message": "Найдено в буфере: $1"
+ },
+ "saveAll": {
+  "message": "Сохранить все ($1)"
+ },
+ "hide": {
+  "message": "Скрыть"
+ },
+ "noTotpQr": {
+  "message": "TOTP-QR не найден"
+ },
+ "alreadySaved": {
+  "message": "✓ уже в реестре"
+ },
+ "saveAndCopy": {
+  "message": "Сохранить + код"
+ },
+ "saveAndCopyTitle": {
+  "message": "Сохранить и скопировать текущий код — его сразу просят ввести"
+ },
+ "skippedItem": {
+  "message": "Пропущен «$1»: $2"
+ },
+ "otherQr": {
+  "message": "QR без TOTP: $1"
+ },
+ "scrollHint": {
+  "message": "Если QR прокручен за экран — прокрутите к нему. Можно скопировать картинку QR и нажать $1 здесь."
+ },
+ "savedCodeCopied": {
+  "message": "Сохранено, код $1 скопирован"
+ },
+ "savedN": {
+  "message": "Сохранено: $1"
+ },
+ "scanning": {
+  "message": "Ищу QR на странице…"
+ },
+ "captureFailed": {
+  "message": "Не удалось снять страницу: $1"
+ },
+ "noResponse": {
+  "message": "нет ответа"
+ },
+ "checking": {
+  "message": "Проверяю…"
+ },
+ "wrongPassword": {
+  "message": "Неверный пароль"
+ },
+ "noName": {
+  "message": "без имени"
+ },
+ "nDigits": {
+  "message": "$1 цифр"
+ },
+ "nSec": {
+  "message": "$1 с"
+ },
+ "ok": {
+  "message": "OK"
+ },
+ "pwRepeat": {
+  "message": "Повторите пароль"
+ },
+ "cancel": {
+  "message": "Отмена"
+ },
+ "minChars": {
+  "message": "Минимум $1 символов"
+ },
+ "pwMismatch": {
+  "message": "Пароли не совпадают"
+ },
+ "pwTooShort": {
+  "message": "Пароль — минимум $1 символов"
+ },
+ "errNoAccount": {
+  "message": "Аккаунт не найден"
+ },
+ "errVaultFormat": {
+  "message": "Неизвестный формат шифрования"
+ },
+ "errBase32Chars": {
+  "message": "Ключ содержит символы вне base32 (A–Z, 2–7)"
+ },
+ "errNotOtpauth": {
+  "message": "Это не otpauth:// ссылка"
+ },
+ "errUnknownType": {
+  "message": "Неизвестный тип «$1»"
+ },
+ "errNoSecret": {
+  "message": "В ссылке нет корректного secret (base32)"
+ },
+ "errAlgorithm": {
+  "message": "Алгоритм $1 не поддерживается"
+ },
+ "errDigits": {
+  "message": "Странное число цифр: $1"
+ },
+ "errPeriod": {
+  "message": "Странный period: $1"
+ },
+ "errNotOtp": {
+  "message": "Не похоже на otpauth:// или otpauth-migration://"
+ },
+ "errTruncated": {
+  "message": "Данные экспорта обрезаны"
+ },
+ "errWireType": {
+  "message": "Неизвестный тип поля protobuf: $1"
+ },
+ "errNotMigration": {
+  "message": "Это не otpauth-migration:// ссылка"
+ },
+ "errNoData": {
+  "message": "В otpauth-migration нет параметра data"
+ },
+ "errMd5": {
+  "message": "MD5 не поддерживается Web Crypto"
+ },
+ "gaIncompatPeriod": {
+  "message": "период $1 с: формат Google хранит только 30 с"
+ },
+ "gaIncompatDigits": {
+  "message": "$1 цифр: формат Google знает только 6 и 8"
+ },
+ "manageTitle": {
+  "message": "AuthBackup — реестр"
+ },
+ "manageSubtitle": {
+  "message": "· реестр ключей"
+ },
+ "importTitle": {
+  "message": "Импорт QR"
+ },
+ "dropMain": {
+  "message": "Перетащите сюда картинки с QR"
+ },
+ "dropRest": {
+  "message": ", нажмите для выбора файлов или вставьте $1."
+ },
+ "dropHint": {
+  "message": "Подходят QR привязки 2FA (otpauth://) и экспорт Google Authenticator (otpauth-migration://), несколько файлов сразу."
+ },
+ "pasteLinkSummary": {
+  "message": "…или вставить ссылку текстом"
+ },
+ "urisPlaceholder": {
+  "message": "otpauth://totp/…  или  otpauth-migration://offline?data=…  (по одной в строке)"
+ },
+ "parseBtn": {
+  "message": "Разобрать"
+ },
+ "manualTitle": {
+  "message": "Ручной ввод ключа"
+ },
+ "fIssuer": {
+  "message": "Сервис (issuer)"
+ },
+ "fAccount": {
+  "message": "Аккаунт"
+ },
+ "fSecret": {
+  "message": "Секрет (base32)"
+ },
+ "fAlgorithm": {
+  "message": "Алгоритм"
+ },
+ "fDigits": {
+  "message": "Цифр"
+ },
+ "fPeriod": {
+  "message": "Период, с"
+ },
+ "addBtn": {
+  "message": "Добавить"
+ },
+ "registryTitle": {
+  "message": "Реестр"
+ },
+ "restoreBtn": {
+  "message": "Восстановить из файла"
+ },
+ "restoreTitle": {
+  "message": "Бэкап AuthBackup (обычный или зашифрованный) или .txt со ссылками otpauth://"
+ },
+ "thName": {
+  "message": "Сервис / аккаунт"
+ },
+ "thParams": {
+  "message": "Параметры"
+ },
+ "thCode": {
+  "message": "Код"
+ },
+ "thSource": {
+  "message": "Источник"
+ },
+ "emptyTable": {
+  "message": "Пока пусто."
+ },
+ "exportTitle": {
+  "message": "Экспорт"
+ },
+ "expGoogle": {
+  "message": "QR для Google Authenticator"
+ },
+ "expGoogleTitle": {
+  "message": "Один или несколько QR otpauth-migration:// — как «Перенести аккаунты» в Google Authenticator"
+ },
+ "expEncrypted": {
+  "message": "Файл: зашифрованный бэкап"
+ },
+ "expEncryptedTitle": {
+  "message": "JSON, зашифрованный паролем (AES-256-GCM)"
+ },
+ "expJson": {
+  "message": "Файл: JSON"
+ },
+ "expJsonTitle": {
+  "message": "JSON открытым текстом"
+ },
+ "expOtpauth": {
+  "message": "Файл: ссылки otpauth://"
+ },
+ "expOtpauthTitle": {
+  "message": "Текстовый файл, по ссылке otpauth:// в строке — понимают Aegis, 2FAS, Bitwarden и др."
+ },
+ "notAffiliated": {
+  "message": "AuthBackup — независимый проект, не связан с Google. Google Authenticator — товарный знак Google LLC."
+ },
+ "srcPage": {
+  "message": "страница"
+ },
+ "srcPaste": {
+  "message": "буфер"
+ },
+ "srcImage": {
+  "message": "файл"
+ },
+ "srcText": {
+  "message": "ссылка"
+ },
+ "srcManual": {
+  "message": "вручную"
+ },
+ "srcBackup": {
+  "message": "бэкап"
+ },
+ "noQrInImage": {
+  "message": "QR не найден на изображении"
+ },
+ "clipboardImage": {
+  "message": "картинка из буфера"
+ },
+ "readFailed": {
+  "message": "Не удалось прочитать: $1"
+ },
+ "noOtpLines": {
+  "message": "Нет строк otpauth:// или otpauth-migration://"
+ },
+ "pastedLinks": {
+  "message": "вставленные ссылки"
+ },
+ "addPicked": {
+  "message": "Добавить выбранные ($1)"
+ },
+ "clear": {
+  "message": "Очистить"
+ },
+ "addedN": {
+  "message": "Добавлено: $1"
+ },
+ "secretNotBase32": {
+  "message": "Секрет должен быть base32: A–Z и 2–7"
+ },
+ "added": {
+  "message": "Добавлено"
+ },
+ "keyExists": {
+  "message": "Такой ключ уже есть"
+ },
+ "counterN": {
+  "message": "счётчик $1"
+ },
+ "clickToCopyLeft": {
+  "message": "Клик — скопировать · ещё $1 с"
+ },
+ "btnDetails": {
+  "message": "Ключ / QR"
+ },
+ "moveUp": {
+  "message": "Выше"
+ },
+ "moveDown": {
+  "message": "Ниже"
+ },
+ "delete": {
+  "message": "Удалить"
+ },
+ "detailsScanHint": {
+  "message": "Этот QR можно отсканировать телефоном, чтобы перенести ключ."
+ },
+ "dlService": {
+  "message": "Сервис"
+ },
+ "dlSecret": {
+  "message": "Base32-ключ"
+ },
+ "dlSeedLen": {
+  "message": "Длина seed"
+ },
+ "nBytes": {
+  "message": "$1 байт"
+ },
+ "dlAdded": {
+  "message": "Добавлен"
+ },
+ "copyKey": {
+  "message": "Копировать ключ"
+ },
+ "copyUri": {
+  "message": "Копировать URI"
+ },
+ "close": {
+  "message": "Закрыть"
+ },
+ "saveName": {
+  "message": "Сохранить имя"
+ },
+ "keyCopied": {
+  "message": "Ключ скопирован"
+ },
+ "uriCopied": {
+  "message": "URI скопирован"
+ },
+ "saved": {
+  "message": "Сохранено"
+ },
+ "confirmDelete": {
+  "message": "Удалить «$1»?\nКлюч будет потерян, если его нет в другом месте."
+ },
+ "exportCount": {
+  "message": "выбрано $1 из $2"
+ },
+ "deselectAll": {
+  "message": "Снять все"
+ },
+ "selectAll": {
+  "message": "Выбрать все"
+ },
+ "confirmPwTitle": {
+  "message": "Подтвердите пароль реестра"
+ },
+ "confirmPwHint": {
+  "message": "Экспорт выдаёт секреты наружу."
+ },
+ "gaTitle": {
+  "message": "Перенос в Google Authenticator"
+ },
+ "gaHowOne": {
+  "message": "В приложении: «Перенести аккаунты» → «Импортировать аккаунты» и отсканируйте этот QR."
+ },
+ "gaHowMany": {
+  "message": "В приложении: «Перенести аккаунты» → «Импортировать аккаунты» и отсканируйте все QR по очереди."
+ },
+ "gaPage": {
+  "message": "QR $1 из $2"
+ },
+ "gaNone": {
+  "message": "Ни один из выбранных ключей нельзя передать этим форматом."
+ },
+ "gaShaWarn": {
+  "message": "SHA256/SHA512 ($1): некоторые версии Google Authenticator считают такие коды как SHA1 — после переноса сверьте код."
+ },
+ "gaSkipped": {
+  "message": "Не вошли: $1. Их можно перенести по одному через «Ключ / QR»."
+ },
+ "itemReason": {
+  "message": "«$1» — $2"
+ },
+ "gaSecretWarn": {
+  "message": "В QR — секреты. Не делайте скриншотов и не показывайте его на созвонах."
+ },
+ "downloadPng": {
+  "message": "Скачать этот QR (PNG)"
+ },
+ "done": {
+  "message": "Готово"
+ },
+ "encTitle": {
+  "message": "Зашифрованный бэкап"
+ },
+ "encHintProtected": {
+  "message": "Файл шифруется паролем реестра — введите его. Он же понадобится при восстановлении."
+ },
+ "encryptDownload": {
+  "message": "Зашифровать и скачать"
+ },
+ "encTitleNew": {
+  "message": "Пароль для файла"
+ },
+ "encHintNew": {
+  "message": "Им файл расшифруется при восстановлении. Без него бэкап бесполезен."
+ },
+ "encryptedN": {
+  "message": "Зашифровано ключей: $1"
+ },
+ "showQr": {
+  "message": "Показать QR"
+ },
+ "download": {
+  "message": "Скачать"
+ },
+ "exportedPlain": {
+  "message": "Выгружено ключей: $1. Файл открытым текстом — храните как пароль"
+ },
+ "notBackup": {
+  "message": "Это не бэкап AuthBackup и не список otpauth://"
+ },
+ "backupPwTitle": {
+  "message": "Пароль от бэкапа"
+ },
+ "decrypt": {
+  "message": "Расшифровать"
+ },
+ "restored": {
+  "message": "Восстановлено: $1, уже было: $2"
+ },
+ "backupReadFailed": {
+  "message": "Не удалось прочитать бэкап: $1"
+ },
+ "lockOnClose": {
+  "message": "при закрытии браузера"
+ },
+ "lockAfterMin": {
+  "message": "через $1 мин бездействия"
+ },
+ "lockAfterHours": {
+  "message": "через $1 ч бездействия"
+ },
+ "secTitle": {
+  "message": "Пароль на реестр"
+ },
+ "secOn": {
+  "message": "· включён"
+ },
+ "secOnText": {
+  "message": "Реестр зашифрован: AES-256-GCM, ключ из пароля через PBKDF2-SHA256 ($1 итераций). После ввода пароля ключ живёт в памяти браузера до автоблокировки или закрытия Chrome."
+ },
+ "lockLabel": {
+  "message": "Блокировать"
+ },
+ "lockNow": {
+  "message": "🔒 Заблокировать сейчас"
+ },
+ "changePw": {
+  "message": "Сменить пароль"
+ },
+ "removePw": {
+  "message": "Снять пароль"
+ },
+ "curPw": {
+  "message": "Текущий пароль"
+ },
+ "newPw": {
+  "message": "Новый пароль"
+ },
+ "repeatNewPw": {
+  "message": "Повторите новый"
+ },
+ "change": {
+  "message": "Сменить"
+ },
+ "secOffText": {
+  "message": "Сейчас пароля нет: ключи лежат в профиле Chrome открытым текстом. С паролем реестр шифруется (AES-256-GCM), а коды видны только после ввода пароля; блокировка — по таймеру бездействия, кнопкой и при закрытии браузера."
+ },
+ "newPwMin": {
+  "message": "Новый пароль (от $1 символов)"
+ },
+ "repeatPw": {
+  "message": "Повторите"
+ },
+ "setPw": {
+  "message": "Поставить пароль"
+ },
+ "pwWarn": {
+  "message": "Пароль не восстановить: забудете — ключи пропадут. Сначала сделайте экспорт или зашифрованный бэкап."
+ },
+ "encrypting": {
+  "message": "Шифрую…"
+ },
+ "pwSetDone": {
+  "message": "Пароль установлен, реестр зашифрован"
+ },
+ "pwChanged": {
+  "message": "Пароль изменён"
+ },
+ "removePwHint": {
+  "message": "Ключи снова будут лежать в профиле Chrome открытым текстом."
+ },
+ "pwRemoved": {
+  "message": "Пароль снят"
+ },
+ "noteProtected": {
+  "message": "Реестр зашифрован паролем и никуда не отправляется. Открытые файлы экспорта (JSON, otpauth) содержат секреты как есть."
+ },
+ "noteOpen": {
+  "message": "Секреты хранятся в chrome.storage.local этого профиля Chrome без шифрования и никуда не отправляются. Открытые файлы экспорта содержат секреты как есть."
+ },
+ "copiesTitle": {
+  "message": "2+1: держите ключи в трёх местах"
+ },
+ "copyBrowser": {
+  "message": "Этот браузер"
+ },
+ "copyAppOk": {
+  "message": "Приложение на телефоне"
+ },
+ "copyAppMissing": {
+  "message": "Приложение на телефоне — не перенесено ключей: $1"
+ },
+ "copyAppBtn": {
+  "message": "Перенести…"
+ },
+ "copyAppHave": {
+  "message": "Уже есть"
+ },
+ "copyAppHaveTitle": {
+  "message": "Эти ключи уже есть в аутентификаторе на телефоне или в менеджере паролей"
+ },
+ "copyFileOk": {
+  "message": "Зашифрованный файл или облако"
+ },
+ "copyFileMissing": {
+  "message": "Файл или облако — ключей без копии: $1"
+ },
+ "copyFileBtn": {
+  "message": "Сохранить файл…"
+ },
+ "copyMailHint": {
+  "message": "Файл можно положить на диск или отправить себе на почту. Его защищает только пароль — сделайте его длинным."
+ },
+ "copiesDone": {
+  "message": "✓ 3 копии · файл $1"
+ },
+ "copiesDoneNoFile": {
+  "message": "✓ 3 копии"
+ },
+ "copiesDoneTitle": {
+  "message": "Браузер, приложение на телефоне и файл или облако. Открыть экспорт"
+ },
+ "emptyRule": {
+  "message": "Правило 2+1: держите ключи 2FA в трёх местах — здесь, в приложении на телефоне и в зашифрованном файле."
+ },
+ "copiesStatusApp": {
+  "message": "Приложение на телефоне — не перенесено ключей: $1 ($2)."
+ },
+ "copiesStatusOffsite": {
+  "message": "Файл или облако — ключей без копии: $1 ($2)."
+ },
+ "copiesAllDone": {
+  "message": "✓ У всех ключей 3 копии."
+ },
+ "copiesLastFile": {
+  "message": "Последний файл: $1."
+ },
+ "copiesNoFile": {
+  "message": "Файла бэкапа ещё не было."
+ }
+}

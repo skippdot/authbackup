@@ -1,0 +1,26 @@
+{
+  "name": "authbackup",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "vendor": "node scripts/vendor.mjs",
+    "test": "node --test tests/unit/*.test.mjs",
+    "crosscheck": "node tests/crosscheck.mjs",
+    "bench": "python3 bench/server.py",
+    "e2e": "node tests/e2e.mjs",
+    "build": "node scripts/build.mjs",
+    "assets": "node scripts/store-assets.mjs",
+    "e2e:ru": "E2E_LANG=ru node tests/e2e.mjs",
+    "site": "node scripts/site.mjs"
+  },
+  "devDependencies": {
+    "jsqr": "^1.4.0",
+    "marked": "^18.3.0",
+    "playwright": "^1.62.1",
+    "qrcode-generator": "^1.4.4"
+  },
+  "license": "MIT",
+  "repository": "github:skippdot/authbackup",
+  "homepage": "https://authbackup.com"
+}

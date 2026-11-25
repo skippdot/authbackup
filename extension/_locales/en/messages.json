@@ -1,0 +1,640 @@
+{
+ "langCode": {
+  "message": "en",
+  "description": "BCP 47 code of this translation: used for <html lang> and number/date formatting"
+ },
+ "extName": {
+  "message": "AuthBackup — 2FA Authenticator",
+  "description": "Extension name in Chrome Web Store and chrome://extensions (max 75 chars)"
+ },
+ "extDescription": {
+  "message": "Save 2FA keys from QR codes on a page or in images and copy TOTP codes in one click. Offline, with an optional password."
+ },
+ "cmdOpen": {
+  "message": "Open AuthBackup"
+ },
+ "scanBtn": {
+  "message": "Scan page"
+ },
+ "scanBtnTitle": {
+  "message": "Find a QR code on the current page"
+ },
+ "manageBtn": {
+  "message": "Keys…"
+ },
+ "manageBtnTitle": {
+  "message": "Import, export, password, manual entry"
+ },
+ "lockBtnTitle": {
+  "message": "Lock now"
+ },
+ "lockedHeading": {
+  "message": "🔒 Keys are locked"
+ },
+ "lockedTitle": {
+  "message": "Keys are locked"
+ },
+ "password": {
+  "message": "Password"
+ },
+ "unlockBtn": {
+  "message": "Unlock"
+ },
+ "searchPlaceholder": {
+  "message": "Search…  (Enter copies the first one)"
+ },
+ "emptyTitle": {
+  "message": "No keys yet."
+ },
+ "emptyHint": {
+  "message": "Open a page with a 2FA QR code and click “Scan page”, paste a QR image right here ($1), or import a Google Authenticator export via “Keys…”."
+ },
+ "emptyLocalNote": {
+  "message": "Keys are stored only in this browser profile and never leave your device."
+ },
+ "copyHint": {
+  "message": "Click to copy the code"
+ },
+ "hotpNext": {
+  "message": "click → next code"
+ },
+ "copied": {
+  "message": "Copied: $1"
+ },
+ "foundOnPage": {
+  "message": "Found on the page: $1"
+ },
+ "foundInClipboard": {
+  "message": "Found in the clipboard: $1"
+ },
+ "saveAll": {
+  "message": "Save all ($1)"
+ },
+ "hide": {
+  "message": "Hide"
+ },
+ "noTotpQr": {
+  "message": "No 2FA QR code found"
+ },
+ "alreadySaved": {
+  "message": "✓ already saved"
+ },
+ "saveAndCopy": {
+  "message": "Save + code"
+ },
+ "saveAndCopyTitle": {
+  "message": "Save the key and copy the current code: the site asks for it right away"
+ },
+ "skippedItem": {
+  "message": "Skipped “$1”: $2"
+ },
+ "otherQr": {
+  "message": "QR codes without 2FA: $1"
+ },
+ "scrollHint": {
+  "message": "If the QR code is off-screen, scroll to it. Or copy the QR image and press $1 here."
+ },
+ "savedCodeCopied": {
+  "message": "Saved, code $1 copied"
+ },
+ "savedN": {
+  "message": "Saved: $1"
+ },
+ "scanning": {
+  "message": "Looking for a QR code on the page…"
+ },
+ "captureFailed": {
+  "message": "Couldn't capture the page: $1"
+ },
+ "noResponse": {
+  "message": "no response"
+ },
+ "checking": {
+  "message": "Checking…"
+ },
+ "wrongPassword": {
+  "message": "Wrong password"
+ },
+ "noName": {
+  "message": "unnamed"
+ },
+ "nDigits": {
+  "message": "$1 digits"
+ },
+ "nSec": {
+  "message": "$1 s"
+ },
+ "ok": {
+  "message": "OK"
+ },
+ "pwRepeat": {
+  "message": "Repeat password"
+ },
+ "cancel": {
+  "message": "Cancel"
+ },
+ "minChars": {
+  "message": "At least $1 characters"
+ },
+ "pwMismatch": {
+  "message": "Passwords don't match"
+ },
+ "pwTooShort": {
+  "message": "The password must be at least $1 characters"
+ },
+ "errNoAccount": {
+  "message": "Account not found"
+ },
+ "errVaultFormat": {
+  "message": "Unknown encryption format"
+ },
+ "errBase32Chars": {
+  "message": "The key has characters outside base32 (A–Z, 2–7)"
+ },
+ "errNotOtpauth": {
+  "message": "Not an otpauth:// link"
+ },
+ "errUnknownType": {
+  "message": "Unknown type “$1”"
+ },
+ "errNoSecret": {
+  "message": "The link has no valid secret (base32)"
+ },
+ "errAlgorithm": {
+  "message": "Algorithm $1 isn't supported"
+ },
+ "errDigits": {
+  "message": "Unusual number of digits: $1"
+ },
+ "errPeriod": {
+  "message": "Unusual period: $1"
+ },
+ "errNotOtp": {
+  "message": "Doesn't look like otpauth:// or otpauth-migration://"
+ },
+ "errTruncated": {
+  "message": "The export data is truncated"
+ },
+ "errWireType": {
+  "message": "Unknown protobuf field type $1"
+ },
+ "errNotMigration": {
+  "message": "Not an otpauth-migration:// link"
+ },
+ "errNoData": {
+  "message": "The otpauth-migration link has no data parameter"
+ },
+ "errMd5": {
+  "message": "MD5 isn't supported by Web Crypto"
+ },
+ "gaIncompatPeriod": {
+  "message": "period $1 s: the Google format only stores 30 s"
+ },
+ "gaIncompatDigits": {
+  "message": "$1 digits: the Google format only supports 6 and 8"
+ },
+ "manageTitle": {
+  "message": "AuthBackup — keys"
+ },
+ "manageSubtitle": {
+  "message": "· your 2FA keys"
+ },
+ "importTitle": {
+  "message": "Import QR"
+ },
+ "dropMain": {
+  "message": "Drop QR images here"
+ },
+ "dropRest": {
+  "message": ", click to choose files, or paste with $1."
+ },
+ "dropHint": {
+  "message": "Works with 2FA setup QR codes (otpauth://) and Google Authenticator exports (otpauth-migration://), several files at once."
+ },
+ "pasteLinkSummary": {
+  "message": "…or paste a link as text"
+ },
+ "urisPlaceholder": {
+  "message": "otpauth://totp/…  or  otpauth-migration://offline?data=…  (one per line)"
+ },
+ "parseBtn": {
+  "message": "Parse"
+ },
+ "manualTitle": {
+  "message": "Add a key manually"
+ },
+ "fIssuer": {
+  "message": "Service (issuer)"
+ },
+ "fAccount": {
+  "message": "Account"
+ },
+ "fSecret": {
+  "message": "Secret (base32)"
+ },
+ "fAlgorithm": {
+  "message": "Algorithm"
+ },
+ "fDigits": {
+  "message": "Digits"
+ },
+ "fPeriod": {
+  "message": "Period, s"
+ },
+ "addBtn": {
+  "message": "Add"
+ },
+ "registryTitle": {
+  "message": "Keys"
+ },
+ "restoreBtn": {
+  "message": "Restore from file"
+ },
+ "restoreTitle": {
+  "message": "A AuthBackup backup (plain or encrypted) or a .txt with otpauth:// links"
+ },
+ "thName": {
+  "message": "Service / account"
+ },
+ "thParams": {
+  "message": "Parameters"
+ },
+ "thCode": {
+  "message": "Code"
+ },
+ "thSource": {
+  "message": "Source"
+ },
+ "emptyTable": {
+  "message": "Nothing here yet."
+ },
+ "exportTitle": {
+  "message": "Export"
+ },
+ "expGoogle": {
+  "message": "QR for Google Authenticator"
+ },
+ "expGoogleTitle": {
+  "message": "One or more otpauth-migration:// QR codes, the same as “Transfer accounts” in Google Authenticator"
+ },
+ "expEncrypted": {
+  "message": "File: encrypted backup"
+ },
+ "expEncryptedTitle": {
+  "message": "JSON encrypted with a password (AES-256-GCM)"
+ },
+ "expJson": {
+  "message": "File: JSON"
+ },
+ "expJsonTitle": {
+  "message": "Plain-text JSON"
+ },
+ "expOtpauth": {
+  "message": "File: otpauth:// links"
+ },
+ "expOtpauthTitle": {
+  "message": "Text file with one otpauth:// link per line; Aegis, 2FAS, Bitwarden and others can read it"
+ },
+ "notAffiliated": {
+  "message": "AuthBackup is an independent project, not affiliated with Google. Google Authenticator is a trademark of Google LLC."
+ },
+ "srcPage": {
+  "message": "page"
+ },
+ "srcPaste": {
+  "message": "clipboard"
+ },
+ "srcImage": {
+  "message": "file"
+ },
+ "srcText": {
+  "message": "link"
+ },
+ "srcManual": {
+  "message": "manual"
+ },
+ "srcBackup": {
+  "message": "backup"
+ },
+ "noQrInImage": {
+  "message": "No QR code found in the image"
+ },
+ "clipboardImage": {
+  "message": "image from the clipboard"
+ },
+ "readFailed": {
+  "message": "Couldn't read: $1"
+ },
+ "noOtpLines": {
+  "message": "No otpauth:// or otpauth-migration:// lines"
+ },
+ "pastedLinks": {
+  "message": "pasted links"
+ },
+ "addPicked": {
+  "message": "Add selected ($1)"
+ },
+ "clear": {
+  "message": "Clear"
+ },
+ "addedN": {
+  "message": "Added: $1"
+ },
+ "secretNotBase32": {
+  "message": "The secret must be base32: A–Z and 2–7"
+ },
+ "added": {
+  "message": "Added"
+ },
+ "keyExists": {
+  "message": "This key is already saved"
+ },
+ "counterN": {
+  "message": "counter $1"
+ },
+ "clickToCopyLeft": {
+  "message": "Click to copy · $1 s left"
+ },
+ "btnDetails": {
+  "message": "Key / QR"
+ },
+ "moveUp": {
+  "message": "Move up"
+ },
+ "moveDown": {
+  "message": "Move down"
+ },
+ "delete": {
+  "message": "Delete"
+ },
+ "detailsScanHint": {
+  "message": "Scan this QR code with your phone to move the key."
+ },
+ "dlService": {
+  "message": "Service"
+ },
+ "dlSecret": {
+  "message": "Base32 key"
+ },
+ "dlSeedLen": {
+  "message": "Seed length"
+ },
+ "nBytes": {
+  "message": "$1 bytes"
+ },
+ "dlAdded": {
+  "message": "Added on"
+ },
+ "copyKey": {
+  "message": "Copy key"
+ },
+ "copyUri": {
+  "message": "Copy URI"
+ },
+ "close": {
+  "message": "Close"
+ },
+ "saveName": {
+  "message": "Save name"
+ },
+ "keyCopied": {
+  "message": "Key copied"
+ },
+ "uriCopied": {
+  "message": "URI copied"
+ },
+ "saved": {
+  "message": "Saved"
+ },
+ "confirmDelete": {
+  "message": "Delete “$1”?\nThe key will be lost unless you have it somewhere else."
+ },
+ "exportCount": {
+  "message": "$1 of $2 selected"
+ },
+ "deselectAll": {
+  "message": "Deselect all"
+ },
+ "selectAll": {
+  "message": "Select all"
+ },
+ "confirmPwTitle": {
+  "message": "Confirm your password"
+ },
+ "confirmPwHint": {
+  "message": "Export reveals your secrets."
+ },
+ "gaTitle": {
+  "message": "Transfer to Google Authenticator"
+ },
+ "gaHowOne": {
+  "message": "In the app: “Transfer accounts” → “Import accounts”, then scan this QR code."
+ },
+ "gaHowMany": {
+  "message": "In the app: “Transfer accounts” → “Import accounts”, then scan all the QR codes one by one."
+ },
+ "gaPage": {
+  "message": "QR $1 of $2"
+ },
+ "gaNone": {
+  "message": "None of the selected keys can be transferred in this format."
+ },
+ "gaShaWarn": {
+  "message": "SHA256/SHA512 ($1): some versions of Google Authenticator compute these codes as SHA1, so check the code after the transfer."
+ },
+ "gaSkipped": {
+  "message": "Not included: $1. You can transfer them one at a time via “Key / QR”."
+ },
+ "itemReason": {
+  "message": "“$1”: $2"
+ },
+ "gaSecretWarn": {
+  "message": "These QR codes contain your secrets. Don't take screenshots or show them on video calls."
+ },
+ "downloadPng": {
+  "message": "Download this QR (PNG)"
+ },
+ "done": {
+  "message": "Done"
+ },
+ "encTitle": {
+  "message": "Encrypted backup"
+ },
+ "encHintProtected": {
+  "message": "The file is encrypted with your password. Enter it: you'll need the same password to restore."
+ },
+ "encryptDownload": {
+  "message": "Encrypt and download"
+ },
+ "encTitleNew": {
+  "message": "Password for the file"
+ },
+ "encHintNew": {
+  "message": "It decrypts the file when you restore. Without it the backup is useless."
+ },
+ "encryptedN": {
+  "message": "Keys encrypted: $1"
+ },
+ "showQr": {
+  "message": "Show QR"
+ },
+ "download": {
+  "message": "Download"
+ },
+ "exportedPlain": {
+  "message": "Keys exported: $1. The file is plain text, keep it as safe as a password"
+ },
+ "notBackup": {
+  "message": "This isn't a AuthBackup backup or a list of otpauth:// links"
+ },
+ "backupPwTitle": {
+  "message": "Backup password"
+ },
+ "decrypt": {
+  "message": "Decrypt"
+ },
+ "restored": {
+  "message": "Restored: $1, already here: $2"
+ },
+ "backupReadFailed": {
+  "message": "Couldn't read the backup: $1"
+ },
+ "lockOnClose": {
+  "message": "when the browser closes"
+ },
+ "lockAfterMin": {
+  "message": "after $1 min of inactivity"
+ },
+ "lockAfterHours": {
+  "message": "after $1 h of inactivity"
+ },
+ "secTitle": {
+  "message": "Password protection"
+ },
+ "secOn": {
+  "message": "· on"
+ },
+ "secOnText": {
+  "message": "Your keys are encrypted with AES-256-GCM using a key derived from your password with PBKDF2-SHA256 ($1 iterations). After you unlock, the key stays in browser memory until auto-lock or until Chrome closes."
+ },
+ "lockLabel": {
+  "message": "Lock"
+ },
+ "lockNow": {
+  "message": "🔒 Lock now"
+ },
+ "changePw": {
+  "message": "Change password"
+ },
+ "removePw": {
+  "message": "Remove password"
+ },
+ "curPw": {
+  "message": "Current password"
+ },
+ "newPw": {
+  "message": "New password"
+ },
+ "repeatNewPw": {
+  "message": "Repeat new password"
+ },
+ "change": {
+  "message": "Change"
+ },
+ "secOffText": {
+  "message": "No password yet: keys are stored unencrypted in your Chrome profile. With a password the keys are encrypted (AES-256-GCM) and codes are shown only after you unlock. It locks after inactivity, with the button, and when the browser closes."
+ },
+ "newPwMin": {
+  "message": "New password (at least $1 characters)"
+ },
+ "repeatPw": {
+  "message": "Repeat"
+ },
+ "setPw": {
+  "message": "Set password"
+ },
+ "pwWarn": {
+  "message": "A forgotten password can't be recovered, and the keys are lost with it. Make an export or an encrypted backup first."
+ },
+ "encrypting": {
+  "message": "Encrypting…"
+ },
+ "pwSetDone": {
+  "message": "Password set, keys encrypted"
+ },
+ "pwChanged": {
+  "message": "Password changed"
+ },
+ "removePwHint": {
+  "message": "Keys will be stored unencrypted in your Chrome profile again."
+ },
+ "pwRemoved": {
+  "message": "Password removed"
+ },
+ "noteProtected": {
+  "message": "Keys are encrypted with your password and never leave this device. Plain export files (JSON, otpauth) contain the secrets as is."
+ },
+ "noteOpen": {
+  "message": "Secrets are stored unencrypted in chrome.storage.local of this Chrome profile and never leave this device. Plain export files contain the secrets as is."
+ },
+ "copiesTitle": {
+  "message": "2+1: keep your keys in three places"
+ },
+ "copyBrowser": {
+  "message": "This browser"
+ },
+ "copyAppOk": {
+  "message": "Phone app"
+ },
+ "copyAppMissing": {
+  "message": "Phone app — keys not transferred: $1"
+ },
+ "copyAppBtn": {
+  "message": "Transfer…"
+ },
+ "copyAppHave": {
+  "message": "Already there"
+ },
+ "copyAppHaveTitle": {
+  "message": "These keys are already in an authenticator on your phone or in a password manager"
+ },
+ "copyFileOk": {
+  "message": "Encrypted file or cloud"
+ },
+ "copyFileMissing": {
+  "message": "File or cloud — keys without a copy: $1"
+ },
+ "copyFileBtn": {
+  "message": "Save file…"
+ },
+ "copyMailHint": {
+  "message": "Put the file on a drive or email it to yourself. Only its password protects it, so make the password long."
+ },
+ "copiesDone": {
+  "message": "✓ 3 copies · file $1"
+ },
+ "copiesDoneNoFile": {
+  "message": "✓ 3 copies"
+ },
+ "copiesDoneTitle": {
+  "message": "Browser, phone app and a file or cloud copy. Open export"
+ },
+ "emptyRule": {
+  "message": "Rule 2+1: keep 2FA keys in three places: here, in an app on your phone and in an encrypted file."
+ },
+ "copiesStatusApp": {
+  "message": "Phone app — keys not transferred: $1 ($2)."
+ },
+ "copiesStatusOffsite": {
+  "message": "File or cloud — keys without a copy: $1 ($2)."
+ },
+ "copiesAllDone": {
+  "message": "✓ Every key has 3 copies."
+ },
+ "copiesLastFile": {
+  "message": "Last file: $1."
+ },
+ "copiesNoFile": {
+  "message": "No backup file yet."
+ }
+}
