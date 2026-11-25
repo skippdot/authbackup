@@ -22,7 +22,7 @@
     "jsqr": "^1.4.0",
     "marked": "^18.3.0",
     "playwright": "^1.62.1",
-    "qrcode-generator": "^1.4.4"
+    "qrcode-generator": "^2.0.4"
   },
   "license": "MIT",
   "repository": "github:skippdot/authbackup",
