@@ -28,5 +28,15 @@
   "offline_p2": "Kata sandi opsional mengenkripsi daftar kunci dengan AES-256-GCM. Kodenya open source, dan [kebijakan privasi (dalam bahasa Inggris)] mencantumkan setiap data yang disentuhnya.",
   "footer_note": "AuthBackup adalah proyek independen, tidak berafiliasi dengan Google. Google Authenticator adalah merek dagang Google LLC. Situs ini tidak memuat apa pun dari pihak ketiga.",
   "footer_support": "Dukungan",
-  "languages_label": "Bahasa"
+  "languages_label": "Bahasa",
+  "install_h2": "Pemasangan",
+  "install_intro": "Halaman Chrome Web Store akan segera hadir. Sampai saat itu, pasang AuthBackup dari zip rilis:",
+  "install_s1": "Unduh zip terbaru dari [GitHub Releases].",
+  "install_s2": "Ekstrak ke folder yang akan Anda simpan.",
+  "install_s3": "Buka chrome://extensions dan aktifkan Mode developer.",
+  "install_s4": "Klik “Muat yang belum dikemas” lalu pilih folder hasil ekstrak.",
+  "lang_banner_label": "Saran bahasa",
+  "lang_banner_text": "Halaman ini juga tersedia dalam Bahasa Indonesia.",
+  "lang_banner_switch": "Baca dalam Bahasa Indonesia",
+  "lang_banner_close": "Tutup"
 }

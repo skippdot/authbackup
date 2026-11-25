@@ -28,5 +28,15 @@
   "offline_p2": "An optional password encrypts the key list with AES-256-GCM. The code is open source, and the [privacy policy] lists every piece of data it touches.",
   "footer_note": "AuthBackup is an independent project, not affiliated with Google. Google Authenticator is a trademark of Google LLC. This site loads nothing from third parties.",
   "footer_support": "Support",
-  "languages_label": "Languages"
+  "languages_label": "Languages",
+  "install_h2": "Install",
+  "install_intro": "The Chrome Web Store listing is coming soon. Until then, install AuthBackup from the release zip:",
+  "install_s1": "Download the latest zip from [GitHub Releases].",
+  "install_s2": "Unzip it into a folder you will keep.",
+  "install_s3": "Open chrome://extensions and turn on Developer mode.",
+  "install_s4": "Click “Load unpacked” and pick the unzipped folder.",
+  "lang_banner_label": "Language suggestion",
+  "lang_banner_text": "This page is also available in English.",
+  "lang_banner_switch": "Read in English",
+  "lang_banner_close": "Close"
 }

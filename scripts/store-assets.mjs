@@ -1,9 +1,11 @@
 // Assets for the Chrome Web Store -> docs/store-assets/:
-//   <lang>-1-scan.png … <lang>-4-security.png - 1280x800 screenshots (en, ru); promo-440x280.png is the small promo tile.
+//   <lang>-1-scan.png … <lang>-4-security.png - 1280x800 screenshots (en, ru); promo-440x280.png is the small promo tile;
+//   og-1200x630.png is the Open Graph / social preview image of the website.
 // The real extension (test copy, scripts/test-extension.mjs) is captured on fictional services with test
 // secrets; then the frame is composed: caption + browser window + popup on top. No third-party logos or brands.
 //   node scripts/store-assets.mjs            - both languages
 //   LANGS=en node scripts/store-assets.mjs   - English only
+//   ONLY=og node scripts/store-assets.mjs    - only og-1200x630.png (Open Graph image of the site)
 import { chromium } from 'playwright';
 import { createServer } from 'node:http';
 import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
@@ -18,7 +20,8 @@ import { planMigrationExport } from '../extension/lib/migration.js';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const OUT = join(ROOT, 'docs/store-assets');
-const LANGS = (process.env.LANGS || 'en,ru').split(',');
+const ONLY_OG = process.env.ONLY === 'og'; // ONLY=og: just the Open Graph image (no extension capture)
+const LANGS = ONLY_OG ? [] : (process.env.LANGS || 'en,ru').split(',');
 mkdirSync(OUT, { recursive: true });
 
 // --- fictional accounts (names are classic placeholder companies, secrets are test values) ---
@@ -235,8 +238,20 @@ try {
     <img src="${png64(readFileSync(join(ROOT, 'extension/icons/128.png')))}"><div><h1>AuthBackup</h1><p>${COPY.en.promo}</p></div>`);
   await page.screenshot({ path: join(OUT, 'promo-440x280.png') });
   console.log('• promo-440x280.png');
+
+  // Open Graph image 1200x630 for the website (same style as the promo tile, English, 24-bit PNG)
+  const og = await stageBrowser.newPage({ viewport: { width: 1200, height: 630 }, deviceScaleFactor: 1 });
+  await og.setContent(`<!doctype html><meta charset="utf-8"><style>
+    body{margin:0;width:1200px;height:630px;display:flex;align-items:center;justify-content:center;gap:56px;
+      font-family:-apple-system,system-ui,sans-serif;color:#fff;background:linear-gradient(135deg,#3a63f0,#2445c9)}
+    img{width:220px;height:220px;border-radius:50px;box-shadow:0 22px 60px rgba(0,0,30,.4)}
+    h1{margin:0;font-size:96px;letter-spacing:-2px}p{margin:14px 0 0;font-size:38px;opacity:.92;max-width:640px;line-height:1.25}
+    small{display:block;margin-top:26px;font-size:26px;opacity:.75}</style>
+    <img src="${png64(readFileSync(join(ROOT, 'extension/icons/128.png')))}"><div><h1>AuthBackup</h1><p>${COPY.en.promo}</p><small>authbackup.com</small></div>`);
+  await og.screenshot({ path: join(OUT, 'og-1200x630.png') });
+  console.log('• og-1200x630.png');
 } finally {
   await stageBrowser.close();
   server.close();
 }
-writeFileSync(join(OUT, 'README.md'), COPY.en.readme);
+if (!ONLY_OG) writeFileSync(join(OUT, 'README.md'), COPY.en.readme);

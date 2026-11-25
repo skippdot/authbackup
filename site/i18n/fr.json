@@ -28,5 +28,15 @@
   "offline_p2": "Un mot de passe facultatif chiffre la liste des clés avec AES-256-GCM. Le code est open source, et la [politique de confidentialité (en anglais)] liste chaque donnée qu’il touche.",
   "footer_note": "AuthBackup est un projet indépendant, sans lien avec Google. Google Authenticator est une marque de Google LLC. Ce site ne charge rien depuis des services tiers.",
   "footer_support": "Assistance",
-  "languages_label": "Langues"
+  "languages_label": "Langues",
+  "install_h2": "Installation",
+  "install_intro": "La fiche du Chrome Web Store arrive bientôt. D’ici là, installez AuthBackup depuis l’archive zip de la version :",
+  "install_s1": "Téléchargez le dernier zip sur [GitHub Releases].",
+  "install_s2": "Décompressez-le dans un dossier que vous conserverez.",
+  "install_s3": "Ouvrez chrome://extensions et activez le mode développeur.",
+  "install_s4": "Cliquez sur « Charger l’extension non empaquetée » et choisissez le dossier décompressé.",
+  "lang_banner_label": "Suggestion de langue",
+  "lang_banner_text": "Cette page est aussi disponible en français.",
+  "lang_banner_switch": "Lire en français",
+  "lang_banner_close": "Fermer"
 }
