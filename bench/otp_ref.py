@@ -35,7 +35,9 @@ def totp(secret: str, at: float | None = None, digits: int = 6, algorithm: str =
     return hotp(secret, int(t // period), digits, algorithm)
 
 
-def verify_totp(secret: str, code: str, digits: int, algorithm: str, period: int, window: int = 1, at: float | None = None):
+def verify_totp(
+    secret: str, code: str, digits: int, algorithm: str, period: int, window: int = 1, at: float | None = None
+):
     """As real services do: accept the current step and +-window neighbours (clock skew).
     Returns the step offset (0, -1, +1) or None."""
     t = time.time() if at is None else at
@@ -117,7 +119,7 @@ RFC_TABLE = [
 def rfc_selftest() -> list[dict]:
     rows = []
     for t, *expected in RFC_TABLE:
-        for algo, want in zip(("SHA1", "SHA256", "SHA512"), expected):
+        for algo, want in zip(("SHA1", "SHA256", "SHA512"), expected, strict=False):
             got = totp(b32encode(RFC_SEEDS[algo]), at=t, digits=8, algorithm=algo)
             rows.append({"time": t, "algorithm": algo, "expected": want, "got": got, "ok": got == want})
     return rows

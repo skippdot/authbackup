@@ -9,7 +9,7 @@ import json
 import secrets
 import sys
 import time
-from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 import otp_ref

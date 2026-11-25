@@ -1,5 +1,11 @@
 # AuthBackup
 
+[![CI](https://github.com/skippdot/authbackup/actions/workflows/ci.yml/badge.svg)](https://github.com/skippdot/authbackup/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/skippdot/authbackup/actions/workflows/codeql.yml/badge.svg)](https://github.com/skippdot/authbackup/actions/workflows/codeql.yml)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/skippdot/authbackup/badge)](https://scorecard.dev/viewer/?uri=github.com/skippdot/authbackup)
+[![License: MIT](https://img.shields.io/github/license/skippdot/authbackup)](LICENSE)
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Fauthbackup.com&label=authbackup.com)](https://authbackup.com)
+
 Offline 2FA authenticator for Chrome (Manifest V3). It saves TOTP keys straight from the QR code on a page, copies
 one-time codes in one click, and tracks where each key has copies (the 2+1 rule). No servers, no analytics: the CSP of
 the extension pages blocks all network requests.
@@ -36,9 +42,13 @@ Previously named TOTP Grab (renamed 2026-11-25; old `totp-grab-backup-*` files s
 
 ## Install
 
-1. Open `chrome://extensions` and enable Developer mode.
-2. Click "Load unpacked" and select the `extension/` folder.
-3. Pin the icon to the toolbar.
+The Chrome Web Store listing is coming soon. Until then:
+
+1. Download `authbackup-<version>.zip` from [the latest release](https://github.com/skippdot/authbackup/releases/latest)
+   and unzip it (or clone this repo and use the `extension/` folder).
+2. Open `chrome://extensions` and enable Developer mode.
+3. Click "Load unpacked" and select the unzipped folder.
+4. Pin the icon to the toolbar.
 
 No build step is needed to use or develop the extension. `npm install` is needed for tests, vendor files and releases.
 
@@ -124,3 +134,19 @@ scripts/             vendor, build (zip), release-check, store-assets, test-exte
 docs/store-assets/   Chrome Web Store screenshots and promo tile
 site/                authbackup.com: landing page and privacy page template
 ```
+
+## Quality & security
+
+Every push and pull request to `main` runs in GitHub Actions (all actions are pinned to commit SHAs):
+
+- **Lint:** ESLint for the extension, scripts and tests (`npm run lint`).
+- **Unit tests and release check:** `npm test`. The release check fails the build on network calls in extension pages,
+  inline styles that the CSP blocks, leftover test hooks, diverging en/ru dictionaries, and non-English text outside
+  translation files.
+- **Crosscheck:** `npm run crosscheck` compares the JS TOTP and Google Authenticator export code with an independent
+  Python reference implementation.
+- **E2E:** the real extension in real Chromium against the Python bench (`npm run e2e`), including CSP-violation checks.
+- **Python:** Ruff and Bandit on the bench.
+- **CodeQL** (JavaScript and Python), the **OpenSSF Scorecard**, and weekly **Dependabot** updates for npm and Actions.
+
+Report vulnerabilities privately, see [SECURITY.md](SECURITY.md).

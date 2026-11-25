@@ -114,7 +114,7 @@ try {
   await bench.selectOption('#digits', '8');
   await bench.click('#enroll');
   await bench.waitForSelector('#enrollQr[src^="data:"]');
-  const enrolled = (await api('/api/codes')).items[0];
+  await api('/api/codes');
   // open the popup in a separate window so the bench tab stays active (captureVisibleTab captures it)
   const popup = await openPopupFor(ctx, sw, `${BENCH}/`); // ctx.on('page') already watches its console
   await popup.waitForSelector('#found .item', { timeout: 10000 });
@@ -142,7 +142,6 @@ try {
   // ---------- 2. Google Authenticator export from the page ----------
   const mig = await api('/api/migration', {}); // create via the API, but show it on the page the same way
   await bench.evaluate((uri) => {
-    // eslint-disable-next-line no-undef
     return import('/vendor/qrcode.mjs').then(({ default: qrcode }) => {
       const qr = qrcode(0, 'M');
       qr.addData(uri);
