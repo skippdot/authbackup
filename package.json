@@ -13,7 +13,7 @@
     "assets": "node scripts/store-assets.mjs",
     "e2e:ru": "E2E_LANG=ru node tests/e2e.mjs",
     "site": "node scripts/site.mjs",
-    "lint": "eslint .",
+    "lint": "eslint . --max-warnings 0",
     "fuzz": "FUZZ_RUNS=100000 node --test tests/unit/properties.test.js"
   },
   "devDependencies": {

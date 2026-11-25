@@ -177,6 +177,7 @@ extension/
 bench/               server.py + otp_ref.py + bench page
 tests/               unit, crosscheck, e2e
 scripts/             vendor, build (zip), release-check, store-assets, test-extension (copy for e2e), site
+docs/FORMATS.md      reference: accepted links and QR codes, backup file formats, storage
 docs/store-assets/   Chrome Web Store screenshots and promo tile
 site/                authbackup.com: landing page and privacy page template
 ```
@@ -203,3 +204,9 @@ Every push and pull request to `main` runs in GitHub Actions (all actions are pi
   `ghcr.io/skippdot/authbackup-site` and `ghcr.io/skippdot/authbackup-bench` (linux/amd64 and arm64).
 
 Report vulnerabilities privately, see [SECURITY.md](SECURITY.md).
+
+## Contributing
+
+Bug reports, ideas and pull requests are welcome: see [CONTRIBUTING.md](CONTRIBUTING.md) for the process, the
+requirements and the test policy. The links, QR codes and backup files that AuthBackup reads and writes are documented
+in [docs/FORMATS.md](docs/FORMATS.md).

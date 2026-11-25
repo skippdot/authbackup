@@ -47,6 +47,7 @@ No data leaves the device. Keys live in `chrome.storage.local` of the browser pr
 - [GitHub repository](https://github.com/skippdot/authbackup): source, issues (also the support channel), releases.
 - [License (MIT)](https://github.com/skippdot/authbackup/blob/HEAD/LICENSE)
 - [Changelog](https://github.com/skippdot/authbackup/blob/HEAD/CHANGELOG.md)
+- [Contributing](https://github.com/skippdot/authbackup/blob/HEAD/CONTRIBUTING.md): how to report bugs and send pull requests, and the test policy.
 
 ## Security
 
@@ -64,6 +65,7 @@ Import and export use open formats, so keys are never locked in.
 - `otpauth.txt`: one `otpauth://` link per line (works with Aegis, 2FAS, Bitwarden and others).
 - Google Authenticator migration QR (`otpauth-migration://`): up to 10 keys per QR, several QRs for more; import and export, as an image or from the page.
 - Algorithms SHA1/SHA256/SHA512, 6/7/8 digits, any period; HOTP with a counter.
+- [Formats reference](https://github.com/skippdot/authbackup/blob/HEAD/docs/FORMATS.md): every accepted link and QR code, the backup file layouts (with steps to decrypt one without AuthBackup), and storage.
 
 ## FAQ
 

@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## Unreleased
+
+- `CONTRIBUTING.md`: how to report bugs, the pull request process, requirements for contributions, and the test
+  policy (new functionality comes with tests). The website footer (home and privacy pages) and `llms.txt` link to it.
+- `docs/FORMATS.md`: reference for everything AuthBackup reads and writes: `otpauth://` and `otpauth-migration://`
+  links, QR sources, the plain and encrypted backup files (with steps to decrypt one without AuthBackup), `otpauth.txt`,
+  the Google Authenticator export QR, and storage. Linked from the README and `llms.txt`.
+- Fixed: restoring a JSON backup entry without an `account` field saved the key under the name "undefined"; the name
+  now stays empty. Found while checking `docs/FORMATS.md` against the code.
+- `npm run lint` (and so CI) fails on any ESLint warning, not only on errors.
+- Fixed CodeQL findings in development scripts (none in the extension): the release-notes script escapes every regular
+  expression metacharacter in the version, and the crosscheck test draws its random values from `node:crypto`.
+
 ## 2026-11-25: 0.3.1 — fuzzing fixes, signed reproducible releases
 
 - Property-based fuzzing (fast-check, `tests/unit/properties.test.js`, `npm run fuzz`) of every parser and the vault.

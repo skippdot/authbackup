@@ -6,9 +6,14 @@ import { fileURLToPath } from 'node:url';
 
 const REPO = 'skippdot/authbackup';
 
+/** Escapes every RegExp metacharacter, so the text matches literally. */
+export function escapeRegExp(text) {
+  return String(text).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 /** The body of the "## <date>: <version> ..." section of the changelog. */
 export function changelogSection(version, changelog) {
-  const heading = new RegExp(`^## [^\\n]*: ${version.replace(/\./g, '\\.')}(?=[\\s,]|$)[^\\n]*\\n`, 'm');
+  const heading = new RegExp(`^## [^\\n]*: ${escapeRegExp(version)}(?=[\\s,]|$)[^\\n]*\\n`, 'm');
   const m = heading.exec(changelog);
   if (!m) throw new Error(`CHANGELOG.md has no "## <date>: ${version} ..." section`);
   const rest = changelog.slice(m.index + m[0].length);

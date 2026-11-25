@@ -65,6 +65,11 @@ test('otpauth: issuer from the parameter and from the label, encoding, defaults'
   assert.throws(() => parseOtpauthUri('otpauth://totp/x?secret=not*base32'), /errNoSecret/);
   // build -> parse round trip
   assert.deepEqual(parseOtpauthUri(buildOtpauthUri(c)), c);
+  // A restored backup entry may lack the name fields: they stay empty instead of becoming the text "undefined".
+  for (const name of [{}, { issuer: 'X' }, { account: null }]) {
+    const r = parseOtpauthUri(buildOtpauthUri({ type: 'totp', secret: 'JBSWY3DPEHPK3PXP', algorithm: 'SHA1', digits: 6, period: 30, ...name }));
+    assert.equal(r.account, '');
+  }
 });
 
 test('Google Authenticator migration: encode -> decode preserves everything', () => {

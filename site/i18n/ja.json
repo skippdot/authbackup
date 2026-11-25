@@ -28,6 +28,7 @@
   "offline_p2": "任意のパスワードで、キー一覧を AES-256-GCM で暗号化できます。コードはオープンソースで、扱うデータはすべて[プライバシーポリシー（英語）]に記載しています。",
   "footer_note": "AuthBackup は独立したプロジェクトで、Google とは関係ありません。Google Authenticator は Google LLC の商標です。このサイトは第三者のリソースを一切読み込みません。",
   "footer_support": "サポート",
+  "footer_contribute": "開発に参加（英語）",
   "languages_label": "言語",
   "install_h2": "インストール",
   "install_intro": "Chrome ウェブストアでの公開は近日予定です。それまでは、リリースの zip からインストールしてください。",
