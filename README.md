@@ -138,7 +138,7 @@ _Keeping 2FA keys in the same browser as passwords is a deliberate convenience t
 
 | Platform | Deploy | Website | Test bench | Config |
 |---|---|:---:|:---:|---|
-| [Docker](DEPLOY.md#docker--docker-compose) | `docker compose up` | ✓ | ✓ | `docker-compose.yml` |
+| [Docker](DEPLOY.md#docker--docker-compose) | `docker run -p 8080:8080 ghcr.io/skippdot/authbackup-site`<br>`docker run -p 8793:8080 ghcr.io/skippdot/authbackup-bench` | ✓ | ✓ | `Dockerfile`, `bench/Dockerfile`, `docker-compose.yml` |
 | [Render](DEPLOY.md#render-website--bench) | <a href="https://render.com/deploy?repo=https://github.com/skippdot/authbackup"><img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render" height="32"></a> | ✓ | ✓ | `render.yaml` |
 | [Heroku](DEPLOY.md#heroku-bench) | <a href="https://heroku.com/deploy?template=https://github.com/skippdot/authbackup"><img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy to Heroku" height="32"></a> | | ✓ | `app.json`, `heroku.yml` |
 | [Vercel](DEPLOY.md#vercel-website) | <a href="https://vercel.com/new/clone?repository-url=https://github.com/skippdot/authbackup"><img src="https://vercel.com/button" alt="Deploy with Vercel" height="32"></a> | ✓ | | `vercel.json` |
@@ -149,7 +149,8 @@ _Keeping 2FA keys in the same browser as passwords is a deliberate convenience t
 | [AWS](DEPLOY.md#aws) | App Runner, Amplify, S3 + CloudFront | ✓ | ✓ | — |
 
 > [!NOTE]
-> _Only Docker and `docker compose` are tested (in CI, on every push)._ The platform configs follow each platform's
+> _Only Docker and `docker compose` are tested (in CI, on every push)._ The images are built for linux/amd64 and arm64
+> on every release, with signed provenance (`gh attestation verify oci://ghcr.io/skippdot/authbackup-bench:latest --repo skippdot/authbackup`). The platform configs follow each platform's
 > documented format but have not been deployed there yet. Step-by-step instructions: [DEPLOY.md](DEPLOY.md).
 
 ## Project layout

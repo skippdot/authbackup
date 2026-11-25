@@ -25,6 +25,17 @@ The bench reads `HOST` (default `127.0.0.1`; the image sets `0.0.0.0`) and `PORT
 
 ## Docker / docker compose
 
+Prebuilt images (linux/amd64 and arm64) are published to ghcr.io on every release, tagged with the version
+(`0.3.1`, `0.3`) and `latest`:
+
+```sh
+docker run --rm -p 8080:8080 ghcr.io/skippdot/authbackup-site     # website on http://localhost:8080
+docker run --rm -p 8793:8080 ghcr.io/skippdot/authbackup-bench    # bench on http://localhost:8793
+gh attestation verify oci://ghcr.io/skippdot/authbackup-bench:latest --repo skippdot/authbackup   # signed provenance
+```
+
+To build them yourself:
+
 ```sh
 docker compose up            # website on http://localhost:8080, bench on http://localhost:8793
 docker compose down
