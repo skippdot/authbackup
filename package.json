@@ -21,7 +21,7 @@
     "globals": "^17.14.0",
     "jsqr": "^1.4.0",
     "marked": "^18.3.0",
-    "playwright": "^1.62.1",
+    "playwright": "^1.65.1",
     "qrcode-generator": "^1.4.4"
   },
   "license": "MIT",
