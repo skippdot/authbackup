@@ -1,0 +1,103 @@
+body { width: 360px; min-height: 120px; }
+header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+}
+.brand { font-weight: 700; flex: 1; letter-spacing: 0.2px; }
+header button { padding: 4px 9px; font-size: 12px; }
+
+#found {
+  margin: 10px 12px 0;
+  padding: 8px 10px;
+  border: 1px solid var(--accent);
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--accent) 7%, var(--bg));
+}
+#found .head { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 4px; }
+#found .head b { font-size: 12px; flex: 1; }
+#found .head button { white-space: nowrap; font-size: 12px; padding: 3px 8px; }
+#found .item { display: flex; align-items: center; gap: 8px; padding: 5px 0; border-top: 1px solid var(--line); }
+#found .item:first-of-type { border-top: 0; }
+#found .item .names { flex: 1; min-width: 0; }
+#found .item .names div { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#found .item button { font-size: 12px; padding: 3px 8px; flex-shrink: 0; }
+#found .known { color: var(--ok); font-size: 12px; flex-shrink: 0; }
+#found .status { color: var(--muted); }
+#found .err { color: var(--danger); font-size: 12px; }
+
+.search-wrap { padding: 10px 12px 0; }
+#search { width: 100%; }
+
+#list { list-style: none; margin: 6px 0 8px; padding: 0; max-height: 440px; overflow-y: auto; }
+#list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
+  user-select: none;
+}
+#list li:hover, #list li.kbd { background: var(--hover); }
+#list .names { flex: 1; min-width: 0; }
+#list .names .t { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#list .names .s { color: var(--muted); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#list .code {
+  font-family: var(--mono);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--accent);
+  white-space: nowrap;
+}
+#list .code.expiring { color: var(--warn); }
+#list .code.hotp { font-size: 13px; color: var(--muted); font-weight: 400; }
+#list li.copied .code { color: var(--ok); }
+
+/* Countdown ring */
+.ring { width: 22px; height: 22px; flex-shrink: 0; transform: rotate(-90deg); }
+.ring circle { fill: none; stroke-width: 3; }
+.ring .bg { stroke: var(--line); }
+.ring .fg { stroke: var(--accent); stroke-linecap: round; transition: stroke-dashoffset 0.9s linear; }
+.ring.expiring .fg { stroke: var(--warn); }
+
+#empty { padding: 14px 16px 18px; }
+#empty p { margin: 0 0 8px; }
+
+#lock { padding: 16px 16px 18px; }
+#lock .err:empty { display: none; }
+
+/* "2+1": which copies are missing (lib/copies.js) */
+.copies {
+  margin: 10px 12px 0;
+  padding: 8px 10px;
+  border: 1px solid color-mix(in srgb, var(--warn) 55%, var(--line));
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--warn) 9%, var(--bg));
+  font-size: 12px;
+}
+.copies-title { font-weight: 600; margin-bottom: 4px; }
+.copy-row { margin-top: 4px; }
+.copy-row .mark { display: inline-block; width: 1em; text-align: center; color: var(--warn); font-weight: 700; }
+.copy-row.ok .mark { color: var(--ok); }
+.copy-row .acts { margin: 4px 0 2px 1.3em; }
+.copy-row.ok .acts { display: none; }
+.copies .row { gap: 6px; }
+.copies button { font-size: 12px; padding: 3px 8px; }
+.copies .acts p { margin: 4px 0 0; }
+.copies-done {
+  display: block;
+  margin: 8px 12px 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ok);
+  font-size: 12px;
+  cursor: pointer;
+}
+.copies-done:hover { text-decoration: underline; }
+#empty .rule { margin-top: 8px; }
+#empty .small { margin-top: 8px; }
+.small { font-size: 11px; }

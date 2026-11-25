@@ -1,0 +1,8 @@
+{
+  "name": "AuthBackup test bench",
+  "description": "A fake 2FA service to try TOTP authenticators. All keys are fake and kept in memory.",
+  "repository": "https://github.com/skippdot/authbackup",
+  "website": "https://authbackup.com",
+  "keywords": ["totp", "2fa", "authenticator", "test-bench"],
+  "stack": "container"
+}

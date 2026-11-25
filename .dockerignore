@@ -1,0 +1,9 @@
+.git
+node_modules
+dist
+_site
+tests/artifacts
+docs/private
+**/__pycache__
+*.json.bak
+.DS_Store

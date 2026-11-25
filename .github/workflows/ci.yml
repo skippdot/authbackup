@@ -1,0 +1,130 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  lint:
+    name: Lint (ESLint)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run lint
+
+  test:
+    name: Unit, release check, crosscheck
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+      - run: npm ci --ignore-scripts
+      # Unit tests plus the release check (no network calls, no test hooks, English-only, en/ru dictionaries match).
+      - run: npm test
+      # JS TOTP/export code against the independent Python reference implementation.
+      - run: npm run crosscheck
+
+  python:
+    name: Python (Ruff, Bandit)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+      - run: pip install ruff==0.17.6 bandit==1.9.4
+      - run: ruff check bench
+      - run: bandit -q -c pyproject.toml -r bench
+
+  e2e:
+    name: E2E (Chromium + extension)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+      - run: npm ci --ignore-scripts
+      - run: npx playwright install --with-deps chromium
+      # Extensions do not load in the headless shell, so run headed under a virtual display.
+      - run: xvfb-run -a npm run e2e
+        env:
+          HEADED: '1'
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: failure()
+        with:
+          name: e2e-artifacts
+          path: tests/artifacts
+          if-no-files-found: ignore
+          retention-days: 7
+
+  docker:
+    name: Docker (build and smoke-test both images)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build images
+        run: |
+          docker build -t authbackup-site .
+          docker build -f bench/Dockerfile -t authbackup-bench .
+      - name: Smoke-test the test bench
+        run: |
+          docker run -d --name bench -p 8793:8080 authbackup-bench
+          for i in $(seq 1 20); do curl -fsS http://localhost:8793/healthz && break; sleep 1; done
+          test "$(curl -fsS http://localhost:8793/healthz)" = ok
+          curl -fsS -o /dev/null http://localhost:8793/
+          curl -fsS -o /dev/null http://localhost:8793/vendor/qrcode.mjs
+          test "$(curl -s -o /dev/null -w '%{http_code}' --path-as-is http://localhost:8793/vendor/../server.py)" = 404
+          curl -fsS -X POST -d '{}' http://localhost:8793/api/enroll | grep -q '"secret"'
+      - name: Smoke-test the website
+        run: |
+          docker run -d --name site -p 8080:8080 authbackup-site
+          for i in $(seq 1 20); do curl -fsS -o /dev/null http://localhost:8080/ && break; sleep 1; done
+          for path in / /privacy /de/ /style.css; do
+            test "$(curl -s -o /dev/null -w '%{http_code}' "http://localhost:8080$path")" = 200 || { echo "bad status for $path"; exit 1; }
+          done
+          headers="$(curl -sI http://localhost:8080/privacy)"
+          echo "$headers"
+          echo "$headers" | grep -qi "^content-security-policy: default-src 'self'"
+          echo "$headers" | grep -qi '^x-content-type-options: nosniff'
+          echo "$headers" | grep -qi '^referrer-policy:'
+          echo "$headers" | grep -qi "frame-ancestors 'none'"
+      - name: Container logs on failure
+        if: failure()
+        run: docker logs bench; docker logs site

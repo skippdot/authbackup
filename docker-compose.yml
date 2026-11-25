@@ -1,0 +1,14 @@
+# Local use: `docker compose up` -> website on http://localhost:8080, test bench on http://localhost:8793.
+services:
+  site:
+    build: .
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+  bench:
+    build:
+      context: .
+      dockerfile: bench/Dockerfile
+    ports:
+      - "8793:8080"
+    restart: unless-stopped

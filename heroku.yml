@@ -1,0 +1,5 @@
+# Heroku container stack: the test bench only (the website is static, host it elsewhere).
+# The build context is the repository root, so bench/Dockerfile can copy extension/vendor.
+build:
+  docker:
+    web: bench/Dockerfile

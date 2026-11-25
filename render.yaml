@@ -1,0 +1,38 @@
+# Render Blueprint: https://render.com/deploy?repo=https://github.com/skippdot/authbackup
+services:
+  # The website (static, no server needed).
+  - type: web
+    runtime: static
+    name: authbackup-site
+    buildCommand: npm ci --ignore-scripts && node scripts/site.mjs
+    staticPublishPath: _site
+    routes:
+      # Extensionless URLs (/privacy -> privacy.html); a file match always wins over a rewrite.
+      - type: rewrite
+        source: /privacy
+        destination: /privacy.html
+    headers:
+      - path: /*
+        name: Content-Security-Policy
+        value: "default-src 'self'; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'none'"
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /img/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+
+  # The test bench playground (fake 2FA service; all keys are fake and kept in memory).
+  - type: web
+    runtime: docker
+    name: authbackup-bench
+    plan: free
+    dockerfilePath: ./bench/Dockerfile
+    dockerContext: .
+    healthCheckPath: /healthz
+    envVars:
+      - key: PORT
+        value: "8080"

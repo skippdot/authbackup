@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>AuthBackup</title>
+  <link rel="stylesheet" href="common.css">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <div class="brand">AuthBackup</div>
+    <button id="scan" data-i18n="scanBtn" data-i18n-title="scanBtnTitle"></button>
+    <button id="manage" data-i18n="manageBtn" data-i18n-title="manageBtnTitle"></button>
+    <button id="lockBtn" data-i18n-title="lockBtnTitle" data-i18n-aria-label="lockBtnTitle" hidden>🔒</button>
+  </header>
+
+  <form id="lock" class="lock-form" hidden>
+    <b data-i18n="lockedHeading"></b>
+    <input type="password" id="unlockPw" data-i18n-placeholder="password" autocomplete="current-password" required>
+    <div class="err"></div>
+    <button class="primary" type="submit" data-i18n="unlockBtn"></button>
+  </form>
+
+  <div id="main">
+
+  <section id="found" hidden></section>
+
+  <section id="copies" class="copies" hidden>
+    <div class="copies-title">🛡 <span data-i18n="copiesTitle"></span></div>
+    <div class="copy-row ok"><span class="mark">✓</span> <span data-i18n="copyBrowser"></span></div>
+    <div class="copy-row" id="rowApp">
+      <div><span class="mark"></span> <span class="txt"></span></div>
+      <div class="row acts">
+        <button class="primary" id="copyApp" data-i18n="copyAppBtn"></button>
+        <button id="copyAppHave" data-i18n="copyAppHave" data-i18n-title="copyAppHaveTitle"></button>
+      </div>
+    </div>
+    <div class="copy-row" id="rowFile">
+      <div><span class="mark"></span> <span class="txt"></span></div>
+      <div class="acts">
+        <div class="row"><button class="primary" id="copyFile" data-i18n="copyFileBtn"></button></div>
+        <p class="muted small" data-i18n="copyMailHint"></p>
+      </div>
+    </div>
+  </section>
+
+  <button id="copiesDone" class="copies-done" data-i18n-title="copiesDoneTitle" hidden></button>
+
+  <div class="search-wrap" id="searchWrap" hidden>
+    <input id="search" type="search" data-i18n-placeholder="searchPlaceholder" autocomplete="off">
+  </div>
+
+  <ul id="list"></ul>
+
+  <div id="empty" hidden>
+    <p><b data-i18n="emptyTitle"></b></p>
+    <p class="muted" data-i18n="emptyHint" data-i18n-args="paste"></p>
+    <p class="small rule" data-i18n="emptyRule"></p>
+    <p class="muted small" data-i18n="emptyLocalNote"></p>
+  </div>
+
+  </div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
