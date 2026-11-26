@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- Fixed three core bugs found while porting the core to iOS, each with a unit test. Restoring a JSON backup entry
+  without a `secret` (or with `secret: null`) saved a key whose secret was the text "UNDEFINED" (or "NULL"), which is
+  valid Base32; such an entry is now refused like a link without a secret. Text that is neither an `otpauth://` nor an
+  `otpauth-migration://` link failed with "t is not a function" instead of its own error. A `period` above
+  2^31 - 1 seconds (the 32-bit limit of the mobile apps) was accepted; links, backup entries and the manual entry form
+  now refuse it. The restore check lives in `backupEntryToAccount()` in `extension/lib/otpauth.js`, and ESLint flags
+  a variable that shadows another one (`no-shadow`) in the extension code.
 - Website: even spacing between sections. A section's last paragraph or step no longer adds its margin, so every
   divider has the same space above and below (it varied from 40 to 54 px). On screens up to 820 px wide the screenshot,
   the sections and the footer share one 32 px rhythm (before, 88 px under the screenshot and about 100 px above the

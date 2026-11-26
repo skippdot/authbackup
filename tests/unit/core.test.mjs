@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { base32Encode, base32Decode, bytesToHex } from '../../extension/lib/base32.js';
 import { hotp, totp } from '../../extension/lib/totp.js';
-import { parseOtpauthUri, buildOtpauthUri, parseAnyOtpText } from '../../extension/lib/otpauth.js';
+import { parseOtpauthUri, buildOtpauthUri, parseAnyOtpText, backupEntryToAccount } from '../../extension/lib/otpauth.js';
 import { buildMigrationUri, parseMigrationUri } from '../../extension/lib/migration.js';
 import jsQR from '../../extension/vendor/jsqr.mjs';
 import qrcode from '../../extension/vendor/qrcode.mjs';
@@ -69,6 +69,33 @@ test('otpauth: issuer from the parameter and from the label, encoding, defaults'
   for (const name of [{}, { issuer: 'X' }, { account: null }]) {
     const r = parseOtpauthUri(buildOtpauthUri({ type: 'totp', secret: 'JBSWY3DPEHPK3PXP', algorithm: 'SHA1', digits: 6, period: 30, ...name }));
     assert.equal(r.account, '');
+  }
+});
+
+test('parseAnyOtpText: text that is not an otpauth link fails with errNotOtp', () => {
+  for (const text of ['hello', 'https://example.com/?secret=JBSWY3DPEHPK3PXP', 'JBSWY3DPEHPK3PXP', '', '   ', null, undefined]) {
+    assert.throws(() => parseAnyOtpText(text), { name: 'Error', message: 'errNotOtp' }, String(text));
+  }
+  assert.equal(parseAnyOtpText('  otpauth://totp/x?secret=JBSWY3DPEHPK3PXP  ').kind, 'otpauth');
+});
+
+test('otpauth: the period must fit a 32-bit integer, as in the mobile apps', () => {
+  const uri = (period) => `otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&period=${period}`;
+  assert.equal(parseOtpauthUri(uri(2147483647)).period, 2147483647);
+  for (const period of ['2147483648', '4294967296', '99999999999999999999']) {
+    assert.throws(() => parseOtpauthUri(uri(period)), { message: `errPeriod: ${period}` });
+  }
+  // A backup entry goes through the same check.
+  assert.throws(() => backupEntryToAccount({ secret: 'JBSWY3DPEHPK3PXP', period: 2 ** 31 }), { message: 'errPeriod: 2147483648' });
+});
+
+test('backupEntryToAccount: missing fields get the defaults of a link, an entry without a secret is refused', () => {
+  assert.deepEqual(backupEntryToAccount({ secret: 'jbsw y3dp ehpk 3pxp', issuer: 'X', account: 'me' }), {
+    type: 'totp', issuer: 'X', account: 'me', secret: 'JBSWY3DPEHPK3PXP', algorithm: 'SHA1', digits: 6, period: 30, counter: 0,
+  });
+  // Without the check the secret became the text "undefined" / "null", which is valid Base32 ("UNDEFINED", "NULL").
+  for (const entry of [{}, { issuer: 'X', account: 'me' }, { secret: null, issuer: 'X' }, { secret: undefined }, null, '', { secret: '' }]) {
+    assert.throws(() => backupEntryToAccount(entry), { message: 'errNoSecret' }, JSON.stringify(entry));
   }
 });
 

@@ -269,15 +269,15 @@ $('#list').addEventListener('click', (e) => {
 });
 
 $('#found').addEventListener('click', (e) => {
-  const t = e.target.closest('button');
-  if (!t) return;
-  if (t.hasAttribute('data-close')) {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  if (btn.hasAttribute('data-close')) {
     state.found = null;
     renderFound();
-  } else if (t.hasAttribute('data-save-all')) {
+  } else if (btn.hasAttribute('data-save-all')) {
     guarded(() => saveFound(state.found.accounts.map((_, i) => i)));
-  } else if (t.dataset.save !== undefined) {
-    guarded(() => saveFound([Number(t.dataset.save)]));
+  } else if (btn.dataset.save !== undefined) {
+    guarded(() => saveFound([Number(btn.dataset.save)]));
   }
 });
 

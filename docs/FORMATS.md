@@ -45,7 +45,7 @@ otpauth://TYPE/LABEL?secret=SECRET&issuer=ISSUER&algorithm=SHA1&digits=6&period=
 | `issuer` | Any text; when present it wins over the issuer prefix of the label | the label prefix |
 | `algorithm` | `SHA1`, `SHA256`, `SHA512` (`SHA-256` style is accepted too) | `SHA1` |
 | `digits` | `6`, `7`, `8` | `6` |
-| `period` | Positive integer, seconds; checked on HOTP links too, used only by TOTP | `30` |
+| `period` | Positive integer up to 2^31 - 1, seconds; checked on HOTP links too, used only by TOTP | `30` |
 | `counter` | Non-negative integer up to 2^53 - 1 (HOTP only) | `0` |
 
 Other parameters are ignored. Leading and trailing spaces in the issuer and account are trimmed.
@@ -78,8 +78,8 @@ The decoded text then goes through the `otpauth://` or `otpauth-migration://` pa
 
 ### Manual entry
 
-Manage page form: issuer, account, Base32 secret, algorithm (SHA1/SHA256/SHA512), digits (6/7/8), period. Manual
-entry adds TOTP keys only.
+Manage page form: issuer, account, Base32 secret, algorithm (SHA1/SHA256/SHA512), digits (6/7/8), period (1 to
+2^31 - 1 seconds). Manual entry adds TOTP keys only.
 
 ### Restore from a file
 
@@ -91,7 +91,7 @@ The "Restore from file" button accepts:
   export from Aegis, 2FAS or Bitwarden).
 
 A JSON backup is restored at once. Every entry is rebuilt as an `otpauth://` link and parsed again, so it is validated
-like any other link. Only `secret` is required: a missing `type`, `algorithm`, `digits` or `period` becomes `totp`,
+like any other link. Only `secret` is required (an entry without it, or with `null`, is refused): a missing `type`, `algorithm`, `digits` or `period` becomes `totp`,
 `SHA1`, `6` or `30`, and a missing `issuer` or `account` stays empty. One invalid entry rejects the whole file. Only the OTP fields are kept, and ids are assigned anew.
 Every key of the file, new or duplicate, counts as a `file` copy for the 2+1 rule.
 

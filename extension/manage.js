@@ -10,7 +10,7 @@ import { createVault, openVault, MIN_PASSWORD, DEFAULT_ITERATIONS } from './lib/
 import { planMigrationExport } from './lib/migration.js';
 import { findQrTextsInBlob } from './lib/qr.js';
 import { interpretQrTexts } from './lib/scan.js';
-import { parseOtpauthUri, buildOtpauthUri } from './lib/otpauth.js';
+import { buildOtpauthUri, backupEntryToAccount } from './lib/otpauth.js';
 import { base32Decode, bytesToHex, isValidBase32, normalizeBase32 } from './lib/base32.js';
 import {
   $, esc, formatCode, title, subtitle, badges, currentCode, secondsLeft, qrSvg, toast, copy, qrPngBlob, downloadBlob, askPassword,
@@ -128,8 +128,8 @@ document.addEventListener('paste', (e) => {
     e.preventDefault();
     importFiles(files);
   } else {
-    const t = e.clipboardData.getData('text');
-    if (/otpauth/i.test(t)) importTexts(t);
+    const text = e.clipboardData.getData('text');
+    if (/otpauth/i.test(text)) importTexts(text);
   }
 });
 $('#parseUris').addEventListener('click', () => importTexts($('#uris').value));
@@ -446,7 +446,7 @@ $('#importJson').addEventListener('change', async (e) => {
       list = Array.isArray(data) ? data : data.accounts;
     }
     // Run every entry through build→parse: this also validates and normalizes the fields.
-    const clean = list.map((a) => parseOtpauthUri(buildOtpauthUri({ type: 'totp', algorithm: 'SHA1', digits: 6, period: 30, ...a })));
+    const clean = list.map(backupEntryToAccount);
     const { added, duplicates } = await addAccounts(clean, 'backup');
     await markCopies([...added, ...duplicates].map((a) => a.id), 'file'); // all of them are in this backup file
     toast(t('restored', added.length, duplicates.length));

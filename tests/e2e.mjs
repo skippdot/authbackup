@@ -342,6 +342,10 @@ try {
   await manage.bringToFront();
   await manage.fill('#manual [name=issuer]', 'Manual Co');
   await manage.fill('#manual [name=secret]', 'GEZDGNBVGY3TQOJQ');
+  await manage.fill('#manual [name=period]', '2147483648');
+  check('Manual key: the form refuses a period beyond the 32-bit limit of the mobile apps',
+    await manage.$eval('#manual [name=period]', (i) => i.validity.rangeOverflow && !i.form.checkValidity()));
+  await manage.fill('#manual [name=period]', '30');
   await manage.click('#manual [type=submit]');
   await popup.bringToFront();
   await popup.waitForSelector('#copies:not([hidden])');
