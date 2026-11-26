@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Website: even spacing between sections. A section's last paragraph or step no longer adds its margin, so every
+  divider has the same space above and below (it varied from 40 to 54 px). On screens up to 820 px wide the screenshot,
+  the sections and the footer share one 32 px rhythm (before, 88 px under the screenshot and about 100 px above the
+  footer, against 40 px on the other side of the divider), and the privacy page's
+  footer has the same space above it as below.
 - Website: authbackup.com counts visits with Google Analytics 4. `scripts/site.mjs` adds the tag (`ga.js` and gtag.js)
   only when `GA_ID` is set, and only the GitHub Pages build sets it, so the Docker image and self-hosted copies still
   load nothing from third parties. The footer in all 8 languages, the privacy policy (new section on the website),
