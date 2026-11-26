@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- `CONTRIBUTING.md`: how to prepare a machine for `npm run e2e` (Python 3, `npx playwright install chromium` again
+  after every Playwright update for the matching ffmpeg, a free port 8794, headed runs under `xvfb-run` on Linux).
+- Fixed: the test bench printed its ready line before it took the port, so with port 8794 busy `npm run e2e` ran
+  against the other server and failed on a timeout. The bench now prints the line only after the bind, with the real
+  port, and otherwise exits with `Cannot listen on <host>:<port>`, which e2e shows at once. e2e also sets `HOST` and
+  `PORT` for the bench, so exported values of those variables no longer move it off port 8794. Regression tests in
+  `tests/unit/bench.test.mjs`.
 - Fixed three core bugs found while porting the core to iOS, each with a unit test. Restoring a JSON backup entry
   without a `secret` (or with `secret: null`) saved a key whose secret was the text "UNDEFINED" (or "NULL"), which is
   valid Base32; such an entry is now refused like a link without a secret. Text that is neither an `otpauth://` nor an

@@ -37,10 +37,16 @@ const check = (name, ok, extra = '') => {
 };
 
 // --- bench ---
-const server = spawn('python3', [join(ROOT, 'bench/server.py'), String(PORT)], { stdio: ['ignore', 'pipe', 'pipe'] });
+// HOST and PORT in the environment win over the argument, so set them: the bench must listen where BENCH points.
+const server = spawn('python3', [join(ROOT, 'bench/server.py')], {
+  stdio: ['ignore', 'pipe', 'pipe'],
+  env: { ...process.env, HOST: '127.0.0.1', PORT: String(PORT) },
+});
+let benchErr = '';
+server.stderr.on('data', (d) => (benchErr += d));
 await new Promise((res, rej) => {
   server.stdout.on('data', (d) => String(d).includes('TOTP bench') && res());
-  server.on('exit', (c) => rej(new Error(`bench exited ${c}`)));
+  server.on('close', (c) => rej(new Error(`bench exited ${c}: ${benchErr.trim()}`)));
   setTimeout(() => rej(new Error('bench did not start within 10 s')), 10000);
 });
 const api = async (path, body) => (await fetch(BENCH + path, body ? { method: 'POST', body: JSON.stringify(body) } : {})).json();
