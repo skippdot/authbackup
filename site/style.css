@@ -1,4 +1,4 @@
-/* authbackup.com: static site with no third-party requests (system fonts, no CDN, no counters). */
+/* authbackup.com: static site, system fonts, no CDN; the only third-party script is Google Analytics, added by scripts/site.mjs when GA_ID is set. */
 :root {
   --paper: #f5f7fc;
   --ink: #1a2140;

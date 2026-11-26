@@ -26,7 +26,7 @@
   "offline_h2": "Hors ligne par conception",
   "offline_p1": "AuthBackup n’a ni serveur, ni compte, ni statistiques. Ses pages s’exécutent sous une Content Security Policy qui bloque toute requête réseau, donc vos clés ne peuvent pas quitter le navigateur, même par erreur.",
   "offline_p2": "Un mot de passe facultatif chiffre la liste des clés avec AES-256-GCM. Le code est open source, et la [politique de confidentialité (en anglais)] liste chaque donnée qu’il touche.",
-  "footer_note": "AuthBackup est un projet indépendant, sans lien avec Google. Google Authenticator est une marque de Google LLC. Ce site ne charge rien depuis des services tiers.",
+  "footer_note": "AuthBackup est un projet indépendant, sans lien avec Google. Google Authenticator est une marque de Google LLC. authbackup.com mesure les visites avec Google Analytics ; l’extension ne contient aucune mesure d’audience.",
   "footer_support": "Assistance",
   "footer_contribute": "Contribuer (en anglais)",
   "languages_label": "Langues",

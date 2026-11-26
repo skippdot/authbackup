@@ -29,7 +29,7 @@ Do not take "offline" on trust; each point can be checked in a few minutes.
 
 - The Content Security Policy of every extension page is `default-src 'none'; ... connect-src 'none'`, so the browser itself blocks all network requests. Read it in `extension/manifest.json` (`content_security_policy`) or on `chrome://extensions` after installing.
 - The extension requests no host permissions. Its permissions are only `storage`, `activeTab`, `scripting`, `clipboardWrite` and `alarms`; a screenshot of the current tab is taken only when you open the popup or click "Scan page", and it stays in memory.
-- It loads no remote code and has no analytics or telemetry. This website also loads nothing from third parties (no CDNs, fonts, analytics).
+- It loads no remote code and has no analytics or telemetry. The authbackup.com website counts visits with Google Analytics and loads nothing else from third parties (no CDNs or web fonts); the extension never contacts it.
 - The whole source is public and MIT-licensed, so everything above can be audited.
 
 - [manifest.json](https://github.com/skippdot/authbackup/blob/HEAD/extension/manifest.json): permissions and CSP.
