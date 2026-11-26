@@ -73,7 +73,7 @@ No build step is needed to use or develop the extension. `npm install` is needed
 
 | Script | What it does |
 | --- | --- |
-| `npm test` | Unit tests: base32 (RFC 4648), HOTP (RFC 4226), TOTP (RFC 6238), otpauth, Google Authenticator protobuf, QR, vault, export splitting, copy tracking, and release checks (en/ru dictionaries, test hooks, network use, inline styles); property-based fuzzing of every parser and the vault (`tests/unit/properties.test.js`) |
+| `npm test` | Unit tests: base32 (RFC 4648), HOTP (RFC 4226), TOTP (RFC 6238), otpauth, Google Authenticator protobuf, QR, vault, export splitting, copy tracking, the site build (no third-party scripts without `GA_ID`), and release checks (en/ru dictionaries, test hooks, network use, inline styles); property-based fuzzing of every parser and the vault (`tests/unit/properties.test.js`) |
 | `npm run fuzz` | The same properties with 100,000 random inputs each instead of 100 |
 | `npm run crosscheck` | 2000 random keys: extension JS vs the independent Python reference, plus a Google Authenticator export round trip Python to JS |
 | `npm run e2e` | Chromium with the extension plus the bench; video and screenshots go to `tests/artifacts/<time>/` (English UI) |
@@ -81,7 +81,7 @@ No build step is needed to use or develop the extension. `npm install` is needed
 | `npm run bench` | Starts the bench at http://localhost:8793 |
 | `npm run build` | Release checks, then a reproducible `dist/authbackup-<version>.zip` (for the Chrome Web Store) and `dist/SHA256SUMS` |
 | `npm run assets` | 1280x800 screenshots (en, ru) and a 440x280 promo tile into `docs/store-assets/` |
-| `npm run site` | Builds the authbackup.com site (`site/` plus the privacy policies) into `_site/`; deployed by `.github/workflows/pages.yml` |
+| `npm run site` | Builds the authbackup.com site (`site/` plus the privacy policies) into `_site/`; deployed by `.github/workflows/pages.yml`, which sets `GA_ID` so only authbackup.com gets Google Analytics (see `DEPLOY.md`) |
 | `npm run vendor` | Copies jsQR and qrcode-generator into `extension/vendor/` as ES modules |
 
 The e2e run needs Chrome for Testing (taken from the Playwright cache or `CHROMIUM_PATH`), because branded Chrome no

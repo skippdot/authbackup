@@ -24,6 +24,22 @@ export const LANGS = [
   { code: 'id', og: 'id_ID', path: '/id/', name: 'Bahasa Indonesia' },
 ];
 
+/** Google Analytics 4 measurement ID format (G-XXXXXXXXXX). */
+const GA_ID_RE = /^G-[A-Z0-9]{4,20}$/;
+
+/**
+ * <head> lines that load Google Analytics 4, or '' without a measurement ID. Only the authbackup.com build sets GA_ID
+ * (.github/workflows/pages.yml), so self-hosted copies and the Docker image load nothing from third parties.
+ */
+function analyticsTags(gaId) {
+  if (!gaId) return '';
+  if (!GA_ID_RE.test(gaId)) throw new Error(`GA_ID must be a Google Analytics 4 measurement ID (G-XXXXXXXXXX), got: ${gaId}`);
+  return [
+    `  <script async src="https://www.googletagmanager.com/gtag/js?id=${gaId}"></script>`,
+    '  <script src="/ga.js"></script>',
+  ].join('\n');
+}
+
 /** JSON for an inline <script>: "<" is escaped so the text can never close the tag. */
 const jsonForScript = (obj) => JSON.stringify(obj).replace(/</g, '\\u003c');
 
@@ -62,18 +78,23 @@ function llmsFull(version) {
   ].join('\n');
 }
 
-export function buildSite() {
-  rmSync(OUT, { recursive: true, force: true });
+/**
+ * @param {{ gaId?: string, out?: string }} [options] gaId: Google Analytics 4 measurement ID (default: env GA_ID,
+ *   empty means no analytics); out: output directory (default: _site/).
+ */
+export function buildSite({ gaId = process.env.GA_ID ?? '', out = OUT } = {}) {
+  const analytics = analyticsTags(gaId);
+  rmSync(out, { recursive: true, force: true });
   // Templates, translations and markdown are build inputs, not part of the published site.
   const i18nDir = `${sep}site${sep}i18n`;
-  cpSync(join(ROOT, 'site'), OUT, {
+  cpSync(join(ROOT, 'site'), out, {
     recursive: true,
     filter: (src) => !/\.template\.(html|js|md)$|\.md$/.test(src) && !src.includes(i18nDir),
   });
-  mkdirSync(join(OUT, 'img'), { recursive: true });
-  for (const size of [48, 128]) cpSync(join(ROOT, `extension/icons/${size}.png`), join(OUT, `img/icon-${size}.png`));
-  cpSync(join(ROOT, 'docs/store-assets/en-1-scan.png'), join(OUT, 'img/en-1-scan.png'));
-  cpSync(join(ROOT, 'docs/store-assets/og-1200x630.png'), join(OUT, 'img/og-1200x630.png'));
+  mkdirSync(join(out, 'img'), { recursive: true });
+  for (const size of [48, 128]) cpSync(join(ROOT, `extension/icons/${size}.png`), join(out, `img/icon-${size}.png`));
+  cpSync(join(ROOT, 'docs/store-assets/en-1-scan.png'), join(out, 'img/en-1-scan.png'));
+  cpSync(join(ROOT, 'docs/store-assets/og-1200x630.png'), join(out, 'img/og-1200x630.png'));
   const { version } = JSON.parse(readFileSync(join(ROOT, 'extension/manifest.json'), 'utf8'));
 
   const home = readFileSync(join(ROOT, 'site/home.template.html'), 'utf8');
@@ -123,16 +144,17 @@ export function buildSite() {
       : `<a href="${l.path}" lang="${l.code}" hreflang="${l.code}">${esc(l.name)}</a>`)).join('');
     const page = fill(home, {
       ...vars, lang: lang.code, path: lang.path, alternates, langs, og_locale: lang.og, og_alternates: ogAlternates,
-      jsonld: jsonForScript(jsonld),
+      jsonld: jsonForScript(jsonld), analytics,
     });
-    mkdirSync(join(OUT, lang.path), { recursive: true });
-    writeFileSync(join(OUT, lang.path, 'index.html'), page);
+    mkdirSync(join(out, lang.path), { recursive: true });
+    writeFileSync(join(out, lang.path, 'index.html'), page);
   }
 
   const body = marked.parse(readFileSync(join(ROOT, 'PRIVACY.md'), 'utf8'));
   const policy = readFileSync(join(ROOT, 'site/privacy.template.html'), 'utf8')
-    .replace('{{content}}', `<article lang="en">${body}</article>`);
-  writeFileSync(join(OUT, 'privacy.html'), policy);
+    .replace('{{analytics}}', () => analytics)
+    .replace('{{content}}', () => `<article lang="en">${body}</article>`);
+  writeFileSync(join(out, 'privacy.html'), policy);
 
   // lang.js: language table + banner strings embedded, loaded as an external script (no inline JS on the site).
   const table = LANGS.map((l) => ({
@@ -140,31 +162,37 @@ export function buildSite() {
     label: all[l.code].lang_banner_label, text: all[l.code].lang_banner_text,
     switchLabel: all[l.code].lang_banner_switch, close: all[l.code].lang_banner_close,
   }));
-  writeFileSync(join(OUT, 'lang.js'),
+  writeFileSync(join(out, 'lang.js'),
     readFileSync(join(ROOT, 'site/lang.template.js'), 'utf8').replace('/*LANG_DATA*/[]', JSON.stringify(table, null, 2)));
+
+  // ga.js: the gtag() bootstrap, also external because the site has no inline JS; written only with a measurement ID.
+  if (gaId) {
+    writeFileSync(join(out, 'ga.js'),
+      readFileSync(join(ROOT, 'site/ga.template.js'), 'utf8').replace("/*GA_ID*/''", JSON.stringify(gaId)));
+  }
 
   // crawlers and agents
   const aiBots = ['GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'Claude-User', 'Claude-SearchBot', 'anthropic-ai',
     'PerplexityBot', 'Perplexity-User', 'Google-Extended', 'Applebot-Extended', 'CCBot', 'Bytespider', 'Meta-ExternalAgent'];
-  writeFileSync(join(OUT, 'robots.txt'), [
+  writeFileSync(join(out, 'robots.txt'), [
     'User-agent: *', 'Allow: /', '',
     ...aiBots.flatMap((b) => [`User-agent: ${b}`, 'Allow: /', '']),
     `Sitemap: ${SITE}/sitemap.xml`, '',
   ].join('\n'));
   const links = LANGS.map((l) => `    <xhtml:link rel="alternate" hreflang="${l.code}" href="${SITE}${l.path}"/>`)
     .concat(`    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE}/"/>`).join('\n');
-  writeFileSync(join(OUT, 'sitemap.xml'), [
+  writeFileSync(join(out, 'sitemap.xml'), [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">',
     ...LANGS.map((l) => `  <url>\n    <loc>${SITE}${l.path}</loc>\n${links}\n  </url>`),
     `  <url>\n    <loc>${SITE}/privacy</loc>\n  </url>`,
     '</urlset>', '',
   ].join('\n'));
-  writeFileSync(join(OUT, 'llms.txt'),
+  writeFileSync(join(out, 'llms.txt'),
     readFileSync(join(ROOT, 'site/llms.template.md'), 'utf8').replace(/\{\{version\}\}/g, version));
-  writeFileSync(join(OUT, 'llms-full.txt'), llmsFull(version));
-  writeFileSync(join(OUT, '.nojekyll'), '');
-  return OUT;
+  writeFileSync(join(out, 'llms-full.txt'), llmsFull(version));
+  writeFileSync(join(out, '.nojekyll'), '');
+  return out;
 }
 
 if (fileURLToPath(import.meta.url) === process.argv[1]) console.log(`_site/ ready: ${buildSite()}`);

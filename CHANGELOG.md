@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Website: authbackup.com counts visits with Google Analytics 4. `scripts/site.mjs` adds the tag (`ga.js` and gtag.js)
+  only when `GA_ID` is set, and only the GitHub Pages build sets it, so the Docker image and self-hosted copies still
+  load nothing from third parties. The footer in all 8 languages, the privacy policy (new section on the website),
+  `llms.txt` and `DEPLOY.md` say so; the extension is unchanged and has no analytics.
 - OpenSSF Best Practices: passing badge ([project 17121](https://www.bestpractices.dev/projects/17121)), shown in the README.
 - `CONTRIBUTING.md`: how to report bugs, the pull request process, requirements for contributions, and the test
   policy (new functionality comes with tests). The website footer (home and privacy pages) and `llms.txt` link to it.

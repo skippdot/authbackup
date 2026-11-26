@@ -26,7 +26,7 @@
   "offline_h2": "Offline sejak awal",
   "offline_p1": "AuthBackup tidak punya server, akun, atau analitik. Halamannya berjalan dengan Content Security Policy yang memblokir semua permintaan jaringan, jadi kunci Anda tidak bisa keluar dari browser, bahkan secara tidak sengaja.",
   "offline_p2": "Kata sandi opsional mengenkripsi daftar kunci dengan AES-256-GCM. Kodenya open source, dan [kebijakan privasi (dalam bahasa Inggris)] mencantumkan setiap data yang disentuhnya.",
-  "footer_note": "AuthBackup adalah proyek independen, tidak berafiliasi dengan Google. Google Authenticator adalah merek dagang Google LLC. Situs ini tidak memuat apa pun dari pihak ketiga.",
+  "footer_note": "AuthBackup adalah proyek independen, tidak berafiliasi dengan Google. Google Authenticator adalah merek dagang Google LLC. authbackup.com menghitung kunjungan dengan Google Analytics; ekstensinya sendiri tidak memiliki analitik.",
   "footer_support": "Dukungan",
   "footer_contribute": "Berkontribusi (Inggris)",
   "languages_label": "Bahasa",

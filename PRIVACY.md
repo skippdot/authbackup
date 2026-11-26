@@ -1,6 +1,6 @@
 # AuthBackup — Privacy Policy
 
-_Last updated: 25 November 2026 · applies to version 0.3.0 and later_
+_Last updated: 26 November 2026 · applies to version 0.3.0 and later_
 
 AuthBackup is a browser extension that stores two-factor authentication (2FA) keys and shows one-time codes.
 It works entirely on your device. **It has no servers, sends nothing over the network and contains no analytics,
@@ -35,6 +35,16 @@ The clipboard is used only when you click a code (the code is copied) or paste a
 - **Delete.** You can delete any key in the extension. Removing the extension deletes all of its data from your browser.
 - **Password.** With a password, keys are encrypted with AES-256-GCM using a key derived via PBKDF2-SHA256
   (600,000 iterations). A forgotten password cannot be recovered by anyone, including the developer.
+
+## The authbackup.com website
+
+This policy is about the extension. The website authbackup.com is separate from it: the extension never contacts the
+site, and the site cannot see your keys. The site counts visits with Google Analytics 4 (pages viewed, the referring
+page, approximate location, browser and device type). Google Analytics sets cookies on authbackup.com (`_ga`,
+`_ga_<ID>`), and Google processes this data under its [privacy policy](https://policies.google.com/privacy). The site
+has no forms or accounts and collects nothing else. A content blocker or the
+[Google Analytics opt-out add-on](https://tools.google.com/dlpage/gaoptout) stops the measurement. Copies of the site
+that other people host from the source code have no analytics unless their operator turns it on.
 
 ## Children
 

@@ -26,7 +26,7 @@
   "offline_h2": "設計からオフライン",
   "offline_p1": "AuthBackup にはサーバーもアカウントも解析もありません。各ページは Content Security Policy の下で動作し、すべてのネットワークリクエストを遮断するため、キーが誤ってブラウザの外に出ることもありません。",
   "offline_p2": "任意のパスワードで、キー一覧を AES-256-GCM で暗号化できます。コードはオープンソースで、扱うデータはすべて[プライバシーポリシー（英語）]に記載しています。",
-  "footer_note": "AuthBackup は独立したプロジェクトで、Google とは関係ありません。Google Authenticator は Google LLC の商標です。このサイトは第三者のリソースを一切読み込みません。",
+  "footer_note": "AuthBackup は独立したプロジェクトで、Google とは関係ありません。Google Authenticator は Google LLC の商標です。authbackup.com は Google Analytics で訪問数を計測しています。拡張機能自体には解析機能はありません。",
   "footer_support": "サポート",
   "footer_contribute": "開発に参加（英語）",
   "languages_label": "言語",

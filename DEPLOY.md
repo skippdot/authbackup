@@ -50,6 +50,8 @@ docker run --rm -p 8793:8080 authbackup-bench
 
 Both containers run as a non-root user and have a `HEALTHCHECK`. The website image sets a strict CSP (`default-src 'self'; img-src 'self' data:; frame-ancestors 'none'`), `X-Content-Type-Options`, `Referrer-Policy`, gzip, and long caching for `/img` and `/style.css` (`deploy/nginx.conf`).
 
+**Analytics.** A site build has none unless `GA_ID` (a Google Analytics 4 measurement ID, `G-...`) is set when `scripts/site.mjs` runs; only the authbackup.com build sets it (`.github/workflows/pages.yml`). If you set it on your own copy, add the Google Analytics hosts to the CSP: `script-src 'self' https://*.googletagmanager.com`, `img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com` and `connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com`.
+
 ## Render (website + bench)
 
 <a href="https://render.com/deploy?repo=https://github.com/skippdot/authbackup"><img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render" height="32"></a>

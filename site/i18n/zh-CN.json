@@ -26,7 +26,7 @@
   "offline_h2": "设计上就是离线",
   "offline_p1": "AuthBackup 没有服务器、没有账号，也没有统计分析。它的页面在 Content Security Policy 下运行，会拦截所有网络请求，因此你的密钥即使出错也不会离开浏览器。",
   "offline_p2": "可选的密码会用 AES-256-GCM 加密密钥列表。代码开源，[隐私政策（英文）]列出了它接触的每一项数据。",
-  "footer_note": "AuthBackup 是独立项目，与 Google 没有关联。Google Authenticator 是 Google LLC 的商标。本站不加载任何第三方内容。",
+  "footer_note": "AuthBackup 是独立项目，与 Google 没有关联。Google Authenticator 是 Google LLC 的商标。authbackup.com 使用 Google Analytics 统计访问量；扩展程序本身不含任何统计分析。",
   "footer_support": "支持",
   "footer_contribute": "参与贡献（英文）",
   "languages_label": "语言",
