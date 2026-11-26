@@ -155,5 +155,11 @@ if __name__ == "__main__":
     bad = [r for r in otp_ref.rfc_selftest() if not r["ok"]]
     if bad:
         sys.exit(f"Reference failed RFC 6238: {bad}")
-    print(f"TOTP bench: http://{HOST}:{PORT}  (RFC 6238 self-test OK)", flush=True)
-    ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
+    try:
+        httpd = ThreadingHTTPServer((HOST, PORT), Handler)
+    except OSError as e:
+        sys.exit(f"Cannot listen on {HOST}:{PORT}: {e}")
+    # The banner means "ready": tests/e2e.mjs starts on it, so print it only after the bind and with the real port.
+    host, port = httpd.server_address[:2]
+    print(f"TOTP bench: http://{host}:{port}  (RFC 6238 self-test OK)", flush=True)
+    httpd.serve_forever()

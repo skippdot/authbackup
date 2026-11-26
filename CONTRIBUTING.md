@@ -35,9 +35,33 @@ Report vulnerabilities privately, never in a public issue. See [SECURITY.md](SEC
    npm run e2e         # needed when the change touches the UI; also run e2e:ru if you changed UI text
    ```
 
+   The e2e run needs a browser and a free port; see [Run the e2e tests locally](#run-the-e2e-tests-locally).
+
 4. Open a pull request against `main`. Say what the change does and why; add a screenshot for UI changes.
 5. CI must pass. `main` is protected: every change goes through a pull request, and the lint, unit, Python, e2e,
    Docker and CodeQL checks are required. A maintainer reviews the pull request and squash-merges it.
+
+## Run the e2e tests locally
+
+`npm run e2e` loads the real extension into Chromium and runs it against the test bench, so it needs more than
+`npm ci`:
+
+- **Python 3** for the bench (`bench/server.py`, standard library only).
+- **Chrome for Testing and ffmpeg** from Playwright. Install them once, and again after every Playwright update,
+  because each Playwright version records video with its own ffmpeg build:
+
+  ```bash
+  npx playwright install chromium
+  ```
+
+  On Linux add `--with-deps` to get the system libraries, as CI does. Branded Google Chrome does not work: it no
+  longer loads extensions with `--load-extension`. To use another Chromium build, set `CHROMIUM_PATH`.
+- **Port 8794 free.** The test starts its own bench on it; stop any other local server on that port first, or the
+  run stops with `Cannot listen on 127.0.0.1:8794`.
+
+The run is headless; `HEADED=1 npm run e2e` shows the browser. On Linux the extension loads only in a headed
+browser, so run it under a virtual display, as CI does: `HEADED=1 xvfb-run -a npm run e2e`. Video and screenshots
+of every run go to `tests/artifacts/<time>/`.
 
 ## Requirements for acceptable contributions
 
