@@ -11,7 +11,10 @@ export const EXT = fileURLToPath(new URL('../extension', import.meta.url));
 export const PERMISSIONS = ['storage', 'activeTab', 'scripting', 'clipboardWrite', 'alarms'];
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 /** The public repo is English-only; Cyrillic is allowed only in translation data files. */
-export const CYRILLIC_ALLOWED = ['extension/_locales/ru/messages.json', 'scripts/locales/ru.json'];
+export const CYRILLIC_ALLOWED = [
+  'extension/_locales/ru/messages.json', 'scripts/locales/ru.json',
+  'ios/App/Resources/Localizable.xcstrings', 'ios/App/Resources/InfoPlist.xcstrings',
+];
 
 function walk(dir) {
   return readdirSync(dir, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(join(dir, e.name)) : [join(dir, e.name)]));

@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- iOS app (iPhone and iPad), work in progress, in `ios/` (see `ios/README.md`): codes with copy on tap, adding keys from
+  the camera, images, the clipboard or by hand, Google Authenticator exports over several QR codes, the extension's
+  backup files in both directions, Face ID lock, English and Russian. Keys stay in the device's Keychain only; the app
+  makes no network requests. Not in the App Store yet.
+- Conformance vectors: `npm run vectors` writes `tests/vectors/core.json` from the extension's core, and the iOS core
+  (`ios/Core`, `swift test`, new CI job) must reproduce every case. `npm test` fails when the file is out of date.
 - `CONTRIBUTING.md`: how to prepare a machine for `npm run e2e` (Python 3, `npx playwright install chromium` again
   after every Playwright update for the matching ffmpeg, a free port 8794, headed runs under `xvfb-run` on Linux).
 - Fixed: the test bench printed its ready line before it took the port, so with port 8794 busy `npm run e2e` ran

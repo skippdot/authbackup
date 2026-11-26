@@ -10,3 +10,9 @@ google-auth-export-*.png
 dist/
 docs/private/
 _site/
+ios/AuthBackup.xcodeproj/
+ios/App/Info.plist
+ios/build/
+ios/Core/.build/
+ios/Core/.swiftpm/
+ios/local.env

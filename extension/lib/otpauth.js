@@ -70,7 +70,7 @@ export function buildOtpauthUri(a) {
 /**
  * A key from a backup file (a JSON account object) as a validated account: missing fields get the defaults of a link,
  * then the entry is rebuilt as an otpauth:// link and parsed again, so it is checked like any other link.
- * Throws like parseOtpauthUri.
+ * Throws like parseOtpauthUri. The mobile apps restore backup files the same way (tests/vectors/core.json).
  */
 export function backupEntryToAccount(a) {
   const entry = { type: 'totp', algorithm: 'SHA1', digits: 6, period: 30, ...a };

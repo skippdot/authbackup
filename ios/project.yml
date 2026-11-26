@@ -1,0 +1,103 @@
+# AuthBackup for iPhone and iPad. `xcodegen generate` (or ./build.sh) writes AuthBackup.xcodeproj and App/Info.plist
+# from this file; both are generated and not committed.
+name: AuthBackup
+options:
+  bundleIdPrefix: com.authbackup
+  deploymentTarget:
+    iOS: "18.0"
+  developmentLanguage: en
+  createIntermediateGroups: true
+  # Marks the project as already reviewed by Xcode 27 (suppresses the "recommended settings" prompt).
+  xcodeVersion: "27.0"
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    # No DEVELOPMENT_TEAM here: simulator builds need none, and ./build.sh device takes it from the environment or
+    # from ios/local.env (not committed).
+    CODE_SIGN_STYLE: Automatic
+    # iPhone and iPad.
+    TARGETED_DEVICE_FAMILY: "1,2"
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    LOCALIZATION_PREFERS_STRING_CATALOGS: YES
+    SWIFT_EMIT_LOC_STRINGS: YES
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+    CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED: YES
+packages:
+  AuthBackupCore:
+    path: Core
+targets:
+  AuthBackup:
+    type: application
+    platform: iOS
+    sources:
+      - path: App/Sources
+      - path: App/Resources
+    dependencies:
+      - package: AuthBackupCore
+    info:
+      path: App/Info.plist
+      properties:
+        CFBundleDisplayName: AuthBackup
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        CFBundleDevelopmentRegion: en
+        CFBundleLocalizations: [en, ru]
+        UILaunchScreen:
+          UIColorName: LaunchBackground
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        UISupportedInterfaceOrientations~ipad: [UIInterfaceOrientationPortrait, UIInterfaceOrientationPortraitUpsideDown, UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
+        # Localized in App/Resources/InfoPlist.xcstrings.
+        NSCameraUsageDescription: AuthBackup uses the camera to read QR codes with two-factor keys. Nothing leaves this device.
+        NSFaceIDUsageDescription: AuthBackup uses Face ID to unlock your codes.
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.authbackup.app
+        PRODUCT_NAME: AuthBackup
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        ENABLE_PREVIEWS: YES
+  AuthBackupTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: AppTests
+    dependencies:
+      - target: AuthBackup
+      - package: AuthBackupCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.authbackup.app.tests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/AuthBackup.app/AuthBackup"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+  AuthBackupUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: UITests
+    dependencies:
+      - target: AuthBackup
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.authbackup.app.uitests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_TARGET_NAME: AuthBackup
+schemes:
+  AuthBackup:
+    build:
+      targets:
+        AuthBackup: all
+        AuthBackupTests: [test]
+    test:
+      targets: [AuthBackupTests]
+  # UI walkthrough with screenshots: slower, run by ./build.sh ui.
+  AuthBackupUI:
+    build:
+      targets:
+        AuthBackup: all
+        AuthBackupUITests: [test]
+    test:
+      targets: [AuthBackupUITests]

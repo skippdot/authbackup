@@ -1,0 +1,40 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "NSCameraUsageDescription": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AuthBackup uses the camera to read QR codes with two-factor keys. Nothing leaves this device."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AuthBackup использует камеру, чтобы читать QR-коды с ключами двухфакторной аутентификации. Ничего не покидает устройство."
+          }
+        }
+      }
+    },
+    "NSFaceIDUsageDescription": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AuthBackup uses Face ID to unlock your codes."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AuthBackup использует Face ID, чтобы разблокировать ваши коды."
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

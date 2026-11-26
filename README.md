@@ -75,6 +75,7 @@ No build step is needed to use or develop the extension. `npm install` is needed
 | --- | --- |
 | `npm test` | Unit tests: base32 (RFC 4648), HOTP (RFC 4226), TOTP (RFC 6238), otpauth, Google Authenticator protobuf, QR, vault, export splitting, copy tracking, the site build (no third-party scripts without `GA_ID`), and release checks (en/ru dictionaries, test hooks, network use, inline styles); property-based fuzzing of every parser and the vault (`tests/unit/properties.test.js`) |
 | `npm run fuzz` | The same properties with 100,000 random inputs each instead of 100 |
+| `npm run vectors` | Rewrites `tests/vectors/core.json` from the extension core: the conformance cases the iOS core (`ios/Core`) must pass |
 | `npm run crosscheck` | 2000 random keys: extension JS vs the independent Python reference, plus a Google Authenticator export round trip Python to JS |
 | `npm run e2e` | Chromium with the extension plus the bench; video and screenshots go to `tests/artifacts/<time>/` (English UI) |
 | `npm run e2e:ru` | The same with the Russian UI |
@@ -176,11 +177,12 @@ extension/
   _locales/en|ru     UI strings (en is the default)
   vendor/            jsQR (Apache-2.0), qrcode-generator (MIT) as ES modules + THIRD_PARTY_LICENSES.txt
 bench/               server.py + otp_ref.py + bench page
-tests/               unit, crosscheck, e2e
+tests/               unit, crosscheck, e2e, vectors/core.json (conformance cases for the mobile apps)
 scripts/             vendor, build (zip), release-check, store-assets, test-extension (copy for e2e), site
 docs/FORMATS.md      reference: accepted links and QR codes, backup file formats, storage
 docs/store-assets/   Chrome Web Store screenshots and promo tile
 site/                authbackup.com: landing page and privacy page template
+ios/                 iPhone and iPad app (SwiftUI) and its core, checked against tests/vectors (ios/README.md)
 ```
 
 ## Quality & security
@@ -194,6 +196,8 @@ Every push and pull request to `main` runs in GitHub Actions (all actions are pi
 - **Crosscheck:** `npm run crosscheck` compares the JS TOTP and Google Authenticator export code with an independent
   Python reference implementation.
 - **E2E:** the real extension in real Chromium against the Python bench (`npm run e2e`), including CSP-violation checks.
+- **iOS core:** `swift test` in `ios/Core` on macOS runs every case of `tests/vectors/core.json`, which the extension's
+  JS core writes: links, exports and backup files must read the same on a phone as in the browser.
 - **Fuzzing:** property-based tests ([fast-check](https://fast-check.dev/)) feed random and malformed QR text,
   `otpauth://` links, Google Authenticator protobuf and vaults to the parsers. _Invariant: anything the extension
   accepts can show a code, anything else is rejected with an error; flipping any bit of a vault makes it unreadable._
