@@ -33,9 +33,13 @@ Report vulnerabilities privately, never in a public issue. See [SECURITY.md](SEC
    npm test            # unit tests, property-based fuzzing, release checks
    npm run crosscheck  # JS vs the independent Python reference
    npm run e2e         # needed when the change touches the UI; also run e2e:ru if you changed UI text
+   npm run vectors     # after a change to extension/lib parsing or backups: rewrites tests/vectors/core.json
    ```
 
    The e2e run needs a browser and a free port; see [Run the e2e tests locally](#run-the-e2e-tests-locally).
+
+   A change to `tests/vectors/core.json` must still pass the iOS core: `ios/build.sh core` on a Mac, or the
+   "iOS core" CI job. For the iOS app itself see `ios/README.md`.
 
 4. Open a pull request against `main`. Say what the change does and why; add a screenshot for UI changes.
 5. CI must pass. `main` is protected: every change goes through a pull request, and the lint, unit, Python, e2e,
@@ -79,7 +83,7 @@ of every run go to `tests/artifacts/<time>/`.
   English text in both files and say so in the pull request.
 - **CSP.** No inline scripts or `style="..."` attributes in extension pages.
 - **English.** Code, comments, docs and commit messages are in English. Other languages live only in the translation
-  files (`extension/_locales/`, `scripts/locales/`, `site/i18n/`).
+  files (`extension/_locales/`, `scripts/locales/`, `site/i18n/`, `ios/App/Resources/*.xcstrings`).
 - **Dependencies.** The extension has no runtime dependencies besides the vendored jsQR and qrcode-generator; avoid
   adding new ones. New dev dependency versions must be at least two weeks old.
 
@@ -91,7 +95,9 @@ request:
 - logic in `extension/lib/` gets unit tests in `tests/unit/` (`node:test`);
 - a parser of untrusted input also gets a property in `tests/unit/properties.test.js` (fast-check);
 - a user-visible flow gets a check in `tests/e2e.mjs`;
-- a bug fix gets a regression test that fails without the fix.
+- a bug fix gets a regression test that fails without the fix;
+- a change to how `extension/lib/` reads links, exports or backup files regenerates `tests/vectors/core.json`, and
+  `ios/Core` is changed to match in the same pull request.
 
 Pull requests that add functionality without tests are not merged.
 

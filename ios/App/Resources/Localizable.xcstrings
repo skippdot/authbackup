@@ -1,0 +1,1604 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "%lld": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld"
+          }
+        }
+      }
+    },
+    "%lld digits": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld цифр"
+          }
+        }
+      }
+    },
+    "%lld s": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld с"
+          }
+        }
+      }
+    },
+    "%lld seconds left": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld second left"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld seconds left"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Осталась %lld секунда"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Осталось %lld секунды"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Осталось %lld секунд"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Осталось %lld секунды"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "About": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "О приложении"
+          }
+        }
+      }
+    },
+    "Account": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аккаунт"
+          }
+        }
+      }
+    },
+    "Account, for example your email": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Аккаунт, например ваш email"
+          }
+        }
+      }
+    },
+    "Add": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добавить"
+          }
+        }
+      }
+    },
+    "Add %lld keys": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Add %lld key"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Add %lld keys"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Добавить %lld ключ"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Добавить %lld ключа"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Добавить %lld ключей"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Добавить %lld ключа"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Add keys": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добавить ключи"
+          }
+        }
+      }
+    },
+    "Added": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Добавлен"
+          }
+        }
+      }
+    },
+    "Added %lld keys": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Added %lld key"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Added %lld keys"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Добавлен %lld ключ"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Добавлено %lld ключа"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Добавлено %lld ключей"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Добавлено %lld ключа"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Advanced": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Дополнительно"
+          }
+        }
+      }
+    },
+    "Algorithm": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Алгоритм"
+          }
+        }
+      }
+    },
+    "Allow AuthBackup to use the camera in Settings, or choose a screenshot instead.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разрешите AuthBackup доступ к камере в Настройках или выберите скриншот."
+          }
+        }
+      }
+    },
+    "Already saved": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Уже сохранён"
+          }
+        }
+      }
+    },
+    "An encrypted backup or a JSON backup from AuthBackup, or a text file with otpauth:// links from another authenticator.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зашифрованный или JSON-бэкап AuthBackup либо текстовый файл со ссылками otpauth:// из другого аутентификатора."
+          }
+        }
+      }
+    },
+    "Anyone who sees this QR code or key can make your codes. Show it only to scan it into your own authenticator.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Любой, кто увидит этот QR-код или ключ, сможет получать ваши коды. Показывайте его, только чтобы отсканировать в свой аутентификатор."
+          }
+        }
+      }
+    },
+    "At least %lld characters.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не короче %lld символов."
+          }
+        }
+      }
+    },
+    "AuthBackup": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AuthBackup"
+          }
+        }
+      }
+    },
+    "AuthBackup has no servers, no accounts and no analytics. The app never connects to the internet.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "У AuthBackup нет серверов, учётных записей и аналитики. Приложение никогда не выходит в интернет."
+          }
+        }
+      }
+    },
+    "AuthBackup is locked": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AuthBackup заблокирован"
+          }
+        }
+      }
+    },
+    "Backup": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бэкап"
+          }
+        }
+      }
+    },
+    "Backup password": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пароль от бэкапа"
+          }
+        }
+      }
+    },
+    "Cancel": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отмена"
+          }
+        }
+      }
+    },
+    "Cannot add keys": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось добавить ключи"
+          }
+        }
+      }
+    },
+    "Cannot add the key": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось добавить ключ"
+          }
+        }
+      }
+    },
+    "Cannot create the backup": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось создать бэкап"
+          }
+        }
+      }
+    },
+    "Cannot save": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось сохранить"
+          }
+        }
+      }
+    },
+    "Choose a screenshot instead, or paste the link.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выберите скриншот или вставьте ссылку."
+          }
+        }
+      }
+    },
+    "Choose a screenshot or photo": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Выбрать скриншот или фото"
+          }
+        }
+      }
+    },
+    "Codes lock when AuthBackup has been in the background for a minute.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Коды блокируются, когда AuthBackup провёл в фоне минуту."
+          }
+        }
+      }
+    },
+    "Copied %@": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скопировано: %@"
+          }
+        }
+      }
+    },
+    "Copies the code": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Копирует код"
+          }
+        }
+      }
+    },
+    "Copy code": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Скопировать код"
+          }
+        }
+      }
+    },
+    "Counter": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Счётчик"
+          }
+        }
+      }
+    },
+    "Counter-based (HOTP)": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По счётчику (HOTP)"
+          }
+        }
+      }
+    },
+    "Counter: %lld": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Счётчик: %lld"
+          }
+        }
+      }
+    },
+    "Create the backup file (%lld keys)": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Create the backup file (%lld key)"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Create the backup file (%lld keys)"
+                }
+              }
+            }
+          }
+        },
+        "ru": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Создать файл бэкапа (%lld ключ)"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Создать файл бэкапа (%lld ключа)"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Создать файл бэкапа (%lld ключей)"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Создать файл бэкапа (%lld ключа)"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Decrypt": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Расшифровать"
+          }
+        }
+      }
+    },
+    "Delete": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удалить"
+          }
+        }
+      }
+    },
+    "Delete %@": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удалить «%@»"
+          }
+        }
+      }
+    },
+    "Delete key": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удалить ключ"
+          }
+        }
+      }
+    },
+    "Delete this key?": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Удалить этот ключ?"
+          }
+        }
+      }
+    },
+    "Digits": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Цифр"
+          }
+        }
+      }
+    },
+    "Done": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Готово"
+          }
+        }
+      }
+    },
+    "Edit": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Изменить"
+          }
+        }
+      }
+    },
+    "Encrypted backup": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Зашифрованный бэкап"
+          }
+        }
+      }
+    },
+    "Enter a key": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ввод ключа"
+          }
+        }
+      }
+    },
+    "Enter a key manually": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ввести ключ вручную"
+          }
+        }
+      }
+    },
+    "Export an encrypted backup": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сохранить зашифрованный бэкап"
+          }
+        }
+      }
+    },
+    "Export to Google Authenticator": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Экспорт в Google Authenticator"
+          }
+        }
+      }
+    },
+    "Get code": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Получить код"
+          }
+        }
+      }
+    },
+    "Google Authenticator": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Google Authenticator"
+          }
+        }
+      }
+    },
+    "If you lose this device, a backup file is the way back to your accounts.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Если устройство потеряется, вернуть доступ к аккаунтам поможет файл бэкапа."
+          }
+        }
+      }
+    },
+    "Invalid counter: %@.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Неверный счётчик: %@."
+          }
+        }
+      }
+    },
+    "Invalid period: %@.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Неверный период: %@."
+          }
+        }
+      }
+    },
+    "Key deleted": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ключ удалён"
+          }
+        }
+      }
+    },
+    "Keys are stored only on this device and are not included in iCloud or device backups. Keep an encrypted backup file somewhere else, such as iCloud Drive or a computer: with its password it brings your accounts back on a new device. The AuthBackup browser extension opens the same file.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ключи хранятся только на этом устройстве и не попадают в iCloud и резервные копии устройства. Держите зашифрованный файл бэкапа в другом месте, например в iCloud Drive или на компьютере: вместе с паролем он вернёт аккаунты на новом устройстве. Этот же файл открывает браузерное расширение AuthBackup."
+          }
+        }
+      }
+    },
+    "Keys cannot be read": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось прочитать ключи"
+          }
+        }
+      }
+    },
+    "Keys found": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Найденные ключи"
+          }
+        }
+      }
+    },
+    "Last backup": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Последний бэкап"
+          }
+        }
+      }
+    },
+    "Lock with Face ID": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Блокировка по Face ID"
+          }
+        }
+      }
+    },
+    "Lock with Optic ID": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Блокировка по Optic ID"
+          }
+        }
+      }
+    },
+    "Lock with Touch ID": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Блокировка по Touch ID"
+          }
+        }
+      }
+    },
+    "Lock with passcode": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Блокировка код-паролем"
+          }
+        }
+      }
+    },
+    "MD5 keys are not supported.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ключи с MD5 не поддерживаются."
+          }
+        }
+      }
+    },
+    "Move to another app": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перенос в другое приложение"
+          }
+        }
+      }
+    },
+    "Name": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Название"
+          }
+        }
+      }
+    },
+    "Never": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ни разу"
+          }
+        }
+      }
+    },
+    "No QR code was found.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "QR-код не найден."
+          }
+        }
+      }
+    },
+    "No access to the camera": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нет доступа к камере"
+          }
+        }
+      }
+    },
+    "No backup yet": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Бэкапа ещё нет"
+          }
+        }
+      }
+    },
+    "No camera": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Камеры нет"
+          }
+        }
+      }
+    },
+    "No keys yet": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ключей пока нет"
+          }
+        }
+      }
+    },
+    "No name": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без имени"
+          }
+        }
+      }
+    },
+    "None of the keys fit the Google Authenticator format.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ни один ключ не подходит под формат Google Authenticator."
+          }
+        }
+      }
+    },
+    "Not added": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не добавлены"
+          }
+        }
+      }
+    },
+    "Not included, the format cannot carry them: %@": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не вошли, формат их не передаёт: %@"
+          }
+        }
+      }
+    },
+    "Nothing to export": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Нечего экспортировать"
+          }
+        }
+      }
+    },
+    "OK": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OK"
+          }
+        }
+      }
+    },
+    "On the other device, open Google Authenticator, choose Transfer accounts → Import accounts and scan every QR code.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "На другом устройстве откройте Google Authenticator, выберите «Перенести аккаунты» → «Импортировать аккаунты» и отсканируйте каждый QR-код."
+          }
+        }
+      }
+    },
+    "Only %lld of %lld QR codes of this export were scanned. Keys from the other QR codes are not here yet.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отсканировано только %lld из %lld QR-кодов этого экспорта. Ключей из остальных QR-кодов здесь пока нет."
+          }
+        }
+      }
+    },
+    "Open Settings": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Открыть Настройки"
+          }
+        }
+      }
+    },
+    "Parameters": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Параметры"
+          }
+        }
+      }
+    },
+    "Password": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пароль"
+          }
+        }
+      }
+    },
+    "Period": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Период"
+          }
+        }
+      }
+    },
+    "Period: %lld s": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Период: %lld с"
+          }
+        }
+      }
+    },
+    "Point the camera at a QR code": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Наведите камеру на QR-код"
+          }
+        }
+      }
+    },
+    "Privacy policy": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Политика конфиденциальности"
+          }
+        }
+      }
+    },
+    "QR code %lld of %lld, keys: %lld": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "QR-код %lld из %lld, ключей: %lld"
+          }
+        }
+      }
+    },
+    "QR code of this key": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "QR-код этого ключа"
+          }
+        }
+      }
+    },
+    "Repeat the password": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Повторите пароль"
+          }
+        }
+      }
+    },
+    "Restore a backup file": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Восстановить из файла бэкапа"
+          }
+        }
+      }
+    },
+    "Restored: %lld, already saved: %lld": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Восстановлено: %lld, уже было: %lld"
+          }
+        }
+      }
+    },
+    "Save": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сохранить"
+          }
+        }
+      }
+    },
+    "Scan": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сканирование"
+          }
+        }
+      }
+    },
+    "Scan a QR code": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отсканировать QR-код"
+          }
+        }
+      }
+    },
+    "Scan the QR code a website shows when you turn on two-factor authentication, or bring your keys over from Google Authenticator or the AuthBackup browser extension.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отсканируйте QR-код, который сайт показывает при включении двухфакторной аутентификации, или перенесите ключи из Google Authenticator или браузерного расширения AuthBackup."
+          }
+        }
+      }
+    },
+    "Scanned %lld of %lld. Show the next QR code.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Отсканировано %lld из %lld. Покажите следующий QR-код."
+          }
+        }
+      }
+    },
+    "Search": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Поиск"
+          }
+        }
+      }
+    },
+    "Secret key": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Секретный ключ"
+          }
+        }
+      }
+    },
+    "Security": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Безопасность"
+          }
+        }
+      }
+    },
+    "Service": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервис"
+          }
+        }
+      }
+    },
+    "Service, for example GitHub": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Сервис, например GitHub"
+          }
+        }
+      }
+    },
+    "Set a passcode on this device to lock your codes.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чтобы блокировать коды, установите код-пароль на этом устройстве."
+          }
+        }
+      }
+    },
+    "Settings": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Настройки"
+          }
+        }
+      }
+    },
+    "Show QR code and secret key": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показать QR-код и секретный ключ"
+          }
+        }
+      }
+    },
+    "Show the secret key": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показать секретный ключ"
+          }
+        }
+      }
+    },
+    "Show your keys as QR codes": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Показать ключи QR-кодами"
+          }
+        }
+      }
+    },
+    "Something went wrong: %@": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Что-то пошло не так: %@"
+          }
+        }
+      }
+    },
+    "Source code": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Исходный код"
+          }
+        }
+      }
+    },
+    "The data is damaged and cannot be read.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Данные повреждены, прочитать их не удалось."
+          }
+        }
+      }
+    },
+    "The export QR code is damaged or incomplete.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "QR-код экспорта повреждён или неполон."
+          }
+        }
+      }
+    },
+    "The export link has no data.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В ссылке экспорта нет данных."
+          }
+        }
+      }
+    },
+    "The file cannot be opened.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось открыть файл."
+          }
+        }
+      }
+    },
+    "The image cannot be opened.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось открыть изображение."
+          }
+        }
+      }
+    },
+    "The key is the text the website shows next to the QR code, usually 16 or 32 letters and digits. Spaces do not matter.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ключ — это текст, который сайт показывает рядом с QR-кодом, обычно 16 или 32 буквы и цифры. Пробелы не важны."
+          }
+        }
+      }
+    },
+    "The key may contain only the letters A–Z and the digits 2–7.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ключ может содержать только буквы A–Z и цифры 2–7."
+          }
+        }
+      }
+    },
+    "The link has no valid secret key.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В ссылке нет корректного секретного ключа."
+          }
+        }
+      }
+    },
+    "The password that was set when this backup was made.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пароль, заданный при создании этого бэкапа."
+          }
+        }
+      }
+    },
+    "The passwords do not match.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Пароли не совпадают."
+          }
+        }
+      }
+    },
+    "This QR code holds no two-factor key.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "В этом QR-коде нет ключа двухфакторной аутентификации."
+          }
+        }
+      }
+    },
+    "This backup was made by a newer version and cannot be opened here.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Этот бэкап сделан более новой версией, здесь его не открыть."
+          }
+        }
+      }
+    },
+    "This is not a Google Authenticator export.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Это не экспорт Google Authenticator."
+          }
+        }
+      }
+    },
+    "This is not a two-factor key or a Google Authenticator export.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Это не ключ двухфакторной аутентификации и не экспорт Google Authenticator."
+          }
+        }
+      }
+    },
+    "This is not an AuthBackup backup file.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Это не файл бэкапа AuthBackup."
+          }
+        }
+      }
+    },
+    "This is not an otpauth:// link.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Это не ссылка otpauth://."
+          }
+        }
+      }
+    },
+    "This key is already saved": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Этот ключ уже сохранён"
+          }
+        }
+      }
+    },
+    "This password is needed to open the file. It cannot be recovered: keep it in your password manager. %@": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без этого пароля файл не открыть, восстановить его нельзя: сохраните его в менеджере паролей. %@"
+          }
+        }
+      }
+    },
+    "Time-based (TOTP)": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "По времени (TOTP)"
+          }
+        }
+      }
+    },
+    "Type": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Тип"
+          }
+        }
+      }
+    },
+    "Unknown code type: %@.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Неизвестный тип кода: %@."
+          }
+        }
+      }
+    },
+    "Unlock": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разблокировать"
+          }
+        }
+      }
+    },
+    "Unlock this device and open AuthBackup again. Nothing was changed.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разблокируйте устройство и снова откройте AuthBackup. Ничего не изменилось."
+          }
+        }
+      }
+    },
+    "Unlock your codes": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Разблокировать коды"
+          }
+        }
+      }
+    },
+    "Unsupported algorithm: %@.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Алгоритм не поддерживается: %@."
+          }
+        }
+      }
+    },
+    "Unsupported number of digits: %@.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Такое число цифр не поддерживается: %@."
+          }
+        }
+      }
+    },
+    "Version": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Версия"
+          }
+        }
+      }
+    },
+    "Without this key you can sign in only with another copy of it or the service's recovery codes.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Без этого ключа войти можно будет только с другой его копией или с кодами восстановления сервиса."
+          }
+        }
+      }
+    },
+    "Works with the QR code a website shows when you turn on two-factor authentication, with Google Authenticator exports (several QR codes in a row) and with the export QR codes of the AuthBackup browser extension.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Подходит QR-код, который сайт показывает при включении двухфакторной аутентификации, экспорт Google Authenticator (несколько QR-кодов подряд) и QR-коды экспорта браузерного расширения AuthBackup."
+          }
+        }
+      }
+    },
+    "Wrong password, or the file is damaged.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Неверный пароль, или файл повреждён."
+          }
+        }
+      }
+    },
+    "Your codes are hidden until you unlock the app.": {
+      "localizations": {
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Коды скрыты, пока приложение заблокировано."
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

@@ -62,6 +62,19 @@ jobs:
       - run: ruff check bench
       - run: bandit -q -c pyproject.toml -r bench
 
+  ios-core:
+    name: iOS core (Swift, conformance vectors)
+    runs-on: macos-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      # The OTP core of the iOS app against tests/vectors/core.json, which the extension's JS core writes:
+      # links, Google Authenticator exports and backup files must read the same on the phone as in the browser.
+      - run: swift test
+        working-directory: ios/Core
+
   e2e:
     name: E2E (Chromium + extension)
     runs-on: ubuntu-latest

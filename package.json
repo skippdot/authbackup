@@ -7,6 +7,7 @@
     "vendor": "node scripts/vendor.mjs",
     "test": "node --test tests/unit/*.test.mjs tests/unit/*.test.js",
     "crosscheck": "node tests/crosscheck.mjs",
+    "vectors": "node scripts/vectors.mjs",
     "bench": "python3 bench/server.py",
     "e2e": "node tests/e2e.mjs",
     "build": "node scripts/build.mjs",
