@@ -6,6 +6,8 @@ import { parseMigrationUri } from './migration.js';
 import { t } from './i18n.js';
 
 const ALGOS = new Set(['SHA1', 'SHA256', 'SHA512']);
+// The mobile apps keep the period in a 32-bit integer; a longer one (68+ years) is no real key anyway.
+const MAX_PERIOD = 2 ** 31 - 1;
 
 export function parseOtpauthUri(uri) {
   const url = new URL(uri.trim());
@@ -37,7 +39,7 @@ export function parseOtpauthUri(uri) {
   const digits = parseInt(p.get('digits') || '6', 10);
   if (![6, 7, 8].includes(digits)) throw new Error(t('errDigits', digits));
   const period = parseInt(p.get('period') || '30', 10);
-  if (!(period > 0)) throw new Error(t('errPeriod', p.get('period')));
+  if (!(period > 0 && period <= MAX_PERIOD)) throw new Error(t('errPeriod', p.get('period')));
   const counter = type === 'hotp' ? parseInt(p.get('counter') || '0', 10) : 0;
   if (!(Number.isSafeInteger(counter) && counter >= 0)) throw new Error(t('errCounter', p.get('counter')));
 
@@ -66,13 +68,25 @@ export function buildOtpauthUri(a) {
 }
 
 /**
+ * A key from a backup file (a JSON account object) as a validated account: missing fields get the defaults of a link,
+ * then the entry is rebuilt as an otpauth:// link and parsed again, so it is checked like any other link.
+ * Throws like parseOtpauthUri.
+ */
+export function backupEntryToAccount(a) {
+  const entry = { type: 'totp', algorithm: 'SHA1', digits: 6, period: 30, ...a };
+  // A missing secret would be written as the text "undefined" (or "null"), which is valid Base32: refuse it instead.
+  if (entry.secret == null) throw new Error(t('errNoSecret'));
+  return parseOtpauthUri(buildOtpauthUri(entry));
+}
+
+/**
  * Universal entry point: text from a QR / clipboard.
  * Returns { accounts: [...], skipped: [...], kind: 'otpauth'|'migration' }.
  */
 export function parseAnyOtpText(text) {
-  const t = String(text || '').trim();
-  if (/^otpauth-migration:/i.test(t)) return { kind: 'migration', ...parseMigrationUri(t) };
-  if (/^otpauth:/i.test(t)) return { kind: 'otpauth', accounts: [parseOtpauthUri(t)], skipped: [] };
+  const s = String(text || '').trim();
+  if (/^otpauth-migration:/i.test(s)) return { kind: 'migration', ...parseMigrationUri(s) };
+  if (/^otpauth:/i.test(s)) return { kind: 'otpauth', accounts: [parseOtpauthUri(s)], skipped: [] };
   throw new Error(t('errNotOtp'));
 }
 

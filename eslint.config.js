@@ -11,6 +11,8 @@ export default [
   {
     files: ['extension/**/*.js'],
     languageOptions: { ecmaVersion: 2023, sourceType: 'module', globals: { ...globals.browser, ...globals.webextensions } },
+    // A local `t` hides the imported i18n t(): parseAnyOtpText once threw "t is not a function" instead of its error.
+    rules: { 'no-shadow': 'error' },
   },
   // MV3 service worker.
   {
