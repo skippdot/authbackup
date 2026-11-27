@@ -1,6 +1,14 @@
 # CHANGELOG
 
-## Unreleased
+## 2026-11-27: 0.4.0 — stricter checks for backup files and links
+
+Restoring a backup file is stricter. Entries that 0.3.1 turned into a different key, or into a key with a made-up
+secret, are now refused with an error, and so are links with a `period` the phone apps cannot use. Backups that
+AuthBackup wrote restore exactly as before, and keys already saved are not changed. If you restored a hand-made or
+third-party file with an earlier version and a key from it shows wrong codes, delete that key and add it again
+from the service's QR code.
+
+### Extension
 
 - Fixed three ways a backup file could restore something other than what it holds, found while porting the core to
   Android. The extension, the iOS core and the Android core now refuse them alike, with unit tests and new cases in
@@ -14,6 +22,18 @@
   upper limit, which the extension lacked), otherwise the file is an unknown encryption format. Files that AuthBackup
   writes are not affected. The rules are in `backupEntryToAccount()` (`extension/lib/otpauth.js`), `openVault()`
   (`extension/lib/vault.js`) and `docs/FORMATS.md`.
+- Fixed three core bugs found while porting the core to iOS, each with a unit test. Restoring a JSON backup entry
+  without a `secret` (or with `secret: null`) saved a key whose secret was the text "UNDEFINED" (or "NULL"), which is
+  valid Base32; such an entry is now refused like a link without a secret. Text that is neither an `otpauth://` nor an
+  `otpauth-migration://` link failed with "t is not a function" instead of its own error. A `period` above
+  2^31 - 1 seconds (the 32-bit limit of the mobile apps) was accepted; links, backup entries and the manual entry form
+  now refuse it. The restore check lives in `backupEntryToAccount()` in `extension/lib/otpauth.js`, and ESLint flags
+  a variable that shadows another one (`no-shadow`) in the extension code.
+- Fixed: restoring a JSON backup entry without an `account` field saved the key under the name "undefined"; the name
+  now stays empty. Found while checking `docs/FORMATS.md` against the code.
+
+### Mobile apps (work in progress, not in the stores yet)
+
 - Android app (phones and tablets), work in progress, in `android/` (see `android/README.md`): the screens and texts of
   the iOS app (codes with copy on tap, keys from the camera, images, the clipboard or by hand, Google Authenticator
   exports over several QR codes, the extension's backup files in both directions, biometric or screen lock, English
@@ -32,20 +52,9 @@
   makes no network requests. Not in the App Store yet.
 - Conformance vectors: `npm run vectors` writes `tests/vectors/core.json` from the extension's core, and the iOS core
   (`ios/Core`, `swift test`, new CI job) must reproduce every case. `npm test` fails when the file is out of date.
-- `CONTRIBUTING.md`: how to prepare a machine for `npm run e2e` (Python 3, `npx playwright install chromium` again
-  after every Playwright update for the matching ffmpeg, a free port 8794, headed runs under `xvfb-run` on Linux).
-- Fixed: the test bench printed its ready line before it took the port, so with port 8794 busy `npm run e2e` ran
-  against the other server and failed on a timeout. The bench now prints the line only after the bind, with the real
-  port, and otherwise exits with `Cannot listen on <host>:<port>`, which e2e shows at once. e2e also sets `HOST` and
-  `PORT` for the bench, so exported values of those variables no longer move it off port 8794. Regression tests in
-  `tests/unit/bench.test.mjs`.
-- Fixed three core bugs found while porting the core to iOS, each with a unit test. Restoring a JSON backup entry
-  without a `secret` (or with `secret: null`) saved a key whose secret was the text "UNDEFINED" (or "NULL"), which is
-  valid Base32; such an entry is now refused like a link without a secret. Text that is neither an `otpauth://` nor an
-  `otpauth-migration://` link failed with "t is not a function" instead of its own error. A `period` above
-  2^31 - 1 seconds (the 32-bit limit of the mobile apps) was accepted; links, backup entries and the manual entry form
-  now refuse it. The restore check lives in `backupEntryToAccount()` in `extension/lib/otpauth.js`, and ESLint flags
-  a variable that shadows another one (`no-shadow`) in the extension code.
+
+### Website
+
 - Website: even spacing between sections. A section's last paragraph or step no longer adds its margin, so every
   divider has the same space above and below (it varied from 40 to 54 px). On screens up to 820 px wide the screenshot,
   the sections and the footer share one 32 px rhythm (before, 88 px under the screenshot and about 100 px above the
@@ -55,14 +64,22 @@
   only when `GA_ID` is set, and only the GitHub Pages build sets it, so the Docker image and self-hosted copies still
   load nothing from third parties. The footer in all 8 languages, the privacy policy (new section on the website),
   `llms.txt` and `DEPLOY.md` say so; the extension is unchanged and has no analytics.
+
+### Development and documentation
+
+- `CONTRIBUTING.md`: how to prepare a machine for `npm run e2e` (Python 3, `npx playwright install chromium` again
+  after every Playwright update for the matching ffmpeg, a free port 8794, headed runs under `xvfb-run` on Linux).
+- Fixed: the test bench printed its ready line before it took the port, so with port 8794 busy `npm run e2e` ran
+  against the other server and failed on a timeout. The bench now prints the line only after the bind, with the real
+  port, and otherwise exits with `Cannot listen on <host>:<port>`, which e2e shows at once. e2e also sets `HOST` and
+  `PORT` for the bench, so exported values of those variables no longer move it off port 8794. Regression tests in
+  `tests/unit/bench.test.mjs`.
 - OpenSSF Best Practices: passing badge ([project 17121](https://www.bestpractices.dev/projects/17121)), shown in the README.
 - `CONTRIBUTING.md`: how to report bugs, the pull request process, requirements for contributions, and the test
   policy (new functionality comes with tests). The website footer (home and privacy pages) and `llms.txt` link to it.
 - `docs/FORMATS.md`: reference for everything AuthBackup reads and writes: `otpauth://` and `otpauth-migration://`
   links, QR sources, the plain and encrypted backup files (with steps to decrypt one without AuthBackup), `otpauth.txt`,
   the Google Authenticator export QR, and storage. Linked from the README and `llms.txt`.
-- Fixed: restoring a JSON backup entry without an `account` field saved the key under the name "undefined"; the name
-  now stays empty. Found while checking `docs/FORMATS.md` against the code.
 - `npm run lint` (and so CI) fails on any ESLint warning, not only on errors.
 - Fixed CodeQL findings in development scripts (none in the extension): the release-notes script escapes every regular
   expression metacharacter in the version, and the crosscheck test draws its random values from `node:crypto`.
