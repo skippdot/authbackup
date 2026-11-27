@@ -26,7 +26,7 @@ The bench reads `HOST` (default `127.0.0.1`; the image sets `0.0.0.0`) and `PORT
 ## Docker / docker compose
 
 Prebuilt images (linux/amd64 and arm64) are published to ghcr.io on every release, tagged with the version
-(`0.3.1`, `0.3`) and `latest`:
+(`0.4.0`, `0.4`) and `latest`:
 
 ```sh
 docker run --rm -p 8080:8080 ghcr.io/skippdot/authbackup-site     # website on http://localhost:8080
