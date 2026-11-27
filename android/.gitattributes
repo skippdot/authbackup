@@ -1,0 +1,4 @@
+# As `gradle init` writes it: the wrapper scripts keep their line endings on every platform.
+/gradlew text eol=lf
+*.bat text eol=crlf
+*.jar binary

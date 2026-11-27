@@ -2,7 +2,8 @@ import js from '@eslint/js';
 import globals from 'globals';
 
 export default [
-  { ignores: ['extension/vendor/**', '_site/**', 'dist/**', 'tests/artifacts/**', 'node_modules/**'] },
+  { ignores: ['extension/vendor/**', '_site/**', 'dist/**', 'tests/artifacts/**', 'node_modules/**',
+    'android/**/build/**', 'android/.gradle/**'] },
   js.configs.recommended,
   // Omitting keys with `({ known, ...rest }) => rest` is a deliberate idiom here.
   { rules: { 'no-unused-vars': ['error', { ignoreRestSiblings: true }] } },

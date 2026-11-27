@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The brand blue of the extension, the website and the iOS app. -->
+    <color name="brand">#2F5BEA</color>
+    <color name="window">#FFFFFF</color>
+</resources>

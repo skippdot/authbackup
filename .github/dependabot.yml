@@ -25,6 +25,15 @@ updates:
       default-days: 14
     commit-message:
       prefix: deps
+  # The Android app: the version catalog (android/gradle/libs.versions.toml) and the Gradle wrapper.
+  - package-ecosystem: gradle
+    directory: /android
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 14
+    commit-message:
+      prefix: deps
   - package-ecosystem: docker
     directories: ["/", "/bench"]
     schedule:
