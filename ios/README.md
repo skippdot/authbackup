@@ -51,7 +51,7 @@ Base32, ~320 TOTP/HOTP codes, ~80 `otpauth://` links (including the awkward ones
 past 2^53), the export splitting, deduplication keys, backup entries, and backup files with PBKDF2 and AES-GCM.
 `ios/Core` must give the same result or the same error on every case; `npm test` fails when the file no longer
 matches the JS core, so a change to the extension's parsing shows up as a failing iOS test until both agree.
-The Android app will be checked against the same file.
+The Android core (`android/core`) is checked against the same file.
 
 ## Build and test
 

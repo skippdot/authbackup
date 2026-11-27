@@ -1,5 +1,5 @@
 // Conformance vectors for the mobile apps. The extension's JS core is the source of truth: every other implementation
-// (ios/Core now, Android later) must reproduce these results exactly, the same way tests/crosscheck.mjs pins the
+// (ios/Core and android/core) must reproduce these results exactly, the same way tests/crosscheck.mjs pins the
 // extension against the Python reference. `npm run vectors` rewrites tests/vectors/core.json, and
 // tests/unit/vectors.test.mjs fails when the file no longer matches the JS core.
 //

@@ -14,6 +14,7 @@ const ROOT = fileURLToPath(new URL('..', import.meta.url));
 export const CYRILLIC_ALLOWED = [
   'extension/_locales/ru/messages.json', 'scripts/locales/ru.json',
   'ios/App/Resources/Localizable.xcstrings', 'ios/App/Resources/InfoPlist.xcstrings',
+  'android/app/src/main/res/values-ru/strings.xml',
 ];
 
 function walk(dir) {
@@ -83,7 +84,7 @@ export function checkEnglishOnly() {
   }
   const problems = [];
   for (const f of list.split('\n').filter(Boolean)) {
-    if (CYRILLIC_ALLOWED.includes(f) || /\.(png|jpe?g|gif|ico|zip|woff2?)$/i.test(f)) continue;
+    if (CYRILLIC_ALLOWED.includes(f) || /\.(png|jpe?g|gif|ico|zip|jar|woff2?)$/i.test(f)) continue;
     let text;
     try { text = readFileSync(join(ROOT, f), 'utf8'); } catch { continue; } // deleted in the working tree
     const line = text.split('\n').findIndex((l) => /[\u0400-\u04FF]/.test(l));

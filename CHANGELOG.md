@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- Android app (phones and tablets), work in progress, in `android/` (see `android/README.md`): the screens and texts of
+  the iOS app (codes with copy on tap, keys from the camera, images, the clipboard or by hand, Google Authenticator
+  exports over several QR codes, the extension's backup files in both directions, biometric or screen lock, English
+  and Russian). Keys stay in one file encrypted under an Android Keystore key, which Google backups and device transfer
+  skip; the app has no internet permission and reads QR codes with ZXing, without Google Play services. Not in Google
+  Play yet.
+- The Kotlin core (`android/core`) reproduces every case of `tests/vectors/core.json`, like the Swift one. New CI job
+  "Android": the core's vectors, the app's unit tests, Android lint (every warning fails) and a debug build.
+  Dependabot also covers the Gradle version catalog. On an emulator, `android/build.sh ui` runs the vectors' backup
+  cases on Android's own crypto provider, then walks through the screens with a video (English and Russian, phone and
+  tablet). Android refuses to derive a key from an empty password, which Web Crypto accepts; the core derives that one
+  itself.
 - iOS app (iPhone and iPad), work in progress, in `ios/` (see `ios/README.md`): codes with copy on tap, adding keys from
   the camera, images, the clipboard or by hand, Google Authenticator exports over several QR codes, the extension's
   backup files in both directions, Face ID lock, English and Russian. Keys stay in the device's Keychain only; the app

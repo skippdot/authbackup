@@ -16,3 +16,8 @@ ios/build/
 ios/Core/.build/
 ios/Core/.swiftpm/
 ios/local.env
+android/.gradle/
+android/.kotlin/
+android/build/
+android/*/build/
+android/local.properties

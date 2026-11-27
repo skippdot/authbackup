@@ -75,7 +75,7 @@ No build step is needed to use or develop the extension. `npm install` is needed
 | --- | --- |
 | `npm test` | Unit tests: base32 (RFC 4648), HOTP (RFC 4226), TOTP (RFC 6238), otpauth, Google Authenticator protobuf, QR, vault, export splitting, copy tracking, the site build (no third-party scripts without `GA_ID`), and release checks (en/ru dictionaries, test hooks, network use, inline styles); property-based fuzzing of every parser and the vault (`tests/unit/properties.test.js`) |
 | `npm run fuzz` | The same properties with 100,000 random inputs each instead of 100 |
-| `npm run vectors` | Rewrites `tests/vectors/core.json` from the extension core: the conformance cases the iOS core (`ios/Core`) must pass |
+| `npm run vectors` | Rewrites `tests/vectors/core.json` from the extension core: the conformance cases the iOS core (`ios/Core`) and the Android core (`android/core`) must pass |
 | `npm run crosscheck` | 2000 random keys: extension JS vs the independent Python reference, plus a Google Authenticator export round trip Python to JS |
 | `npm run e2e` | Chromium with the extension plus the bench; video and screenshots go to `tests/artifacts/<time>/` (English UI) |
 | `npm run e2e:ru` | The same with the Russian UI |
@@ -183,6 +183,8 @@ docs/FORMATS.md      reference: accepted links and QR codes, backup file formats
 docs/store-assets/   Chrome Web Store screenshots and promo tile
 site/                authbackup.com: landing page and privacy page template
 ios/                 iPhone and iPad app (SwiftUI) and its core, checked against tests/vectors (ios/README.md)
+android/             Android phone and tablet app (Jetpack Compose) and its Kotlin core, checked against the same vectors
+                     (android/README.md)
 ```
 
 ## Quality & security
@@ -198,12 +200,15 @@ Every push and pull request to `main` runs in GitHub Actions (all actions are pi
 - **E2E:** the real extension in real Chromium against the Python bench (`npm run e2e`), including CSP-violation checks.
 - **iOS core:** `swift test` in `ios/Core` on macOS runs every case of `tests/vectors/core.json`, which the extension's
   JS core writes: links, exports and backup files must read the same on a phone as in the browser.
+- **Android:** the Kotlin core in `android/core` runs the same vectors on the JVM; the app's unit tests, Android lint
+  (every warning fails) and a debug build run in the same job. Locally, `android/build.sh ui` also runs the backup
+  cases on an emulator's own crypto provider and a walkthrough of the screens.
 - **Fuzzing:** property-based tests ([fast-check](https://fast-check.dev/)) feed random and malformed QR text,
   `otpauth://` links, Google Authenticator protobuf and vaults to the parsers. _Invariant: anything the extension
   accepts can show a code, anything else is rejected with an error; flipping any bit of a vault makes it unreadable._
 - **Python:** Ruff and Bandit on the bench (tools installed by hash, `bench/requirements-dev.txt`).
-- **CodeQL** (JavaScript and Python), the **OpenSSF Scorecard**, and weekly **Dependabot** updates for npm, pip, Docker
-  and Actions (a new version must be two weeks old before it is proposed).
+- **CodeQL** (JavaScript and Python), the **OpenSSF Scorecard**, and weekly **Dependabot** updates for npm, pip, Docker,
+  Gradle and Actions (a new version must be two weeks old before it is proposed).
 - **Releases:** a `v*` tag builds the zip in CI (`.github/workflows/release.yml`), signs build provenance (Sigstore,
   `gh attestation verify`), and publishes the release with all assets at once. The website and test-bench images go to
   `ghcr.io/skippdot/authbackup-site` and `ghcr.io/skippdot/authbackup-bench` (linux/amd64 and arm64).
