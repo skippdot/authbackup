@@ -99,6 +99,54 @@ test('backupEntryToAccount: missing fields get the defaults of a link, an entry 
   }
 });
 
+test('backupEntryToAccount: a type other than totp or hotp is refused, so it cannot rewrite the link', () => {
+  const S = 'JBSWY3DPEHPK3PXP';
+  // The type went into the link unescaped: this entry restored as a key with the secret AAAAAAAA.
+  for (const type of ['totp?secret=AAAAAAAA&', 'hotp/x?secret=AAAAAAAA&counter=9#', ' totp', 'totp ', 'steam', '', null, 1, true, ['totp'], {}]) {
+    assert.throws(() => backupEntryToAccount({ secret: S, type }), /^Error: errUnknownType/, JSON.stringify(type));
+  }
+  // Read like a link's type: any letter case. An upper-case HOTP used to lose its counter (the link got a period).
+  assert.equal(backupEntryToAccount({ secret: S, type: 'TOTP', period: 60 }).period, 60);
+  assert.deepEqual(
+    backupEntryToAccount({ secret: S, type: 'HOTP', counter: 5 }),
+    { type: 'hotp', issuer: '', account: '', secret: S, algorithm: 'SHA1', digits: 6, period: 30, counter: 5 },
+  );
+});
+
+test('backupEntryToAccount: numbers must be whole JSON numbers and the secret a string, nothing is coerced', () => {
+  const S = 'JBSWY3DPEHPK3PXP';
+  // String() and parseInt read these as other keys: period 1e21 as 1 ("1e+21"), digits 6.9 as 6, secret true as "TRUE".
+  const refused = [
+    [{ secret: S, period: 1e21 }, 'errPeriod'],
+    [{ secret: S, period: 30.5 }, 'errPeriod'],
+    [{ secret: S, period: '60' }, 'errPeriod'],
+    [{ secret: S, period: null }, 'errPeriod'],
+    [{ secret: S, type: 'hotp', counter: 1e21 }, 'errCounter'],
+    [{ secret: S, type: 'hotp', counter: 2 ** 53 }, 'errCounter'],
+    [{ secret: S, type: 'hotp', counter: 1.5 }, 'errCounter'],
+    [{ secret: S, type: 'hotp', counter: '5' }, 'errCounter'],
+    [{ secret: S, type: 'hotp', counter: null }, 'errCounter'],
+    [{ secret: S, type: 'hotp', counter: -1 }, 'errCounter'],
+    [{ secret: S, digits: 6.9 }, 'errDigits'],
+    [{ secret: S, digits: '8' }, 'errDigits'],
+    [{ secret: S, digits: 1e21 }, 'errDigits'],
+    [{ secret: S, digits: true }, 'errDigits'],
+    [{ secret: true }, 'errNoSecret'],
+    [{ secret: 22222222 }, 'errNoSecret'],
+    [{ secret: [S] }, 'errNoSecret'],
+    [{ secret: S, algorithm: ['SHA1'] }, 'errAlgorithm'],
+    [{ secret: S, algorithm: null }, 'errAlgorithm'],
+  ];
+  for (const [entry, key] of refused) {
+    assert.throws(() => backupEntryToAccount(entry), (e) => e.message.split(':')[0] === key, JSON.stringify(entry));
+  }
+  // The edges that stay keys, and fields that the key does not use are not read, as in a link.
+  assert.equal(backupEntryToAccount({ secret: S, type: 'hotp', counter: 2 ** 53 - 1 }).counter, 2 ** 53 - 1);
+  assert.equal(backupEntryToAccount({ secret: S, type: 'hotp', period: 'x' }).period, 30);
+  assert.equal(backupEntryToAccount({ secret: S, counter: 'x' }).counter, 0);
+  assert.equal(backupEntryToAccount({ secret: S, type: 'hotp' }).counter, 0);
+});
+
 test('Google Authenticator migration: encode -> decode preserves everything', () => {
   const accounts = [
     { type: 'totp', issuer: 'GitHub', account: 'alex', secret: 'JBSWY3DPEHPK3PXP', algorithm: 'SHA1', digits: 6, period: 30, counter: 0 },

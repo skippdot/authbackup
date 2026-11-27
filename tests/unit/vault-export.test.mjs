@@ -1,6 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { createVault, openVault, sealWithKey, unsealWithKey, exportKey, importKey, WrongPasswordError, isVault } from '../../extension/lib/vault.js';
+import {
+  createVault, openVault, sealWithKey, unsealWithKey, exportKey, importKey, WrongPasswordError, isVault, DEFAULT_ITERATIONS, MAX_ITERATIONS,
+} from '../../extension/lib/vault.js';
 import { planMigrationExport, parseMigrationUri } from '../../extension/lib/migration.js';
 import { base32Encode } from '../../extension/lib/base32.js';
 
@@ -17,6 +19,20 @@ test('vault: password encryption round trip, wrong password fails', async () => 
   const { data } = await openVault('correct horse', vault);
   assert.deepEqual(data.accounts, sample);
   await assert.rejects(openVault('wrong horse', vault), WrongPasswordError);
+});
+
+test('vault: the iteration count must be a whole number from 1 to MAX_ITERATIONS, nothing else is guessed', async () => {
+  const { vault } = await createVault('correct horse', { accounts: sample }, FAST);
+  const noIterations = { ...vault.kdf };
+  delete noIterations.iterations;
+  // A missing count meant the default 600,000, `true` and "1000" were read by Web IDL as 1 and 1000.
+  const bad = [{ ...vault, kdf: noIterations }];
+  for (const iterations of [true, '1000', null, 0, -1, 1.5, MAX_ITERATIONS + 1, 1e21, [1000], {}]) bad.push({ ...vault, kdf: { ...vault.kdf, iterations } });
+  for (const v of bad) await assert.rejects(openVault('correct horse', v), { message: 'errVaultFormat' }, JSON.stringify(v.kdf));
+  // One iteration is weak but valid; the files the extension writes keep opening.
+  const { vault: one } = await createVault('correct horse', { accounts: sample }, 1);
+  assert.deepEqual((await openVault('correct horse', one)).data.accounts, sample);
+  assert.ok(DEFAULT_ITERATIONS <= MAX_ITERATIONS);
 });
 
 test('vault: re-encryption with a stored key: same salt, new IV, same password opens it', async () => {

@@ -102,9 +102,11 @@ class CoreTests {
         assertEquals("SHA1", Otpauth.parse("otpauth://totp/x?secret=$s&algorithm=%C5%BFha1").algorithm.name) // "ſ".toUpperCase() is "S"
         // /^otpauth-migration:/i folds ASCII letters only.
         assertEquals("errNotOtp", key(assertThrows<CoreError> { Otpauth.parseAny("otpauth-mİgration://offline?data=CgA%3D") }))
-        // String(x) of JSON numbers in a backup entry follows Number::toString.
-        val r = Backup.restore(JS.parseJson("""{"secret":"$s","issuer":12345678901234567890,"account":0.00001,"period":1e21}"""))
-        assertEquals(listOf("12345678901234567000", "0.00001", "1"), listOf(r.issuer, r.account, r.period.toString()))
+        // String(x) of JSON numbers in a backup entry's labels follows Number::toString.
+        val r = Backup.restore(JS.parseJson("""{"secret":"$s","issuer":12345678901234567890,"account":0.00001}"""))
+        assertEquals(listOf("12345678901234567000", "0.00001"), listOf(r.issuer, r.account))
+        // A number the key uses is not coerced: String(1e21) is "1e+21", which parseInt read as a period of 1.
+        assertEquals("errPeriod", key(assertThrows<CoreError> { Backup.restore(JS.parseJson("""{"secret":"$s","period":1e21}""")) }))
         assertEquals("σ", JS.lowercase("Σ"))
         assertEquals("aς", JS.lowercase("AΣ"))
         assertEquals("a.ς", JS.lowercase("A.Σ"))
