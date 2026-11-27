@@ -92,7 +92,12 @@ The "Restore from file" button accepts:
 
 A JSON backup is restored at once. Every entry is rebuilt as an `otpauth://` link and parsed again, so it is validated
 like any other link. Only `secret` is required (an entry without it, or with `null`, is refused): a missing `type`, `algorithm`, `digits` or `period` becomes `totp`,
-`SHA1`, `6` or `30`, and a missing `issuer` or `account` stays empty. One invalid entry rejects the whole file. Only the OTP fields are kept, and ids are assigned anew.
+`SHA1`, `6` or `30`, and a missing `issuer` or `account` stays empty. Fields are read by their JSON type and never
+converted: `type` is `totp` or `hotp` (in any letter case, as in a link), `secret` and `algorithm` are strings, and
+`digits`, `period` (for `totp`) and `counter` (for `hotp`; missing means 0) are whole numbers. So `"digits": "8"`,
+`"period": 1e21` and `"secret": true` are refused rather than read as 8, 1 and "TRUE". A field the key does not use
+(`counter` of a `totp` key, `period` of a `hotp` key) is not read; `issuer` and `account` are read as text.
+One invalid entry rejects the whole file. Only the OTP fields are kept, and ids are assigned anew.
 Every key of the file, new or duplicate, counts as a `file` copy for the 2+1 rule.
 
 A text file is not restored directly: its links open the import preview, like pasted links, and are saved with "Add
@@ -147,6 +152,9 @@ only the outer fields (`app`, `version`, `exportedAt`, `count`) and the KDF para
   }
 }
 ```
+
+`iterations` is a whole JSON number from 1 to 10,000,000; AuthBackup writes 600,000. A file whose count is missing,
+a string, `true` or out of that range is refused as an unknown encryption format, before any key is derived.
 
 To decrypt without AuthBackup:
 

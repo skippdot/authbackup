@@ -4,6 +4,7 @@ import java.math.BigDecimal
 import java.math.MathContext
 import java.math.RoundingMode
 import java.util.Base64
+import kotlin.math.abs
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonNull
@@ -45,8 +46,11 @@ internal object JS {
 
     private const val MAX_SAFE_INTEGER = 9_007_199_254_740_991.0
 
+    /** Number.isSafeInteger(x). */
+    fun isSafeInteger(x: Double): Boolean = abs(x) <= MAX_SAFE_INTEGER && x % 1.0 == 0.0
+
     /** Number.isSafeInteger(x) && x >= 0. */
-    fun isSafeNonNegativeInteger(x: Double): Boolean = x >= 0 && x <= MAX_SAFE_INTEGER && x % 1.0 == 0.0
+    fun isSafeNonNegativeInteger(x: Double): Boolean = x >= 0 && isSafeInteger(x)
 
     /**
      * String(x) for a JS Number (Number::toString): the shortest digits that read back as x, written as JS writes
@@ -93,40 +97,6 @@ internal object JS {
             return digits to (digits.length - s.scale())
         }
         error("17 digits always identify a double")
-    }
-
-    /** ToNumber(string): the StringNumericLiteral grammar ("" is 0, "0x10" is 16, " 1e3 " is 1000, "12px" is NaN). */
-    fun stringToNumber(s: String): Double {
-        val t = trim(s)
-        if (t.isEmpty()) return 0.0
-        if (t.length > 2 && t[0] == '0') {
-            val radix = when (t[1]) {
-                'x', 'X' -> 16
-                'o', 'O' -> 8
-                'b', 'B' -> 2
-                else -> 0
-            }
-            if (radix != 0) {
-                val body = t.substring(2)
-                if (!body.all { asciiDigit(it, radix) >= 0 }) return Double.NaN
-                return body.toBigInteger(radix).toDouble()
-            }
-        }
-        val m = DECIMAL.matchEntire(t) ?: return Double.NaN
-        if (m.groupValues[2] == "Infinity") return if (m.groupValues[1] == "-") Double.NEGATIVE_INFINITY else Double.POSITIVE_INFINITY
-        return t.toDouble()
-    }
-
-    private val DECIMAL = Regex("""([+-]?)(Infinity|(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?)""")
-
-    private fun asciiDigit(c: Char, radix: Int): Int {
-        val v = when (c) {
-            in '0'..'9' -> c - '0'
-            in 'a'..'z' -> c - 'a' + 10
-            in 'A'..'Z' -> c - 'A' + 10
-            else -> return -1
-        }
-        return if (v < radix) v else -1
     }
 
     /**

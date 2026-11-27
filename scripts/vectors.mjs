@@ -11,7 +11,7 @@ import { base32Encode, base32Decode, isValidBase32, bytesToHex, bytesToBase64, b
 import { hotp, totp } from '../extension/lib/totp.js';
 import { parseOtpauthUri, buildOtpauthUri, parseAnyOtpText, accountKey, backupEntryToAccount } from '../extension/lib/otpauth.js';
 import { parseMigrationUri, buildMigrationUri, planMigrationExport } from '../extension/lib/migration.js';
-import { deriveKey, exportKey, openVault, DEFAULT_ITERATIONS } from '../extension/lib/vault.js';
+import { deriveKey, exportKey, openVault, DEFAULT_ITERATIONS, MAX_ITERATIONS } from '../extension/lib/vault.js';
 
 export const VECTORS_PATH = fileURLToPath(new URL('../tests/vectors/core.json', import.meta.url));
 
@@ -329,6 +329,49 @@ function restoreVectors() {
     null,
     { secret: S, period: 2147483647 },
     { secret: S, period: 2147483648 },
+    // The type is not written into the link unless it is totp or hotp, in any letter case.
+    { secret: S, type: 'totp?secret=AAAAAAAA&' },
+    { secret: S, type: 'hotp/x?secret=AAAAAAAA&counter=9#' },
+    { secret: S, type: ' totp' },
+    { secret: S, type: '' },
+    { secret: S, type: null },
+    { secret: S, type: 1 },
+    { secret: S, type: ['totp'] },
+    { secret: S, type: 'TOTP', period: 60 },
+    { secret: S, type: 'HOTP', counter: 5 },
+    { secret: S, type: 'Hotp' },
+    // Numbers are whole JSON numbers and the secret a string: nothing goes through String() and parseInt.
+    { secret: S, period: 1e21 },
+    { secret: S, period: 30.5 },
+    { secret: S, period: '60' },
+    { secret: S, period: null },
+    { secret: S, period: true },
+    { secret: S, period: -30 },
+    { secret: S, type: 'hotp', counter: 1e21 },
+    { secret: S, type: 'hotp', counter: 2 ** 53 },
+    { secret: S, type: 'hotp', counter: 2 ** 53 - 1 },
+    { secret: S, type: 'hotp', counter: 1.5 },
+    { secret: S, type: 'hotp', counter: '5' },
+    { secret: S, type: 'hotp', counter: null },
+    { secret: S, type: 'hotp', counter: -1 },
+    { secret: S, type: 'hotp', counter: 0 },
+    { secret: S, digits: 6.9 },
+    { secret: S, digits: 1e21 },
+    { secret: S, digits: null },
+    { secret: S, digits: true },
+    { secret: S, digits: 8 },
+    { secret: true },
+    { secret: 22222222 },
+    { secret: [S] },
+    { secret: { value: S } },
+    { secret: S, algorithm: ['SHA1'] },
+    { secret: S, algorithm: null },
+    { secret: S, algorithm: 'sha-256' },
+    // A field that the key does not use is not read, as in a link.
+    { secret: S, type: 'hotp', period: 'x' },
+    { secret: S, counter: 'x' },
+    // Labels are still read as text.
+    { secret: S, issuer: 12345, account: 0.5 },
   ];
   return entries.map((entry) => ({ entry, ...outcome(() => backupEntryToAccount(entry)) }));
 }
@@ -363,6 +406,28 @@ async function backupVectors(rnd) {
   files.push({ file: v2, password: files[2].password, error: 'errVaultFormat' });
   files.push({ file: { app: 'authbackup', version: 1, exportedAt: '2026-11-25T12:00:00.000Z', accounts }, accounts: accounts.map(backupEntryToAccount) });
   files.push({ file: accounts.slice(0, 2), accounts: accounts.slice(0, 2).map(backupEntryToAccount) });
+  // kdf.iterations is a whole JSON number from 1 to MAX_ITERATIONS. A missing one used to mean the default, `true` 1.
+  for (const iterations of [undefined, true, '1000', null, 0, -1, 1.5, MAX_ITERATIONS + 1, 1e21, [1000]]) {
+    const bad = structuredClone(files[2].file);
+    if (iterations === undefined) delete bad.encrypted.kdf.iterations;
+    else bad.encrypted.kdf.iterations = iterations;
+    const opened = await openVault(files[2].password, bad.encrypted).then(
+      ({ data }) => ({ accounts: data.accounts.map(backupEntryToAccount) }),
+      (e) => ({ error: errorKey(e) }),
+    );
+    files.push({ file: bad, password: files[2].password, ...opened });
+  }
+  // One iteration is the lowest valid count. Drawn from its own generator, so the cases above and below stay as they were.
+  {
+    const own = seeded(20261127);
+    const salt = Uint8Array.from({ length: 16 }, () => Math.floor(own() * 256));
+    const iv = Uint8Array.from({ length: 12 }, () => Math.floor(own() * 256));
+    const password = 'one iteration';
+    const kdf = { name: 'PBKDF2-SHA256', iterations: 1, salt: bytesToBase64(salt) };
+    const encrypted = await sealFixed(await deriveKey(password, salt, 1), kdf, { accounts: accounts.slice(0, 1) }, iv);
+    const file = { app: 'authbackup', version: 2, exportedAt: '2026-11-25T12:00:00.000Z', count: 1, encrypted };
+    files.push({ file, password, accounts: (await openVault(password, encrypted)).data.accounts.map(backupEntryToAccount) });
+  }
 
   const pbkdf2 = [];
   for (const [password, iterations] of [['password', 1], ['password', 1000], ['', 1000], ['pässwörd-🔑', 1000], ['correct horse battery staple', DEFAULT_ITERATIONS]]) {
