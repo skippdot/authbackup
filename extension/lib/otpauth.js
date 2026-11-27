@@ -70,13 +70,24 @@ export function buildOtpauthUri(a) {
 /**
  * A key from a backup file (a JSON account object) as a validated account: missing fields get the defaults of a link,
  * then the entry is rebuilt as an otpauth:// link and parsed again, so it is checked like any other link.
+ * Before that, each field the key uses must have its JSON type; nothing is coerced. `type` is "totp" or "hotp" in any
+ * letter case (like a link's), `secret` and `algorithm` are strings, `digits`, `period` (totp) and `counter` (hotp)
+ * are safe integers, whose String() is plain digits, so the link's own checks see the same number. Coerced,
+ * `period: 1e21` became 1 ("1e+21"), `secret: true` the Base32 "TRUE", and a type such as "totp?secret=AAAAAAAA&",
+ * written into the link unescaped, another key. `issuer` and `account` are labels and are still read as text.
  * Throws like parseOtpauthUri. The mobile apps restore backup files the same way (tests/vectors/core.json).
  */
 export function backupEntryToAccount(a) {
-  const entry = { type: 'totp', algorithm: 'SHA1', digits: 6, period: 30, ...a };
+  const entry = { type: 'totp', algorithm: 'SHA1', digits: 6, period: 30, counter: 0, ...a };
+  const type = typeof entry.type === 'string' ? entry.type.toLowerCase() : null;
+  if (type !== 'totp' && type !== 'hotp') throw new Error(t('errUnknownType', String(entry.type)));
   // A missing secret would be written as the text "undefined" (or "null"), which is valid Base32: refuse it instead.
-  if (entry.secret == null) throw new Error(t('errNoSecret'));
-  return parseOtpauthUri(buildOtpauthUri(entry));
+  if (typeof entry.secret !== 'string') throw new Error(t('errNoSecret'));
+  if (typeof entry.algorithm !== 'string') throw new Error(t('errAlgorithm', String(entry.algorithm)));
+  if (!Number.isSafeInteger(entry.digits)) throw new Error(t('errDigits', String(entry.digits)));
+  if (type === 'totp' && !Number.isSafeInteger(entry.period)) throw new Error(t('errPeriod', String(entry.period)));
+  if (type === 'hotp' && !Number.isSafeInteger(entry.counter)) throw new Error(t('errCounter', String(entry.counter)));
+  return parseOtpauthUri(buildOtpauthUri({ ...entry, type }));
 }
 
 /**

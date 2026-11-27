@@ -13,7 +13,6 @@ import javax.crypto.SecretKeyFactory
 import javax.crypto.spec.GCMParameterSpec
 import javax.crypto.spec.PBEKeySpec
 import javax.crypto.spec.SecretKeySpec
-import kotlin.math.truncate
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
@@ -64,19 +63,6 @@ internal val JsonElement.jsString: String
         is JsonPrimitive -> if (isString || isBoolean) content else JS.numberToString(numberValue!!)
         is JsonArray -> joinToString(",") { if (it is JsonNull) "" else it.jsString }
         is JsonObject -> "[object Object]"
-    }
-
-/** JS ToNumber(x). */
-internal val JsonElement.jsNumber: Double
-    get() = when (this) {
-        is JsonNull -> 0.0
-        is JsonPrimitive -> when {
-            isString -> JS.stringToNumber(content)
-            isBoolean -> if (content == "true") 1.0 else 0.0
-            else -> numberValue!!
-        }
-        is JsonArray -> JS.stringToNumber(jsString)
-        is JsonObject -> Double.NaN
     }
 
 /**
@@ -169,32 +155,43 @@ object Backup {
 
     /**
      * One backup entry: missing fields get the defaults of a link, then the entry is written as an otpauth:// link
-     * and parsed again, exactly as the extension does it.
+     * and parsed again, exactly as the extension does it. Before that, each field the key uses must have its JSON
+     * type, nothing is coerced: `type` is totp or hotp in any letter case, `secret` and `algorithm` are strings, and
+     * `digits`, `period` (totp) and `counter` (hotp) are safe integers. `issuer` and `account` are read as text.
      */
     fun restore(entry: JsonElement): OtpAccount {
         val m = linkedMapOf<String, JsonElement>(
             "type" to JsonPrimitive("totp"), "algorithm" to JsonPrimitive("SHA1"), "digits" to JsonPrimitive(6), "period" to JsonPrimitive(30),
+            "counter" to JsonPrimitive(0),
         )
         if (entry is JsonObject) m.putAll(entry)
+        fun text(name: String) = m[name]?.jsString ?: "undefined"
+        val type = m["type"].stringValue?.let(JS::lowercase)?.takeIf { it == "totp" || it == "hotp" } ?: throw CoreError.UnknownType(text("type"))
         // A missing secret would be written as the text "undefined", which is valid Base32: refused, as in the extension.
-        val secret = m["secret"]
-        if (secret == null || secret is JsonNull) throw CoreError.NoSecret
+        val secret = m["secret"].stringValue ?: throw CoreError.NoSecret
+        val algorithm = m["algorithm"].stringValue ?: throw CoreError.Algorithm(text("algorithm"))
+        val digits = safeInteger(m["digits"]) ?: throw CoreError.Digits(text("digits"))
         val account = m["account"]?.takeIf { it !is JsonNull }?.jsString ?: ""
         val issuer = m["issuer"]?.takeIf { it.truthy }?.jsString
         val label = JS.encodeURIComponent(if (issuer != null) "$issuer:$account" else account)
-        val type = m.getValue("type").jsString
-        val query = mutableListOf("secret" to secret.jsString)
+        val query = mutableListOf("secret" to secret)
         if (issuer != null) query.add("issuer" to issuer)
-        query.add("algorithm" to m.getValue("algorithm").jsString)
-        query.add("digits" to m.getValue("digits").jsString)
-        if (m["type"].stringValue == "hotp") {
-            query.add("counter" to (m["counter"]?.takeIf { it.truthy }?.jsString ?: "0"))
+        query.add("algorithm" to algorithm)
+        query.add("digits" to digits)
+        if (type == "hotp") {
+            query.add("counter" to (safeInteger(m["counter"]) ?: throw CoreError.Counter(text("counter"))))
         } else {
-            query.add("period" to m.getValue("period").jsString)
+            query.add("period" to (safeInteger(m["period"]) ?: throw CoreError.Period(text("period"))))
         }
         val search = query.joinToString("&") { "${JS.formEncode(it.first)}=${JS.formEncode(it.second)}" }
         return Otpauth.parse("otpauth://$type/$label?$search")
     }
+
+    /**
+     * A JSON number that Number.isSafeInteger() accepts, as String() writes it: plain digits, so the link's own checks
+     * see the same number (String(1e21) is "1e+21", which parseInt reads as 1). Null for anything else.
+     */
+    private fun safeInteger(value: JsonElement?): String? = value.numberValue?.takeIf(JS::isSafeInteger)?.let(JS::numberToString)
 
     // Encryption
 
@@ -267,8 +264,9 @@ object Backup {
     fun open(vault: JsonElement, password: String): List<JsonElement> {
         val kdf = vault.member("kdf")
         if (vault.member("v").numberValue != 1.0 || kdf.member("name").stringValue != "PBKDF2-SHA256") throw CoreError.VaultFormat
+        val iterations = iterations(kdf.member("iterations"))
         val salt = JS.base64ToBytes(kdf.member("salt").stringValue ?: throw CoreError.Malformed("salt"))
-        val key = deriveKey(password, salt, iterations(kdf.member("iterations")))
+        val key = deriveKey(password, salt, iterations)
         // In the extension the IV and ciphertext are decoded inside the decrypt call: damage there is a wrong password too.
         val (iv, ct) = try {
             JS.base64ToBytes(vault.member("iv").stringValue ?: throw CoreError.WrongPassword) to
@@ -282,15 +280,12 @@ object Backup {
     }
 
     /**
-     * Web IDL `[EnforceRange] unsigned long` of the `iterations` member, which may be a number or a numeric string.
-     * A missing one is undefined, and deriveKey() in the extension then falls back to its default parameter.
+     * The `iterations` member as the apps write it, a whole JSON number from 1 to [MAX_ITERATIONS], as in the extension:
+     * no default for a missing one, no Web IDL conversion of `true` or "1000".
      */
     private fun iterations(value: JsonElement?): Int {
-        val x = value?.jsNumber ?: return DEFAULT_ITERATIONS
-        if (!x.isFinite()) throw CoreError.Malformed("iterations")
-        val n = truncate(x)
-        if (n < 0 || n > 4_294_967_295.0) throw CoreError.Malformed("iterations")
-        if (n < 1 || n > MAX_ITERATIONS) throw CoreError.Malformed("iterations") // 0 is an OperationError in Web Crypto
+        val n = value.numberValue ?: throw CoreError.VaultFormat
+        if (n % 1.0 != 0.0 || n < 1 || n > MAX_ITERATIONS) throw CoreError.VaultFormat
         return n.toInt()
     }
 

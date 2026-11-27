@@ -5278,16 +5278,7 @@
     "secret": "JBSWY3DPEHPK3PXP",
     "digits": "8"
    },
-   "result": {
-    "type": "totp",
-    "issuer": "",
-    "account": "",
-    "secret": "JBSWY3DPEHPK3PXP",
-    "algorithm": "SHA1",
-    "digits": 8,
-    "period": 30,
-    "counter": 0
-   }
+   "error": "errDigits"
   },
   {
    "entry": {
@@ -5356,6 +5347,385 @@
     "period": 2147483648
    },
    "error": "errPeriod"
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "type": "totp?secret=AAAAAAAA&"
+   },
+   "error": "errUnknownType"
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "type": "hotp/x?secret=AAAAAAAA&counter=9#"
+   },
+   "error": "errUnknownType"
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "type": " totp"
+   },
+   "error": "errUnknownType"
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "type": ""
+   },
+   "error": "errUnknownType"
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "type": null
+   },
+   "error": "errUnknownType"
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "type": 1
+   },
+   "error": "errUnknownType"
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "type": [
+     "totp"
+    ]
+   },
+   "error": "errUnknownType"
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "type": "TOTP",
+    "period": 60
+   },
+   "result": {
+    "type": "totp",
+    "issuer": "",
+    "account": "",
+    "secret": "JBSWY3DPEHPK3PXP",
+    "algorithm": "SHA1",
+    "digits": 6,
+    "period": 60,
+    "counter": 0
+   }
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "type": "HOTP",
+    "counter": 5
+   },
+   "result": {
+    "type": "hotp",
+    "issuer": "",
+    "account": "",
+    "secret": "JBSWY3DPEHPK3PXP",
+    "algorithm": "SHA1",
+    "digits": 6,
+    "period": 30,
+    "counter": 5
+   }
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "type": "Hotp"
+   },
+   "result": {
+    "type": "hotp",
+    "issuer": "",
+    "account": "",
+    "secret": "JBSWY3DPEHPK3PXP",
+    "algorithm": "SHA1",
+    "digits": 6,
+    "period": 30,
+    "counter": 0
+   }
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "period": 1e+21
+   },
+   "error": "errPeriod"
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "period": 30.5
+   },
+   "error": "errPeriod"
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "period": "60"
+   },
+   "error": "errPeriod"
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "period": null
+   },
+   "error": "errPeriod"
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "period": true
+   },
+   "error": "errPeriod"
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "period": -30
+   },
+   "error": "errPeriod"
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "type": "hotp",
+    "counter": 1e+21
+   },
+   "error": "errCounter"
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "type": "hotp",
+    "counter": 9007199254740992
+   },
+   "error": "errCounter"
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "type": "hotp",
+    "counter": 9007199254740991
+   },
+   "result": {
+    "type": "hotp",
+    "issuer": "",
+    "account": "",
+    "secret": "JBSWY3DPEHPK3PXP",
+    "algorithm": "SHA1",
+    "digits": 6,
+    "period": 30,
+    "counter": 9007199254740991
+   }
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "type": "hotp",
+    "counter": 1.5
+   },
+   "error": "errCounter"
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "type": "hotp",
+    "counter": "5"
+   },
+   "error": "errCounter"
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "type": "hotp",
+    "counter": null
+   },
+   "error": "errCounter"
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "type": "hotp",
+    "counter": -1
+   },
+   "error": "errCounter"
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "type": "hotp",
+    "counter": 0
+   },
+   "result": {
+    "type": "hotp",
+    "issuer": "",
+    "account": "",
+    "secret": "JBSWY3DPEHPK3PXP",
+    "algorithm": "SHA1",
+    "digits": 6,
+    "period": 30,
+    "counter": 0
+   }
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "digits": 6.9
+   },
+   "error": "errDigits"
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "digits": 1e+21
+   },
+   "error": "errDigits"
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "digits": null
+   },
+   "error": "errDigits"
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "digits": true
+   },
+   "error": "errDigits"
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "digits": 8
+   },
+   "result": {
+    "type": "totp",
+    "issuer": "",
+    "account": "",
+    "secret": "JBSWY3DPEHPK3PXP",
+    "algorithm": "SHA1",
+    "digits": 8,
+    "period": 30,
+    "counter": 0
+   }
+  },
+  {
+   "entry": {
+    "secret": true
+   },
+   "error": "errNoSecret"
+  },
+  {
+   "entry": {
+    "secret": 22222222
+   },
+   "error": "errNoSecret"
+  },
+  {
+   "entry": {
+    "secret": [
+     "JBSWY3DPEHPK3PXP"
+    ]
+   },
+   "error": "errNoSecret"
+  },
+  {
+   "entry": {
+    "secret": {
+     "value": "JBSWY3DPEHPK3PXP"
+    }
+   },
+   "error": "errNoSecret"
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "algorithm": [
+     "SHA1"
+    ]
+   },
+   "error": "errAlgorithm"
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "algorithm": null
+   },
+   "error": "errAlgorithm"
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "algorithm": "sha-256"
+   },
+   "result": {
+    "type": "totp",
+    "issuer": "",
+    "account": "",
+    "secret": "JBSWY3DPEHPK3PXP",
+    "algorithm": "SHA256",
+    "digits": 6,
+    "period": 30,
+    "counter": 0
+   }
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "type": "hotp",
+    "period": "x"
+   },
+   "result": {
+    "type": "hotp",
+    "issuer": "",
+    "account": "",
+    "secret": "JBSWY3DPEHPK3PXP",
+    "algorithm": "SHA1",
+    "digits": 6,
+    "period": 30,
+    "counter": 0
+   }
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "counter": "x"
+   },
+   "result": {
+    "type": "totp",
+    "issuer": "",
+    "account": "",
+    "secret": "JBSWY3DPEHPK3PXP",
+    "algorithm": "SHA1",
+    "digits": 6,
+    "period": 30,
+    "counter": 0
+   }
+  },
+  {
+   "entry": {
+    "secret": "JBSWY3DPEHPK3PXP",
+    "issuer": 12345,
+    "account": 0.5
+   },
+   "result": {
+    "type": "totp",
+    "issuer": "12345",
+    "account": "0.5",
+    "secret": "JBSWY3DPEHPK3PXP",
+    "algorithm": "SHA1",
+    "digits": 6,
+    "period": 30,
+    "counter": 0
+   }
   }
  ],
  "backup": {
@@ -5799,6 +6169,238 @@
       "algorithm": "SHA256",
       "digits": 8,
       "period": 60,
+      "counter": 0
+     }
+    ]
+   },
+   {
+    "file": {
+     "app": "authbackup",
+     "version": 2,
+     "exportedAt": "2026-11-25T12:00:00.000Z",
+     "count": 6,
+     "encrypted": {
+      "v": 1,
+      "kdf": {
+       "name": "PBKDF2-SHA256",
+       "salt": "soP2ypq8hPO8KNVqgHO7Eg=="
+      },
+      "iv": "3p0o/0xzX5bbjT4E",
+      "ct": "McCJXBizVxd+oX+TF1yGSWO6MAZgEi62MqggbMgJJtYDxueXLLr633slEqnpMusBF+UjIXbQd7ctJbkH5XIdStv/MOdDPGSPAOwRWzyj042//4w5KzdPwkfAL1upSpO8nD0QCuiSVC8P75ytskf/UR/bgF0z6LPRvGjbN1DYjXBF/cJL0MswdIPATwH7ZtnOKIhRGL+CvI+KFaAmt2X2t5lgi/vHg9w/Rt86vN91EpdHRRU2rkSlQQZquT/t4SehZNdUmaL2iCxcaSxHRQ4T7lF4oY3dd4NC50WhHit8GQo1+qX7z2cceHU/duWJ7OrOKTEucAsk4XulFs2wE59qMLbVAOSMg6eNC/VqXfi/f8VuTb6TYXo0vCEitBACh1jOjwkPWprkG14mPDPpCdFNjuwDUxnpodfA3Vhj4SLaxPzj8Mnuf4Op9/FSzyCkh1ALkn4Z91pf6JMN2KlfE+YlGevYz6LyWcwqoD6UiPvVjHljQrf4Sek+bMf0AdaU4TC3T1ggr+g1ABvPu92cXZSAJSVJsyjzXiTGWz2y8OT5SUw9JEmGclXrKn84RiP80J7945iqirmm4JNJhPyJ8TyrtWK4cYfJRiAVS9ie4cYW7p5izeOdSUJatY958e1P10lP6Yfyeh/vDxT2TU9xSYV6+8vptgKoVxuB09zK9sZxHEmag1tr0bxI9hsgElKFQkYiNI4yzbgPCmAD7BCOCGJw2ZF+JScINaDfgP3AgGJBGL+6uUcDc8UWoLlWUs82uNtasSkV7b2axHmJkmSDa5hbGtk96IL3DeRDBtb1bb7hXkPOoDzK2CLNdca0LniQ8OkUDRStVuRBQcoIhIXP6n4LPBmqpRIg6PLw/gggUjxRvKTwX2MB3Jl320JIGQXcWobgR9loYsK6sd5f/YQzteohVkkqIXux/blF7+c/0w/P2aEgq05DEu5YC9gds0Ek6SJjnGmXBoZxKQdCnF1fSkIBiwQmwQq6YQmCTJ/C1Ks8x9dCc6pBh65Qi5cX5zYZefSdKSyw3nIB4LTXtNs5vFlx5hj8wlBhZ006fDTm+WQp1DPU4F1apMVhs90WbdDkw2jyzi5/vBOsmbE5bHVfK4iQi77BWjLzPy9UTr9tMNqZqY9IHKicH2xJBfKPxKcKftv3GWktwDUSsgJp9uvQQt4D33rni5ym0yylO9dHVpGrDMGHRdr7rCnGqSHo+omYEh/txoUnzZaSVLdai7UyyNkTAqjDKByvBahBfloqMUoMPgdqc77IhPGEG8FSg8ljF2szY8WTyCgdoQikbZshwzPlS1GM0x6bQZBJ+sS+JG3Uakw2QogU4VGc2bfRsAP4J/fbqXgZULFWOVKFHu3hyxsTpllWA+Xfs6YIUdLnY6Ht8q42+ot76DEKitA6dtfkWHI7qsojEEO98GFzj2mNzh8NrdjcNTJwHyWoxlyrQfU5Haw7qHZLVEwO/2u9gs8FyHVN/B/wbPLBNHBnrQKaDPTxmkpgrBvUvVxE8kp6MVr5hbI2MZaVWPDGsVyNcw4hIC5bNlPhGGgaEarooV5pvbEwFsAO3IU6rytKpPJubsPPYHpfPpD0RRBl4FPiy4ddsl+WXAyEhU9jMAy2VMTulrj27Gx2/cKZx+87hC6rgiFenbe7h5sEbVHKVIAagYro"
+     }
+    },
+    "password": "pässwörd-🔑 ok",
+    "error": "errVaultFormat"
+   },
+   {
+    "file": {
+     "app": "authbackup",
+     "version": 2,
+     "exportedAt": "2026-11-25T12:00:00.000Z",
+     "count": 6,
+     "encrypted": {
+      "v": 1,
+      "kdf": {
+       "name": "PBKDF2-SHA256",
+       "iterations": true,
+       "salt": "soP2ypq8hPO8KNVqgHO7Eg=="
+      },
+      "iv": "3p0o/0xzX5bbjT4E",
+      "ct": "McCJXBizVxd+oX+TF1yGSWO6MAZgEi62MqggbMgJJtYDxueXLLr633slEqnpMusBF+UjIXbQd7ctJbkH5XIdStv/MOdDPGSPAOwRWzyj042//4w5KzdPwkfAL1upSpO8nD0QCuiSVC8P75ytskf/UR/bgF0z6LPRvGjbN1DYjXBF/cJL0MswdIPATwH7ZtnOKIhRGL+CvI+KFaAmt2X2t5lgi/vHg9w/Rt86vN91EpdHRRU2rkSlQQZquT/t4SehZNdUmaL2iCxcaSxHRQ4T7lF4oY3dd4NC50WhHit8GQo1+qX7z2cceHU/duWJ7OrOKTEucAsk4XulFs2wE59qMLbVAOSMg6eNC/VqXfi/f8VuTb6TYXo0vCEitBACh1jOjwkPWprkG14mPDPpCdFNjuwDUxnpodfA3Vhj4SLaxPzj8Mnuf4Op9/FSzyCkh1ALkn4Z91pf6JMN2KlfE+YlGevYz6LyWcwqoD6UiPvVjHljQrf4Sek+bMf0AdaU4TC3T1ggr+g1ABvPu92cXZSAJSVJsyjzXiTGWz2y8OT5SUw9JEmGclXrKn84RiP80J7945iqirmm4JNJhPyJ8TyrtWK4cYfJRiAVS9ie4cYW7p5izeOdSUJatY958e1P10lP6Yfyeh/vDxT2TU9xSYV6+8vptgKoVxuB09zK9sZxHEmag1tr0bxI9hsgElKFQkYiNI4yzbgPCmAD7BCOCGJw2ZF+JScINaDfgP3AgGJBGL+6uUcDc8UWoLlWUs82uNtasSkV7b2axHmJkmSDa5hbGtk96IL3DeRDBtb1bb7hXkPOoDzK2CLNdca0LniQ8OkUDRStVuRBQcoIhIXP6n4LPBmqpRIg6PLw/gggUjxRvKTwX2MB3Jl320JIGQXcWobgR9loYsK6sd5f/YQzteohVkkqIXux/blF7+c/0w/P2aEgq05DEu5YC9gds0Ek6SJjnGmXBoZxKQdCnF1fSkIBiwQmwQq6YQmCTJ/C1Ks8x9dCc6pBh65Qi5cX5zYZefSdKSyw3nIB4LTXtNs5vFlx5hj8wlBhZ006fDTm+WQp1DPU4F1apMVhs90WbdDkw2jyzi5/vBOsmbE5bHVfK4iQi77BWjLzPy9UTr9tMNqZqY9IHKicH2xJBfKPxKcKftv3GWktwDUSsgJp9uvQQt4D33rni5ym0yylO9dHVpGrDMGHRdr7rCnGqSHo+omYEh/txoUnzZaSVLdai7UyyNkTAqjDKByvBahBfloqMUoMPgdqc77IhPGEG8FSg8ljF2szY8WTyCgdoQikbZshwzPlS1GM0x6bQZBJ+sS+JG3Uakw2QogU4VGc2bfRsAP4J/fbqXgZULFWOVKFHu3hyxsTpllWA+Xfs6YIUdLnY6Ht8q42+ot76DEKitA6dtfkWHI7qsojEEO98GFzj2mNzh8NrdjcNTJwHyWoxlyrQfU5Haw7qHZLVEwO/2u9gs8FyHVN/B/wbPLBNHBnrQKaDPTxmkpgrBvUvVxE8kp6MVr5hbI2MZaVWPDGsVyNcw4hIC5bNlPhGGgaEarooV5pvbEwFsAO3IU6rytKpPJubsPPYHpfPpD0RRBl4FPiy4ddsl+WXAyEhU9jMAy2VMTulrj27Gx2/cKZx+87hC6rgiFenbe7h5sEbVHKVIAagYro"
+     }
+    },
+    "password": "pässwörd-🔑 ok",
+    "error": "errVaultFormat"
+   },
+   {
+    "file": {
+     "app": "authbackup",
+     "version": 2,
+     "exportedAt": "2026-11-25T12:00:00.000Z",
+     "count": 6,
+     "encrypted": {
+      "v": 1,
+      "kdf": {
+       "name": "PBKDF2-SHA256",
+       "iterations": "1000",
+       "salt": "soP2ypq8hPO8KNVqgHO7Eg=="
+      },
+      "iv": "3p0o/0xzX5bbjT4E",
+      "ct": "McCJXBizVxd+oX+TF1yGSWO6MAZgEi62MqggbMgJJtYDxueXLLr633slEqnpMusBF+UjIXbQd7ctJbkH5XIdStv/MOdDPGSPAOwRWzyj042//4w5KzdPwkfAL1upSpO8nD0QCuiSVC8P75ytskf/UR/bgF0z6LPRvGjbN1DYjXBF/cJL0MswdIPATwH7ZtnOKIhRGL+CvI+KFaAmt2X2t5lgi/vHg9w/Rt86vN91EpdHRRU2rkSlQQZquT/t4SehZNdUmaL2iCxcaSxHRQ4T7lF4oY3dd4NC50WhHit8GQo1+qX7z2cceHU/duWJ7OrOKTEucAsk4XulFs2wE59qMLbVAOSMg6eNC/VqXfi/f8VuTb6TYXo0vCEitBACh1jOjwkPWprkG14mPDPpCdFNjuwDUxnpodfA3Vhj4SLaxPzj8Mnuf4Op9/FSzyCkh1ALkn4Z91pf6JMN2KlfE+YlGevYz6LyWcwqoD6UiPvVjHljQrf4Sek+bMf0AdaU4TC3T1ggr+g1ABvPu92cXZSAJSVJsyjzXiTGWz2y8OT5SUw9JEmGclXrKn84RiP80J7945iqirmm4JNJhPyJ8TyrtWK4cYfJRiAVS9ie4cYW7p5izeOdSUJatY958e1P10lP6Yfyeh/vDxT2TU9xSYV6+8vptgKoVxuB09zK9sZxHEmag1tr0bxI9hsgElKFQkYiNI4yzbgPCmAD7BCOCGJw2ZF+JScINaDfgP3AgGJBGL+6uUcDc8UWoLlWUs82uNtasSkV7b2axHmJkmSDa5hbGtk96IL3DeRDBtb1bb7hXkPOoDzK2CLNdca0LniQ8OkUDRStVuRBQcoIhIXP6n4LPBmqpRIg6PLw/gggUjxRvKTwX2MB3Jl320JIGQXcWobgR9loYsK6sd5f/YQzteohVkkqIXux/blF7+c/0w/P2aEgq05DEu5YC9gds0Ek6SJjnGmXBoZxKQdCnF1fSkIBiwQmwQq6YQmCTJ/C1Ks8x9dCc6pBh65Qi5cX5zYZefSdKSyw3nIB4LTXtNs5vFlx5hj8wlBhZ006fDTm+WQp1DPU4F1apMVhs90WbdDkw2jyzi5/vBOsmbE5bHVfK4iQi77BWjLzPy9UTr9tMNqZqY9IHKicH2xJBfKPxKcKftv3GWktwDUSsgJp9uvQQt4D33rni5ym0yylO9dHVpGrDMGHRdr7rCnGqSHo+omYEh/txoUnzZaSVLdai7UyyNkTAqjDKByvBahBfloqMUoMPgdqc77IhPGEG8FSg8ljF2szY8WTyCgdoQikbZshwzPlS1GM0x6bQZBJ+sS+JG3Uakw2QogU4VGc2bfRsAP4J/fbqXgZULFWOVKFHu3hyxsTpllWA+Xfs6YIUdLnY6Ht8q42+ot76DEKitA6dtfkWHI7qsojEEO98GFzj2mNzh8NrdjcNTJwHyWoxlyrQfU5Haw7qHZLVEwO/2u9gs8FyHVN/B/wbPLBNHBnrQKaDPTxmkpgrBvUvVxE8kp6MVr5hbI2MZaVWPDGsVyNcw4hIC5bNlPhGGgaEarooV5pvbEwFsAO3IU6rytKpPJubsPPYHpfPpD0RRBl4FPiy4ddsl+WXAyEhU9jMAy2VMTulrj27Gx2/cKZx+87hC6rgiFenbe7h5sEbVHKVIAagYro"
+     }
+    },
+    "password": "pässwörd-🔑 ok",
+    "error": "errVaultFormat"
+   },
+   {
+    "file": {
+     "app": "authbackup",
+     "version": 2,
+     "exportedAt": "2026-11-25T12:00:00.000Z",
+     "count": 6,
+     "encrypted": {
+      "v": 1,
+      "kdf": {
+       "name": "PBKDF2-SHA256",
+       "iterations": null,
+       "salt": "soP2ypq8hPO8KNVqgHO7Eg=="
+      },
+      "iv": "3p0o/0xzX5bbjT4E",
+      "ct": "McCJXBizVxd+oX+TF1yGSWO6MAZgEi62MqggbMgJJtYDxueXLLr633slEqnpMusBF+UjIXbQd7ctJbkH5XIdStv/MOdDPGSPAOwRWzyj042//4w5KzdPwkfAL1upSpO8nD0QCuiSVC8P75ytskf/UR/bgF0z6LPRvGjbN1DYjXBF/cJL0MswdIPATwH7ZtnOKIhRGL+CvI+KFaAmt2X2t5lgi/vHg9w/Rt86vN91EpdHRRU2rkSlQQZquT/t4SehZNdUmaL2iCxcaSxHRQ4T7lF4oY3dd4NC50WhHit8GQo1+qX7z2cceHU/duWJ7OrOKTEucAsk4XulFs2wE59qMLbVAOSMg6eNC/VqXfi/f8VuTb6TYXo0vCEitBACh1jOjwkPWprkG14mPDPpCdFNjuwDUxnpodfA3Vhj4SLaxPzj8Mnuf4Op9/FSzyCkh1ALkn4Z91pf6JMN2KlfE+YlGevYz6LyWcwqoD6UiPvVjHljQrf4Sek+bMf0AdaU4TC3T1ggr+g1ABvPu92cXZSAJSVJsyjzXiTGWz2y8OT5SUw9JEmGclXrKn84RiP80J7945iqirmm4JNJhPyJ8TyrtWK4cYfJRiAVS9ie4cYW7p5izeOdSUJatY958e1P10lP6Yfyeh/vDxT2TU9xSYV6+8vptgKoVxuB09zK9sZxHEmag1tr0bxI9hsgElKFQkYiNI4yzbgPCmAD7BCOCGJw2ZF+JScINaDfgP3AgGJBGL+6uUcDc8UWoLlWUs82uNtasSkV7b2axHmJkmSDa5hbGtk96IL3DeRDBtb1bb7hXkPOoDzK2CLNdca0LniQ8OkUDRStVuRBQcoIhIXP6n4LPBmqpRIg6PLw/gggUjxRvKTwX2MB3Jl320JIGQXcWobgR9loYsK6sd5f/YQzteohVkkqIXux/blF7+c/0w/P2aEgq05DEu5YC9gds0Ek6SJjnGmXBoZxKQdCnF1fSkIBiwQmwQq6YQmCTJ/C1Ks8x9dCc6pBh65Qi5cX5zYZefSdKSyw3nIB4LTXtNs5vFlx5hj8wlBhZ006fDTm+WQp1DPU4F1apMVhs90WbdDkw2jyzi5/vBOsmbE5bHVfK4iQi77BWjLzPy9UTr9tMNqZqY9IHKicH2xJBfKPxKcKftv3GWktwDUSsgJp9uvQQt4D33rni5ym0yylO9dHVpGrDMGHRdr7rCnGqSHo+omYEh/txoUnzZaSVLdai7UyyNkTAqjDKByvBahBfloqMUoMPgdqc77IhPGEG8FSg8ljF2szY8WTyCgdoQikbZshwzPlS1GM0x6bQZBJ+sS+JG3Uakw2QogU4VGc2bfRsAP4J/fbqXgZULFWOVKFHu3hyxsTpllWA+Xfs6YIUdLnY6Ht8q42+ot76DEKitA6dtfkWHI7qsojEEO98GFzj2mNzh8NrdjcNTJwHyWoxlyrQfU5Haw7qHZLVEwO/2u9gs8FyHVN/B/wbPLBNHBnrQKaDPTxmkpgrBvUvVxE8kp6MVr5hbI2MZaVWPDGsVyNcw4hIC5bNlPhGGgaEarooV5pvbEwFsAO3IU6rytKpPJubsPPYHpfPpD0RRBl4FPiy4ddsl+WXAyEhU9jMAy2VMTulrj27Gx2/cKZx+87hC6rgiFenbe7h5sEbVHKVIAagYro"
+     }
+    },
+    "password": "pässwörd-🔑 ok",
+    "error": "errVaultFormat"
+   },
+   {
+    "file": {
+     "app": "authbackup",
+     "version": 2,
+     "exportedAt": "2026-11-25T12:00:00.000Z",
+     "count": 6,
+     "encrypted": {
+      "v": 1,
+      "kdf": {
+       "name": "PBKDF2-SHA256",
+       "iterations": 0,
+       "salt": "soP2ypq8hPO8KNVqgHO7Eg=="
+      },
+      "iv": "3p0o/0xzX5bbjT4E",
+      "ct": "McCJXBizVxd+oX+TF1yGSWO6MAZgEi62MqggbMgJJtYDxueXLLr633slEqnpMusBF+UjIXbQd7ctJbkH5XIdStv/MOdDPGSPAOwRWzyj042//4w5KzdPwkfAL1upSpO8nD0QCuiSVC8P75ytskf/UR/bgF0z6LPRvGjbN1DYjXBF/cJL0MswdIPATwH7ZtnOKIhRGL+CvI+KFaAmt2X2t5lgi/vHg9w/Rt86vN91EpdHRRU2rkSlQQZquT/t4SehZNdUmaL2iCxcaSxHRQ4T7lF4oY3dd4NC50WhHit8GQo1+qX7z2cceHU/duWJ7OrOKTEucAsk4XulFs2wE59qMLbVAOSMg6eNC/VqXfi/f8VuTb6TYXo0vCEitBACh1jOjwkPWprkG14mPDPpCdFNjuwDUxnpodfA3Vhj4SLaxPzj8Mnuf4Op9/FSzyCkh1ALkn4Z91pf6JMN2KlfE+YlGevYz6LyWcwqoD6UiPvVjHljQrf4Sek+bMf0AdaU4TC3T1ggr+g1ABvPu92cXZSAJSVJsyjzXiTGWz2y8OT5SUw9JEmGclXrKn84RiP80J7945iqirmm4JNJhPyJ8TyrtWK4cYfJRiAVS9ie4cYW7p5izeOdSUJatY958e1P10lP6Yfyeh/vDxT2TU9xSYV6+8vptgKoVxuB09zK9sZxHEmag1tr0bxI9hsgElKFQkYiNI4yzbgPCmAD7BCOCGJw2ZF+JScINaDfgP3AgGJBGL+6uUcDc8UWoLlWUs82uNtasSkV7b2axHmJkmSDa5hbGtk96IL3DeRDBtb1bb7hXkPOoDzK2CLNdca0LniQ8OkUDRStVuRBQcoIhIXP6n4LPBmqpRIg6PLw/gggUjxRvKTwX2MB3Jl320JIGQXcWobgR9loYsK6sd5f/YQzteohVkkqIXux/blF7+c/0w/P2aEgq05DEu5YC9gds0Ek6SJjnGmXBoZxKQdCnF1fSkIBiwQmwQq6YQmCTJ/C1Ks8x9dCc6pBh65Qi5cX5zYZefSdKSyw3nIB4LTXtNs5vFlx5hj8wlBhZ006fDTm+WQp1DPU4F1apMVhs90WbdDkw2jyzi5/vBOsmbE5bHVfK4iQi77BWjLzPy9UTr9tMNqZqY9IHKicH2xJBfKPxKcKftv3GWktwDUSsgJp9uvQQt4D33rni5ym0yylO9dHVpGrDMGHRdr7rCnGqSHo+omYEh/txoUnzZaSVLdai7UyyNkTAqjDKByvBahBfloqMUoMPgdqc77IhPGEG8FSg8ljF2szY8WTyCgdoQikbZshwzPlS1GM0x6bQZBJ+sS+JG3Uakw2QogU4VGc2bfRsAP4J/fbqXgZULFWOVKFHu3hyxsTpllWA+Xfs6YIUdLnY6Ht8q42+ot76DEKitA6dtfkWHI7qsojEEO98GFzj2mNzh8NrdjcNTJwHyWoxlyrQfU5Haw7qHZLVEwO/2u9gs8FyHVN/B/wbPLBNHBnrQKaDPTxmkpgrBvUvVxE8kp6MVr5hbI2MZaVWPDGsVyNcw4hIC5bNlPhGGgaEarooV5pvbEwFsAO3IU6rytKpPJubsPPYHpfPpD0RRBl4FPiy4ddsl+WXAyEhU9jMAy2VMTulrj27Gx2/cKZx+87hC6rgiFenbe7h5sEbVHKVIAagYro"
+     }
+    },
+    "password": "pässwörd-🔑 ok",
+    "error": "errVaultFormat"
+   },
+   {
+    "file": {
+     "app": "authbackup",
+     "version": 2,
+     "exportedAt": "2026-11-25T12:00:00.000Z",
+     "count": 6,
+     "encrypted": {
+      "v": 1,
+      "kdf": {
+       "name": "PBKDF2-SHA256",
+       "iterations": -1,
+       "salt": "soP2ypq8hPO8KNVqgHO7Eg=="
+      },
+      "iv": "3p0o/0xzX5bbjT4E",
+      "ct": "McCJXBizVxd+oX+TF1yGSWO6MAZgEi62MqggbMgJJtYDxueXLLr633slEqnpMusBF+UjIXbQd7ctJbkH5XIdStv/MOdDPGSPAOwRWzyj042//4w5KzdPwkfAL1upSpO8nD0QCuiSVC8P75ytskf/UR/bgF0z6LPRvGjbN1DYjXBF/cJL0MswdIPATwH7ZtnOKIhRGL+CvI+KFaAmt2X2t5lgi/vHg9w/Rt86vN91EpdHRRU2rkSlQQZquT/t4SehZNdUmaL2iCxcaSxHRQ4T7lF4oY3dd4NC50WhHit8GQo1+qX7z2cceHU/duWJ7OrOKTEucAsk4XulFs2wE59qMLbVAOSMg6eNC/VqXfi/f8VuTb6TYXo0vCEitBACh1jOjwkPWprkG14mPDPpCdFNjuwDUxnpodfA3Vhj4SLaxPzj8Mnuf4Op9/FSzyCkh1ALkn4Z91pf6JMN2KlfE+YlGevYz6LyWcwqoD6UiPvVjHljQrf4Sek+bMf0AdaU4TC3T1ggr+g1ABvPu92cXZSAJSVJsyjzXiTGWz2y8OT5SUw9JEmGclXrKn84RiP80J7945iqirmm4JNJhPyJ8TyrtWK4cYfJRiAVS9ie4cYW7p5izeOdSUJatY958e1P10lP6Yfyeh/vDxT2TU9xSYV6+8vptgKoVxuB09zK9sZxHEmag1tr0bxI9hsgElKFQkYiNI4yzbgPCmAD7BCOCGJw2ZF+JScINaDfgP3AgGJBGL+6uUcDc8UWoLlWUs82uNtasSkV7b2axHmJkmSDa5hbGtk96IL3DeRDBtb1bb7hXkPOoDzK2CLNdca0LniQ8OkUDRStVuRBQcoIhIXP6n4LPBmqpRIg6PLw/gggUjxRvKTwX2MB3Jl320JIGQXcWobgR9loYsK6sd5f/YQzteohVkkqIXux/blF7+c/0w/P2aEgq05DEu5YC9gds0Ek6SJjnGmXBoZxKQdCnF1fSkIBiwQmwQq6YQmCTJ/C1Ks8x9dCc6pBh65Qi5cX5zYZefSdKSyw3nIB4LTXtNs5vFlx5hj8wlBhZ006fDTm+WQp1DPU4F1apMVhs90WbdDkw2jyzi5/vBOsmbE5bHVfK4iQi77BWjLzPy9UTr9tMNqZqY9IHKicH2xJBfKPxKcKftv3GWktwDUSsgJp9uvQQt4D33rni5ym0yylO9dHVpGrDMGHRdr7rCnGqSHo+omYEh/txoUnzZaSVLdai7UyyNkTAqjDKByvBahBfloqMUoMPgdqc77IhPGEG8FSg8ljF2szY8WTyCgdoQikbZshwzPlS1GM0x6bQZBJ+sS+JG3Uakw2QogU4VGc2bfRsAP4J/fbqXgZULFWOVKFHu3hyxsTpllWA+Xfs6YIUdLnY6Ht8q42+ot76DEKitA6dtfkWHI7qsojEEO98GFzj2mNzh8NrdjcNTJwHyWoxlyrQfU5Haw7qHZLVEwO/2u9gs8FyHVN/B/wbPLBNHBnrQKaDPTxmkpgrBvUvVxE8kp6MVr5hbI2MZaVWPDGsVyNcw4hIC5bNlPhGGgaEarooV5pvbEwFsAO3IU6rytKpPJubsPPYHpfPpD0RRBl4FPiy4ddsl+WXAyEhU9jMAy2VMTulrj27Gx2/cKZx+87hC6rgiFenbe7h5sEbVHKVIAagYro"
+     }
+    },
+    "password": "pässwörd-🔑 ok",
+    "error": "errVaultFormat"
+   },
+   {
+    "file": {
+     "app": "authbackup",
+     "version": 2,
+     "exportedAt": "2026-11-25T12:00:00.000Z",
+     "count": 6,
+     "encrypted": {
+      "v": 1,
+      "kdf": {
+       "name": "PBKDF2-SHA256",
+       "iterations": 1.5,
+       "salt": "soP2ypq8hPO8KNVqgHO7Eg=="
+      },
+      "iv": "3p0o/0xzX5bbjT4E",
+      "ct": "McCJXBizVxd+oX+TF1yGSWO6MAZgEi62MqggbMgJJtYDxueXLLr633slEqnpMusBF+UjIXbQd7ctJbkH5XIdStv/MOdDPGSPAOwRWzyj042//4w5KzdPwkfAL1upSpO8nD0QCuiSVC8P75ytskf/UR/bgF0z6LPRvGjbN1DYjXBF/cJL0MswdIPATwH7ZtnOKIhRGL+CvI+KFaAmt2X2t5lgi/vHg9w/Rt86vN91EpdHRRU2rkSlQQZquT/t4SehZNdUmaL2iCxcaSxHRQ4T7lF4oY3dd4NC50WhHit8GQo1+qX7z2cceHU/duWJ7OrOKTEucAsk4XulFs2wE59qMLbVAOSMg6eNC/VqXfi/f8VuTb6TYXo0vCEitBACh1jOjwkPWprkG14mPDPpCdFNjuwDUxnpodfA3Vhj4SLaxPzj8Mnuf4Op9/FSzyCkh1ALkn4Z91pf6JMN2KlfE+YlGevYz6LyWcwqoD6UiPvVjHljQrf4Sek+bMf0AdaU4TC3T1ggr+g1ABvPu92cXZSAJSVJsyjzXiTGWz2y8OT5SUw9JEmGclXrKn84RiP80J7945iqirmm4JNJhPyJ8TyrtWK4cYfJRiAVS9ie4cYW7p5izeOdSUJatY958e1P10lP6Yfyeh/vDxT2TU9xSYV6+8vptgKoVxuB09zK9sZxHEmag1tr0bxI9hsgElKFQkYiNI4yzbgPCmAD7BCOCGJw2ZF+JScINaDfgP3AgGJBGL+6uUcDc8UWoLlWUs82uNtasSkV7b2axHmJkmSDa5hbGtk96IL3DeRDBtb1bb7hXkPOoDzK2CLNdca0LniQ8OkUDRStVuRBQcoIhIXP6n4LPBmqpRIg6PLw/gggUjxRvKTwX2MB3Jl320JIGQXcWobgR9loYsK6sd5f/YQzteohVkkqIXux/blF7+c/0w/P2aEgq05DEu5YC9gds0Ek6SJjnGmXBoZxKQdCnF1fSkIBiwQmwQq6YQmCTJ/C1Ks8x9dCc6pBh65Qi5cX5zYZefSdKSyw3nIB4LTXtNs5vFlx5hj8wlBhZ006fDTm+WQp1DPU4F1apMVhs90WbdDkw2jyzi5/vBOsmbE5bHVfK4iQi77BWjLzPy9UTr9tMNqZqY9IHKicH2xJBfKPxKcKftv3GWktwDUSsgJp9uvQQt4D33rni5ym0yylO9dHVpGrDMGHRdr7rCnGqSHo+omYEh/txoUnzZaSVLdai7UyyNkTAqjDKByvBahBfloqMUoMPgdqc77IhPGEG8FSg8ljF2szY8WTyCgdoQikbZshwzPlS1GM0x6bQZBJ+sS+JG3Uakw2QogU4VGc2bfRsAP4J/fbqXgZULFWOVKFHu3hyxsTpllWA+Xfs6YIUdLnY6Ht8q42+ot76DEKitA6dtfkWHI7qsojEEO98GFzj2mNzh8NrdjcNTJwHyWoxlyrQfU5Haw7qHZLVEwO/2u9gs8FyHVN/B/wbPLBNHBnrQKaDPTxmkpgrBvUvVxE8kp6MVr5hbI2MZaVWPDGsVyNcw4hIC5bNlPhGGgaEarooV5pvbEwFsAO3IU6rytKpPJubsPPYHpfPpD0RRBl4FPiy4ddsl+WXAyEhU9jMAy2VMTulrj27Gx2/cKZx+87hC6rgiFenbe7h5sEbVHKVIAagYro"
+     }
+    },
+    "password": "pässwörd-🔑 ok",
+    "error": "errVaultFormat"
+   },
+   {
+    "file": {
+     "app": "authbackup",
+     "version": 2,
+     "exportedAt": "2026-11-25T12:00:00.000Z",
+     "count": 6,
+     "encrypted": {
+      "v": 1,
+      "kdf": {
+       "name": "PBKDF2-SHA256",
+       "iterations": 10000001,
+       "salt": "soP2ypq8hPO8KNVqgHO7Eg=="
+      },
+      "iv": "3p0o/0xzX5bbjT4E",
+      "ct": "McCJXBizVxd+oX+TF1yGSWO6MAZgEi62MqggbMgJJtYDxueXLLr633slEqnpMusBF+UjIXbQd7ctJbkH5XIdStv/MOdDPGSPAOwRWzyj042//4w5KzdPwkfAL1upSpO8nD0QCuiSVC8P75ytskf/UR/bgF0z6LPRvGjbN1DYjXBF/cJL0MswdIPATwH7ZtnOKIhRGL+CvI+KFaAmt2X2t5lgi/vHg9w/Rt86vN91EpdHRRU2rkSlQQZquT/t4SehZNdUmaL2iCxcaSxHRQ4T7lF4oY3dd4NC50WhHit8GQo1+qX7z2cceHU/duWJ7OrOKTEucAsk4XulFs2wE59qMLbVAOSMg6eNC/VqXfi/f8VuTb6TYXo0vCEitBACh1jOjwkPWprkG14mPDPpCdFNjuwDUxnpodfA3Vhj4SLaxPzj8Mnuf4Op9/FSzyCkh1ALkn4Z91pf6JMN2KlfE+YlGevYz6LyWcwqoD6UiPvVjHljQrf4Sek+bMf0AdaU4TC3T1ggr+g1ABvPu92cXZSAJSVJsyjzXiTGWz2y8OT5SUw9JEmGclXrKn84RiP80J7945iqirmm4JNJhPyJ8TyrtWK4cYfJRiAVS9ie4cYW7p5izeOdSUJatY958e1P10lP6Yfyeh/vDxT2TU9xSYV6+8vptgKoVxuB09zK9sZxHEmag1tr0bxI9hsgElKFQkYiNI4yzbgPCmAD7BCOCGJw2ZF+JScINaDfgP3AgGJBGL+6uUcDc8UWoLlWUs82uNtasSkV7b2axHmJkmSDa5hbGtk96IL3DeRDBtb1bb7hXkPOoDzK2CLNdca0LniQ8OkUDRStVuRBQcoIhIXP6n4LPBmqpRIg6PLw/gggUjxRvKTwX2MB3Jl320JIGQXcWobgR9loYsK6sd5f/YQzteohVkkqIXux/blF7+c/0w/P2aEgq05DEu5YC9gds0Ek6SJjnGmXBoZxKQdCnF1fSkIBiwQmwQq6YQmCTJ/C1Ks8x9dCc6pBh65Qi5cX5zYZefSdKSyw3nIB4LTXtNs5vFlx5hj8wlBhZ006fDTm+WQp1DPU4F1apMVhs90WbdDkw2jyzi5/vBOsmbE5bHVfK4iQi77BWjLzPy9UTr9tMNqZqY9IHKicH2xJBfKPxKcKftv3GWktwDUSsgJp9uvQQt4D33rni5ym0yylO9dHVpGrDMGHRdr7rCnGqSHo+omYEh/txoUnzZaSVLdai7UyyNkTAqjDKByvBahBfloqMUoMPgdqc77IhPGEG8FSg8ljF2szY8WTyCgdoQikbZshwzPlS1GM0x6bQZBJ+sS+JG3Uakw2QogU4VGc2bfRsAP4J/fbqXgZULFWOVKFHu3hyxsTpllWA+Xfs6YIUdLnY6Ht8q42+ot76DEKitA6dtfkWHI7qsojEEO98GFzj2mNzh8NrdjcNTJwHyWoxlyrQfU5Haw7qHZLVEwO/2u9gs8FyHVN/B/wbPLBNHBnrQKaDPTxmkpgrBvUvVxE8kp6MVr5hbI2MZaVWPDGsVyNcw4hIC5bNlPhGGgaEarooV5pvbEwFsAO3IU6rytKpPJubsPPYHpfPpD0RRBl4FPiy4ddsl+WXAyEhU9jMAy2VMTulrj27Gx2/cKZx+87hC6rgiFenbe7h5sEbVHKVIAagYro"
+     }
+    },
+    "password": "pässwörd-🔑 ok",
+    "error": "errVaultFormat"
+   },
+   {
+    "file": {
+     "app": "authbackup",
+     "version": 2,
+     "exportedAt": "2026-11-25T12:00:00.000Z",
+     "count": 6,
+     "encrypted": {
+      "v": 1,
+      "kdf": {
+       "name": "PBKDF2-SHA256",
+       "iterations": 1e+21,
+       "salt": "soP2ypq8hPO8KNVqgHO7Eg=="
+      },
+      "iv": "3p0o/0xzX5bbjT4E",
+      "ct": "McCJXBizVxd+oX+TF1yGSWO6MAZgEi62MqggbMgJJtYDxueXLLr633slEqnpMusBF+UjIXbQd7ctJbkH5XIdStv/MOdDPGSPAOwRWzyj042//4w5KzdPwkfAL1upSpO8nD0QCuiSVC8P75ytskf/UR/bgF0z6LPRvGjbN1DYjXBF/cJL0MswdIPATwH7ZtnOKIhRGL+CvI+KFaAmt2X2t5lgi/vHg9w/Rt86vN91EpdHRRU2rkSlQQZquT/t4SehZNdUmaL2iCxcaSxHRQ4T7lF4oY3dd4NC50WhHit8GQo1+qX7z2cceHU/duWJ7OrOKTEucAsk4XulFs2wE59qMLbVAOSMg6eNC/VqXfi/f8VuTb6TYXo0vCEitBACh1jOjwkPWprkG14mPDPpCdFNjuwDUxnpodfA3Vhj4SLaxPzj8Mnuf4Op9/FSzyCkh1ALkn4Z91pf6JMN2KlfE+YlGevYz6LyWcwqoD6UiPvVjHljQrf4Sek+bMf0AdaU4TC3T1ggr+g1ABvPu92cXZSAJSVJsyjzXiTGWz2y8OT5SUw9JEmGclXrKn84RiP80J7945iqirmm4JNJhPyJ8TyrtWK4cYfJRiAVS9ie4cYW7p5izeOdSUJatY958e1P10lP6Yfyeh/vDxT2TU9xSYV6+8vptgKoVxuB09zK9sZxHEmag1tr0bxI9hsgElKFQkYiNI4yzbgPCmAD7BCOCGJw2ZF+JScINaDfgP3AgGJBGL+6uUcDc8UWoLlWUs82uNtasSkV7b2axHmJkmSDa5hbGtk96IL3DeRDBtb1bb7hXkPOoDzK2CLNdca0LniQ8OkUDRStVuRBQcoIhIXP6n4LPBmqpRIg6PLw/gggUjxRvKTwX2MB3Jl320JIGQXcWobgR9loYsK6sd5f/YQzteohVkkqIXux/blF7+c/0w/P2aEgq05DEu5YC9gds0Ek6SJjnGmXBoZxKQdCnF1fSkIBiwQmwQq6YQmCTJ/C1Ks8x9dCc6pBh65Qi5cX5zYZefSdKSyw3nIB4LTXtNs5vFlx5hj8wlBhZ006fDTm+WQp1DPU4F1apMVhs90WbdDkw2jyzi5/vBOsmbE5bHVfK4iQi77BWjLzPy9UTr9tMNqZqY9IHKicH2xJBfKPxKcKftv3GWktwDUSsgJp9uvQQt4D33rni5ym0yylO9dHVpGrDMGHRdr7rCnGqSHo+omYEh/txoUnzZaSVLdai7UyyNkTAqjDKByvBahBfloqMUoMPgdqc77IhPGEG8FSg8ljF2szY8WTyCgdoQikbZshwzPlS1GM0x6bQZBJ+sS+JG3Uakw2QogU4VGc2bfRsAP4J/fbqXgZULFWOVKFHu3hyxsTpllWA+Xfs6YIUdLnY6Ht8q42+ot76DEKitA6dtfkWHI7qsojEEO98GFzj2mNzh8NrdjcNTJwHyWoxlyrQfU5Haw7qHZLVEwO/2u9gs8FyHVN/B/wbPLBNHBnrQKaDPTxmkpgrBvUvVxE8kp6MVr5hbI2MZaVWPDGsVyNcw4hIC5bNlPhGGgaEarooV5pvbEwFsAO3IU6rytKpPJubsPPYHpfPpD0RRBl4FPiy4ddsl+WXAyEhU9jMAy2VMTulrj27Gx2/cKZx+87hC6rgiFenbe7h5sEbVHKVIAagYro"
+     }
+    },
+    "password": "pässwörd-🔑 ok",
+    "error": "errVaultFormat"
+   },
+   {
+    "file": {
+     "app": "authbackup",
+     "version": 2,
+     "exportedAt": "2026-11-25T12:00:00.000Z",
+     "count": 6,
+     "encrypted": {
+      "v": 1,
+      "kdf": {
+       "name": "PBKDF2-SHA256",
+       "iterations": [
+        1000
+       ],
+       "salt": "soP2ypq8hPO8KNVqgHO7Eg=="
+      },
+      "iv": "3p0o/0xzX5bbjT4E",
+      "ct": "McCJXBizVxd+oX+TF1yGSWO6MAZgEi62MqggbMgJJtYDxueXLLr633slEqnpMusBF+UjIXbQd7ctJbkH5XIdStv/MOdDPGSPAOwRWzyj042//4w5KzdPwkfAL1upSpO8nD0QCuiSVC8P75ytskf/UR/bgF0z6LPRvGjbN1DYjXBF/cJL0MswdIPATwH7ZtnOKIhRGL+CvI+KFaAmt2X2t5lgi/vHg9w/Rt86vN91EpdHRRU2rkSlQQZquT/t4SehZNdUmaL2iCxcaSxHRQ4T7lF4oY3dd4NC50WhHit8GQo1+qX7z2cceHU/duWJ7OrOKTEucAsk4XulFs2wE59qMLbVAOSMg6eNC/VqXfi/f8VuTb6TYXo0vCEitBACh1jOjwkPWprkG14mPDPpCdFNjuwDUxnpodfA3Vhj4SLaxPzj8Mnuf4Op9/FSzyCkh1ALkn4Z91pf6JMN2KlfE+YlGevYz6LyWcwqoD6UiPvVjHljQrf4Sek+bMf0AdaU4TC3T1ggr+g1ABvPu92cXZSAJSVJsyjzXiTGWz2y8OT5SUw9JEmGclXrKn84RiP80J7945iqirmm4JNJhPyJ8TyrtWK4cYfJRiAVS9ie4cYW7p5izeOdSUJatY958e1P10lP6Yfyeh/vDxT2TU9xSYV6+8vptgKoVxuB09zK9sZxHEmag1tr0bxI9hsgElKFQkYiNI4yzbgPCmAD7BCOCGJw2ZF+JScINaDfgP3AgGJBGL+6uUcDc8UWoLlWUs82uNtasSkV7b2axHmJkmSDa5hbGtk96IL3DeRDBtb1bb7hXkPOoDzK2CLNdca0LniQ8OkUDRStVuRBQcoIhIXP6n4LPBmqpRIg6PLw/gggUjxRvKTwX2MB3Jl320JIGQXcWobgR9loYsK6sd5f/YQzteohVkkqIXux/blF7+c/0w/P2aEgq05DEu5YC9gds0Ek6SJjnGmXBoZxKQdCnF1fSkIBiwQmwQq6YQmCTJ/C1Ks8x9dCc6pBh65Qi5cX5zYZefSdKSyw3nIB4LTXtNs5vFlx5hj8wlBhZ006fDTm+WQp1DPU4F1apMVhs90WbdDkw2jyzi5/vBOsmbE5bHVfK4iQi77BWjLzPy9UTr9tMNqZqY9IHKicH2xJBfKPxKcKftv3GWktwDUSsgJp9uvQQt4D33rni5ym0yylO9dHVpGrDMGHRdr7rCnGqSHo+omYEh/txoUnzZaSVLdai7UyyNkTAqjDKByvBahBfloqMUoMPgdqc77IhPGEG8FSg8ljF2szY8WTyCgdoQikbZshwzPlS1GM0x6bQZBJ+sS+JG3Uakw2QogU4VGc2bfRsAP4J/fbqXgZULFWOVKFHu3hyxsTpllWA+Xfs6YIUdLnY6Ht8q42+ot76DEKitA6dtfkWHI7qsojEEO98GFzj2mNzh8NrdjcNTJwHyWoxlyrQfU5Haw7qHZLVEwO/2u9gs8FyHVN/B/wbPLBNHBnrQKaDPTxmkpgrBvUvVxE8kp6MVr5hbI2MZaVWPDGsVyNcw4hIC5bNlPhGGgaEarooV5pvbEwFsAO3IU6rytKpPJubsPPYHpfPpD0RRBl4FPiy4ddsl+WXAyEhU9jMAy2VMTulrj27Gx2/cKZx+87hC6rgiFenbe7h5sEbVHKVIAagYro"
+     }
+    },
+    "password": "pässwörd-🔑 ok",
+    "error": "errVaultFormat"
+   },
+   {
+    "file": {
+     "app": "authbackup",
+     "version": 2,
+     "exportedAt": "2026-11-25T12:00:00.000Z",
+     "count": 1,
+     "encrypted": {
+      "v": 1,
+      "kdf": {
+       "name": "PBKDF2-SHA256",
+       "iterations": 1,
+       "salt": "iCut0CzmHF0TQG9PHMSRvA=="
+      },
+      "iv": "JRi/9bFDB/h2DV7t",
+      "ct": "Ed/yawlc2tM+StrvKkj8g2za0rbMfnTKEh7hAMzzFhIZzKEFTrtuf16uL8rMoWpVSgJlg85bfaKFlwcEDqFm3fuGzPzT6hEict1PQzWxxxePP8XtVeq9WBz6FNvzFwU52pStD1ntC8sXfHtPp75ht6poq9o0N1FlTMhtAa3cLD06qFUZzMQCjO3ffhH3BRquzO9+p7ZCUW0Kn4g/dbHBx3JbJXZhu6+xe5o3uvFLGopdr1AfD8Lo4VLErrsO1kubojIRm1LQaR08yU5GKjxIx6cZb9ItLEEYw/YWKh9kijIU87SfLTcuEaz6M7QnyJ4A"
+     }
+    },
+    "password": "one iteration",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "Example",
+      "account": "alice@example.com",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
       "counter": 0
      }
     ]
