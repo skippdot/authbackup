@@ -40,9 +40,14 @@ enum JS {
         return sign * value
     }
 
+    /// Number.isSafeInteger(x).
+    static func isSafeInteger(_ x: Double) -> Bool {
+        abs(x) <= 9_007_199_254_740_991 && x.rounded(.towardZero) == x
+    }
+
     /// Number.isSafeInteger(x) && x >= 0.
     static func isSafeNonNegativeInteger(_ x: Double) -> Bool {
-        x >= 0 && x <= 9_007_199_254_740_991 && x.rounded(.towardZero) == x
+        x >= 0 && isSafeInteger(x)
     }
 
     /// String(x) for a JS Number: integers without ".0", the shortest round-trip form otherwise.

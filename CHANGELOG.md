@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- Fixed three ways a backup file could restore something other than what it holds, found while porting the core to
+  Android. The extension, the iOS core and the Android core now refuse them alike, with unit tests and new cases in
+  `tests/vectors/core.json`. A backup entry's `type` went into the rebuilt link unescaped, so
+  `"type": "totp?secret=AAAAAAAA&"` restored a key with the secret AAAAAAAA; the type must now be `totp` or `hotp`, in
+  any letter case (an upper-case `HOTP` also kept no counter before, now it does). Numbers went through String() and
+  parseInt, so `period: 1e21` became 1, `digits: 6.9` became 6 and `secret: true` became "TRUE"; `digits`, `period`
+  and `counter` must now be whole JSON numbers and `secret` and `algorithm` strings (`"digits": "8"`, accepted before,
+  is refused too). An encrypted file without `kdf.iterations` was opened with 600,000 iterations and one with
+  `iterations: true` with a single one; the count must now be a whole number from 1 to 10,000,000 (the mobile apps'
+  upper limit, which the extension lacked), otherwise the file is an unknown encryption format. Files that AuthBackup
+  writes are not affected. The rules are in `backupEntryToAccount()` (`extension/lib/otpauth.js`), `openVault()`
+  (`extension/lib/vault.js`) and `docs/FORMATS.md`.
 - Android app (phones and tablets), work in progress, in `android/` (see `android/README.md`): the screens and texts of
   the iOS app (codes with copy on tap, keys from the camera, images, the clipboard or by hand, Google Authenticator
   exports over several QR codes, the extension's backup files in both directions, biometric or screen lock, English

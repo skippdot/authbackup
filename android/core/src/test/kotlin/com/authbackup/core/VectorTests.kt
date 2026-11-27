@@ -228,14 +228,14 @@ class VectorTests {
 
     @Test
     fun restoreEntries() {
-        section("restore", 19) {
+        section("restore", 58) {
             for (c in v.restore) case { check(expected(c.result, c.error), outcome { Backup.restore(c.entry) }) { "restore ${c.entry}" } }
         }
     }
 
     @Test
     fun backupFiles() {
-        section("backup files", 8) {
+        section("backup files", 19) {
             for (c in v.backup.files) case {
                 val got = outcome {
                     when (val content = Backup.read(compactJson.encodeToString(JsonElement.serializer(), c.file).encodeToByteArray())) {

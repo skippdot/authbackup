@@ -6,6 +6,8 @@ import { base64ToBytes, bytesToBase64 } from './base32.js';
 import { t } from './i18n.js';
 
 export const DEFAULT_ITERATIONS = 600_000; // OWASP recommendation for PBKDF2-SHA256
+// A file asking for more makes a phone hang for minutes, and the mobile apps refuse it; AuthBackup writes the default.
+export const MAX_ITERATIONS = 10_000_000;
 export const MIN_PASSWORD = 8;
 
 export class WrongPasswordError extends Error {
@@ -65,7 +67,11 @@ export async function createVault(password, data, iterations = DEFAULT_ITERATION
 
 export async function openVault(password, vault) {
   if (vault?.v !== 1 || vault.kdf?.name !== 'PBKDF2-SHA256') throw new Error(t('errVaultFormat'));
-  const key = await deriveKey(password, base64ToBytes(vault.kdf.salt), vault.kdf.iterations);
+  // The count is read as AuthBackup writes it, a whole number. Otherwise deriveKey() took a missing one as its default,
+  // and Web IDL read `true` as 1 iteration and "1000" as 1000.
+  const { iterations } = vault.kdf;
+  if (!(Number.isInteger(iterations) && iterations >= 1 && iterations <= MAX_ITERATIONS)) throw new Error(t('errVaultFormat'));
+  const key = await deriveKey(password, base64ToBytes(vault.kdf.salt), iterations);
   return { data: await unsealWithKey(key, vault), key };
 }
 

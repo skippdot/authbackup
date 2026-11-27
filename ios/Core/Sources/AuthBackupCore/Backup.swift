@@ -137,27 +137,45 @@ public enum Backup {
     }
 
     /// One backup entry: missing fields get the defaults of a link, then the entry is written as an otpauth:// link
-    /// and parsed again, exactly as the extension does it.
+    /// and parsed again, exactly as the extension does it. Before that, each field the key uses must have its JSON
+    /// type, nothing is coerced: `type` is totp or hotp in any letter case, `secret` and `algorithm` are strings, and
+    /// `digits`, `period` (totp) and `counter` (hotp) are safe integers. `issuer` and `account` are read as text.
     public static func restore(entry: JSONValue) throws(CoreError) -> OtpAccount {
-        var m: [String: JSONValue] = ["type": .string("totp"), "algorithm": .string("SHA1"), "digits": .number(6), "period": .number(30)]
+        var m: [String: JSONValue] = [
+            "type": .string("totp"), "algorithm": .string("SHA1"), "digits": .number(6), "period": .number(30), "counter": .number(0),
+        ]
         if case .object(let o) = entry { m.merge(o) { _, new in new } }
+        let text = { (name: String) in m[name]?.jsString ?? "undefined" }
+        guard case .string(let typeText)? = m["type"], case let type = JS.lowercase(typeText), type == "totp" || type == "hotp" else {
+            throw .unknownType(text("type"))
+        }
         // A missing secret would be written as the text "undefined", which is valid Base32: refused, as in the extension.
-        guard let secret = m["secret"], secret != .null else { throw .noSecret }
+        guard case .string(let secret)? = m["secret"] else { throw .noSecret }
+        guard case .string(let algorithm)? = m["algorithm"] else { throw .algorithm(text("algorithm")) }
+        guard let digits = safeInteger(m["digits"]) else { throw .digits(text("digits")) }
         let account = m["account"].flatMap { $0 == .null ? nil : $0.jsString } ?? ""
         let issuer = m["issuer"].flatMap { $0.truthy ? $0.jsString : nil }
         let label = JS.encodeURIComponent(issuer.map { "\($0):\(account)" } ?? account)
-        let type = m["type"]?.jsString ?? "undefined"
-        var query = [("secret", secret.jsString)]
+        var query = [("secret", secret)]
         if let issuer { query.append(("issuer", issuer)) }
-        query.append(("algorithm", m["algorithm"]?.jsString ?? "undefined"))
-        query.append(("digits", m["digits"]?.jsString ?? "undefined"))
-        if m["type"] == .string("hotp") {
-            query.append(("counter", m["counter"].flatMap { $0.truthy ? $0.jsString : nil } ?? "0"))
+        query.append(("algorithm", algorithm))
+        query.append(("digits", digits))
+        if type == "hotp" {
+            guard let counter = safeInteger(m["counter"]) else { throw .counter(text("counter")) }
+            query.append(("counter", counter))
         } else {
-            query.append(("period", m["period"]?.jsString ?? "undefined"))
+            guard let period = safeInteger(m["period"]) else { throw .period(text("period")) }
+            query.append(("period", period))
         }
         let search = query.map { "\(JS.formEncode($0.0))=\(JS.formEncode($0.1))" }.joined(separator: "&")
         return try Otpauth.parse("otpauth://\(type)/\(label)?\(search)")
+    }
+
+    /// A JSON number that Number.isSafeInteger() accepts, as String() writes it: plain digits, so the link's own
+    /// checks see the same number (String(1e21) is "1e+21", which parseInt reads as 1). nil for anything else.
+    private static func safeInteger(_ value: JSONValue?) -> String? {
+        guard case .number(let n)? = value, JS.isSafeInteger(n) else { return nil }
+        return JS.numberToString(n)
     }
 
     // MARK: - Encryption
@@ -201,14 +219,12 @@ public enum Backup {
     /// Opens the `encrypted` object of a version 2 file and returns the entries inside, not yet validated.
     public static func open(_ vault: JSONValue, password: String) throws(CoreError) -> [JSONValue] {
         guard vault["v"] == .number(1), vault["kdf"]?["name"] == .string("PBKDF2-SHA256") else { throw .vaultFormat }
+        // The count is read as the apps write it, a whole JSON number, as in the extension: no default for a missing
+        // one, no Web IDL conversion of `true` or "1000".
+        guard case .number(let iterations)? = vault["kdf"]?["iterations"], iterations >= 1, iterations <= Double(maxIterations),
+              iterations.rounded(.towardZero) == iterations else { throw .vaultFormat }
         guard case .string(let saltText)? = vault["kdf"]?["salt"] else { throw .malformed("salt") }
-        let iterations: Double? = switch vault["kdf"]?["iterations"] {
-        case .number(let n)?: n
-        case .string(let s)?: Double(JS.trim(s))
-        default: nil
-        }
-        guard let iterations, iterations.isFinite, let rounds = Int(exactly: iterations.rounded(.towardZero)) else { throw .malformed("iterations") }
-        let key = try deriveKey(password: password, salt: try JS.base64ToBytes(saltText), iterations: rounds)
+        let key = try deriveKey(password: password, salt: try JS.base64ToBytes(saltText), iterations: Int(iterations))
         // In the extension the IV and ciphertext are decoded inside the decrypt call: damage there is a wrong password too.
         guard case .string(let ivText)? = vault["iv"], case .string(let ctText)? = vault["ct"],
               let iv = try? JS.base64ToBytes(ivText), let ct = try? JS.base64ToBytes(ctText) else { throw .wrongPassword }
